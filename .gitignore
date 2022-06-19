@@ -1,0 +1,9 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+assemblies/
+.git/
+Axwabo.Helpers.sln.DotSettings.user
+.idea/
