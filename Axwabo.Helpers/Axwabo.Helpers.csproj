@@ -45,7 +45,7 @@
             <HintPath>..\assemblies\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\assemblies\CommandSystem.Core.dll</HintPath>
+          <HintPath>..\..\..\Steam\SCPSL\pluginz\assemblies\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Exiled.API, Version=5.2.1.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>..\assemblies\Exiled.API.dll</HintPath>
@@ -64,7 +64,7 @@
             <HintPath>..\assemblies\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>..\..\..\Steam\SCPSL\pluginz\assemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>

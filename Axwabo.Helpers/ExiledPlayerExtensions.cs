@@ -35,7 +35,7 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="player">The player to check.</param>
         /// <returns>Whether the player is actually an SCP.</returns>
-        public static bool IsActuallyScp(this Player player) => ActualTeam(player) == Team.SCP;
+        public static bool IsActuallyScp(this Player player) => player.ReferenceHub.characterClassManager.CurRole.fullName.Contains("SCP-");
 
         /// <summary>
         /// Parses Remote Admin arguments to a player list.

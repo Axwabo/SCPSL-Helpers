@@ -1,5 +1,4 @@
 ﻿using System;
-using Exiled.API.Features;
 using HarmonyLib;
 
 namespace Axwabo.Helpers.Harmony.Attributes {
