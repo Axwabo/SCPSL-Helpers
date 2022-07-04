@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using HarmonyLib;
 
 namespace Axwabo.Helpers {
@@ -382,6 +384,138 @@ namespace Axwabo.Helpers {
         /// <remarks>Can be used like <see cref="Enums{T}(System.Type)"/>, but instead of passing in the type, it needs some enum value.</remarks>
         public static IEnumerable<T> EnumsExcept<T>(this T enumType, T except) where T : Enum {
             return Enums<T>(enumType.GetType()).Where(e => !e.Equals(except));
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Checks if every value in the enumerable is the same.
+        /// </summary>
+        /// <param name="enumerable">The enumerable to check.</param>
+        /// <param name="value">The value to check for.</param>
+        /// <param name="comparer">A custom comparer for the type of the value.</param>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <returns>If every item of the enumerable is the same.</returns>
+        public static bool AllTheSame<T>(this IEnumerable<T> enumerable, out T value, IEqualityComparer<T> comparer = null) {
+            value = default;
+            var count = 0;
+            foreach (var x in enumerable) {
+                if (count != 0 && !(comparer ?? EqualityComparer<T>.Default).Equals(x, value))
+                    return false;
+                count++;
+                value = x;
+            }
+
+            return count > 0;
+        }
+
+        #region Embedded resources
+
+        /// <summary>
+        /// Gets the common part of all resource paths in the assembly of the given type.
+        /// </summary>
+        /// <param name="type">A type in the assembly.</param>
+        /// <returns>The base path to resources.</returns>
+        public static string GetBaseResourcePath(this Type type) {
+            return GetBaseResourcePath(type.Assembly);
+        }
+
+        /// <summary>
+        /// Gets the common part of all resource paths in the given assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly containing resources.</param>
+        /// <returns>The base path to resources.</returns>
+        public static string GetBaseResourcePath(this Assembly assembly) {
+            var names = assembly.GetManifestResourceNames();
+            if (names.Length < 1)
+                return null;
+            var common = "";
+            var curDotIndex = 0;
+            while (names.Select(e => e.IndexOf('.', curDotIndex + 1)).AllTheSame(out var index)) {
+                if (index < 0 || !names.Select(e => e.Substring(0, index)).AllTheSame(out var sub))
+                    break;
+                curDotIndex = index;
+                common = sub;
+            }
+
+            return common;
+        }
+
+        /// <summary>
+        /// Gets the resource stream embedded within the assembly from the given path, without needing the base path.
+        /// </summary>
+        /// <param name="type">A type in the assembly.</param>
+        /// <param name="path">The path of the resource relative to the <see cref="GetBaseResourcePath(System.Type)">base path</see>.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Type)"/>
+        public static Stream GetEmbeddedResourceByName(this Type type, string path) {
+            return GetEmbeddedResourceByName(type.Assembly, path);
+        }
+
+        /// <summary>
+        /// Gets the resource stream embedded within the assembly from the given path, without needing the base path.
+        /// </summary>
+        /// <param name="assembly">The assembly containing the resource.</param>
+        /// <param name="path">The path of the resource relative to the <see cref="GetBaseResourcePath(System.Type)">base path</see>.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
+        public static Stream GetEmbeddedResourceByName(this Assembly assembly, string path) {
+            var basePath = GetBaseResourcePath(assembly);
+            return GetEmbeddedResource(assembly, $"{(string.IsNullOrEmpty(basePath) ? "" : $"{basePath}.")}{path}");
+        }
+
+        /// <summary>
+        /// Gets the resource stream embedded within the assembly from the given path.
+        /// </summary>
+        /// <param name="type">A type in the assembly.</param>
+        /// <param name="fullPath">The full path to the resource including the base namespace.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Type)"/>
+        public static Stream GetEmbeddedResource(this Type type, string fullPath) {
+            return GetEmbeddedResource(type.Assembly, fullPath);
+        }
+
+        /// <summary>
+        /// Gets the resource stream embedded within the assembly from the given path.
+        /// </summary>
+        /// <param name="assembly">The assembly containing the resource.</param>
+        /// <param name="fullPath">The full path to the resource including the base namespace.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
+        public static Stream GetEmbeddedResource(this Assembly assembly, string fullPath) {
+            return assembly.GetManifestResourceStream(fullPath);
+        }
+
+        /// <summary>
+        /// Gets the first resource stream embedded within the assembly which contains the given file name.
+        /// </summary>
+        /// <param name="type">A type in the assembly.</param>
+        /// <param name="fileName">A file name to search for.</param>
+        /// <returns>A stream to access the resource containing the given <paramref name="fileName"/>.</returns>
+        public static Stream FindEmbeddedResource(this Type type, string fileName) {
+            return GetEmbeddedResource(type.Assembly, fileName);
+        }
+
+        /// <summary>
+        /// Gets the first resource stream embedded within the assembly which contains the given file name.
+        /// </summary>
+        /// <param name="assembly">The assembly containing the resource.</param>
+        /// <param name="fileName">A file name to search for.</param>
+        /// <returns>A stream to access the resource containing the given <paramref name="fileName"/>.</returns>
+        public static Stream FindEmbeddedResource(this Assembly assembly, string fileName) {
+            var lower = fileName.ToLowerInvariant();
+            return assembly.GetManifestResourceNames()
+                .Where(name => name.ToLowerInvariant().Contains(lower))
+                .Select(assembly.GetManifestResourceStream).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Wraps the given <paramref name="stream"/> into a <see cref="BinaryReader"/>.
+        /// </summary>
+        /// <param name="stream">The stream to convert.</param>
+        /// <returns>A binary reader containing the stream.</returns>
+        public static BinaryReader Binary(this Stream stream) {
+            return stream != null ? new BinaryReader(stream) : null;
         }
 
         #endregion
