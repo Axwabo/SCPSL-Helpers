@@ -71,7 +71,7 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="obj">The object to reset.</param>
         protected virtual void ResetObject(T obj) {
             if (obj is IPoolResettable disposable)
-                disposable.Reset(obj);
+                disposable.Reset();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="obj">The object to dispose of.</param>
         public virtual void DisposeOfObject(T obj) {
             if (obj is IPoolResettable disposable)
-                disposable.Destroy(obj);
+                disposable.Destroy();
         }
 
         /// <inheritdoc />

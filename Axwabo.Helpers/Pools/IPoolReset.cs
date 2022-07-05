@@ -1,10 +1,13 @@
 ﻿namespace Axwabo.Helpers.Pools {
 
+    /// Lets a <see cref="PoolBase{T}">pool</see> know that this object can be automatically reset and destroyed.
     public interface IPoolResettable {
 
-        void Reset(object obj);
+        /// Resets the object to its default state.
+        void Reset();
 
-        void Destroy(object obj);
+        /// Destroys the object.
+        void Destroy();
 
     }
 
