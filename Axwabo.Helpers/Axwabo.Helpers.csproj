@@ -56,9 +56,6 @@
         <Reference Include="Mirror.Components, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>..\assemblies\Mirror.Components.dll</HintPath>
         </Reference>
-        <Reference Include="NorthwoodLib, Version=1.2.1.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\NorthwoodLib.dll</HintPath>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>..\assemblies\UnityEngine.dll</HintPath>
@@ -73,6 +70,10 @@
         <Compile Include="Harmony\Attributes\NonPublicPatch.cs" />
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
+        <Compile Include="Pools\BasicPool.cs" />
+        <Compile Include="Pools\PoolBase.cs" />
+        <Compile Include="Pools\IPoolReset.cs" />
+        <Compile Include="Pools\ListPool.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="ReflectionHelper.cs" />
     </ItemGroup>

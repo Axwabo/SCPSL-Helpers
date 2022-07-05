@@ -46,9 +46,7 @@ namespace Axwabo.Helpers {
         /// <param name="keepEmptyEntries">If empty arguments should be kept.</param>
         /// <returns>The list of parsed players.</returns>
         /// <seealso cref="RAUtils.ProcessPlayerIdOrNamesList"/>
-        public static List<Player> ParseArguments(ArraySegment<string> args, int startIndex, out string[] newArgs, bool keepEmptyEntries = false) {
-            return RAUtils.ProcessPlayerIdOrNamesList(args, startIndex, out newArgs, keepEmptyEntries).Select(Player.Get).Where(e => e != null).ToList();
-        }
+        public static List<Player> ParseArguments(ArraySegment<string> args, int startIndex, out string[] newArgs, bool keepEmptyEntries = false) => RAUtils.ProcessPlayerIdOrNamesList(args, startIndex, out newArgs, keepEmptyEntries).Select(Player.Get).Where(e => e != null).ToList();
 
     }
 

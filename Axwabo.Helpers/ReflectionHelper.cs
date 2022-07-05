@@ -34,9 +34,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the field's value.</typeparam>
         /// <returns>The obtained <typeparamref name="T"/> type object.</returns>
         /// <exception cref="InvalidCastException">Thrown if the field's value is not of type <typeparamref name="T"/>.</exception>
-        public static T Get<T>(this Type type, object obj, string field) {
-            return (T) Get(type, obj, field);
-        }
+        public static T Get<T>(this Type type, object obj, string field) => (T) Get(type, obj, field);
 
         /// <summary>
         /// Sets the value of the instance field with the specified name.
@@ -90,9 +88,7 @@ namespace Axwabo.Helpers {
         /// <param name="obj">The object to get the value from.</param>
         /// <param name="field">The name of the instance field.</param>
         /// <returns>The obtained object.</returns>
-        public static object Get(this object obj, string field) {
-            return Get(obj.GetType(), obj, field);
-        }
+        public static object Get(this object obj, string field) => Get(obj.GetType(), obj, field);
 
         /// <summary>
         /// Gets the value of the instance field with the specified name as type <typeparamref name="T"/>.
@@ -102,9 +98,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the field's value.</typeparam>
         /// <returns>The obtained <typeparamref name="T"/> type object.</returns>
         /// <exception cref="InvalidCastException">Thrown if the field's value is not of type <typeparamref name="T"/>.</exception>
-        public static T Get<T>(this object obj, string field) {
-            return (T) Get(obj, field);
-        }
+        public static T Get<T>(this object obj, string field) => (T) Get(obj, field);
 
         /// <summary>
         /// Sets the value of the instance field with the specified name.
@@ -124,9 +118,7 @@ namespace Axwabo.Helpers {
         /// <param name="obj">The object to get the value from.</param>
         /// <param name="property">The name of the instance property.</param>
         /// <returns>The obtained object.</returns>
-        public static object GetProp(this object obj, string property) {
-            return GetProp(obj.GetType(), obj, property);
-        }
+        public static object GetProp(this object obj, string property) => GetProp(obj.GetType(), obj, property);
 
         /// <summary>
         /// Gets the value of the instance property with the specified name as type <typeparamref name="T"/>.
@@ -136,9 +128,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the property's value.</typeparam>
         /// <returns>The obtained <typeparamref name="T"/> type object.</returns>
         /// <exception cref="InvalidCastException">Thrown if the property's value is not of type <typeparamref name="T"/>.</exception>
-        public static T GetProp<T>(this object obj, string property) {
-            return (T) GetProp(obj, property);
-        }
+        public static T GetProp<T>(this object obj, string property) => (T) GetProp(obj, property);
 
         /// <summary>
         /// Sets the value of the instance property with the specified name.
@@ -148,9 +138,7 @@ namespace Axwabo.Helpers {
         /// <param name="value">The new value to set.</param>
         /// <typeparam name="T">The type of the instance object.</typeparam>
         /// <returns>The <typeparamref name="T"/> object itself.</returns>
-        public static T SetProp<T>(this T obj, string property, object value) {
-            return (T) SetProp(obj.GetType(), obj, property, value);
-        }
+        public static T SetProp<T>(this T obj, string property, object value) => (T) SetProp(obj.GetType(), obj, property, value);
 
         #endregion
 
@@ -179,9 +167,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the method's return value.</typeparam>
         /// <returns>The value the method returned.</returns>
         /// <exception cref="InvalidCastException">Thrown if the method's return value is not of type <typeparamref name="T"/>.</exception>
-        public static T Call<T>(this Type type, object obj, string methodName, params object[] args) {
-            return (T) Call(type, obj, methodName, args);
-        }
+        public static T Call<T>(this Type type, object obj, string methodName, params object[] args) => (T) Call(type, obj, methodName, args);
 
         /// <summary>
         /// Calls an instance method with the specified name.
@@ -190,9 +176,7 @@ namespace Axwabo.Helpers {
         /// <param name="methodName">The name of the method.</param>
         /// <param name="args">The arguments to pass to the method.</param>
         /// <returns>The value the method returned.</returns>
-        public static object Call(this object obj, string methodName, params object[] args) {
-            return Call(obj.GetType(), obj, methodName, args);
-        }
+        public static object Call(this object obj, string methodName, params object[] args) => Call(obj.GetType(), obj, methodName, args);
 
         /// <summary>
         /// Calls an instance method with the specified name of return type <typeparamref name="T"/>.
@@ -203,9 +187,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the method's return value.</typeparam>
         /// <returns>The value the method returned.</returns>
         /// <exception cref="InvalidCastException">Thrown if the method's return value is not of type <typeparamref name="T"/>.</exception>
-        public static T Call<T>(this object obj, string methodName, params object[] args) {
-            return (T) Call(obj, methodName, args);
-        }
+        public static T Call<T>(this object obj, string methodName, params object[] args) => (T) Call(obj, methodName, args);
 
         #endregion
 
@@ -230,9 +212,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the field's value.</typeparam>
         /// <returns>The value of the field.</returns>
         /// <exception cref="InvalidCastException">Thrown if the field's value is not of type <typeparamref name="T"/>.</exception>
-        public static T StaticGet<T>(this Type type, string field) {
-            return (T) StaticGet(type, field);
-        }
+        public static T StaticGet<T>(this Type type, string field) => (T) StaticGet(type, field);
 
         /// <summary>
         /// Sets the value of the static field with the specified name.
@@ -269,9 +249,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the property's value.</typeparam>
         /// <returns>The value of the property.</returns>
         /// <exception cref="InvalidCastException">Thrown if the property's value is not of type <typeparamref name="T"/>.</exception>
-        public static T StaticGetProp<T>(this Type type, string property) {
-            return (T) StaticGetProp(type, property);
-        }
+        public static T StaticGetProp<T>(this Type type, string property) => (T) StaticGetProp(type, property);
 
         /// <summary>
         /// Sets the value of the static property with the specified name.
@@ -310,9 +288,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the method's return value.</typeparam>
         /// <returns>The value the method returned.</returns>
         /// <exception cref="InvalidCastException">Thrown if the method's return value is not of type <typeparamref name="T"/>.</exception>
-        public static T StaticCall<T>(this Type type, string methodName, params object[] args) {
-            return (T) StaticCall(type, methodName, args);
-        }
+        public static T StaticCall<T>(this Type type, string methodName, params object[] args) => (T) StaticCall(type, methodName, args);
 
         #endregion
 
@@ -325,9 +301,7 @@ namespace Axwabo.Helpers {
         /// <param name="mapper">A function to convert the objects to type <typeparamref name="T"/>.</param>
         /// <typeparam name="T">The type of the object to convert to.</typeparam>
         /// <returns>An enumerable of type <typeparamref name="T"/>.</returns>
-        public static IEnumerable<T> MapUnknownTypeArray<T>(this object obj, string fieldName, string innerField, Func<object, T> mapper) {
-            return MapUnknownTypeArray(obj, fieldName, o => mapper(Get(o, innerField)));
-        }
+        public static IEnumerable<T> MapUnknownTypeArray<T>(this object obj, string fieldName, string innerField, Func<object, T> mapper) => MapUnknownTypeArray(obj, fieldName, o => mapper(Get(o, innerField)));
 
         /// <summary>
         /// Maps an enumerable of an unknown type (e.g. nested private class) to a known type.
@@ -337,9 +311,7 @@ namespace Axwabo.Helpers {
         /// <param name="mapper">A function to convert the objects to type <typeparamref name="T"/>.</param>
         /// <typeparam name="T">The type of the object to convert to.</typeparam>
         /// <returns>An enumerable of type <typeparamref name="T"/>.</returns>
-        public static IEnumerable<T> MapUnknownTypeArray<T>(this object obj, string fieldName, Func<object, T> mapper) {
-            return (from object o in Get<IEnumerable>(obj, fieldName) select mapper(o)).ToList();
-        }
+        public static IEnumerable<T> MapUnknownTypeArray<T>(this object obj, string fieldName, Func<object, T> mapper) => (from object o in Get<IEnumerable>(obj, fieldName) select mapper(o)).ToList();
 
         #region Enums
 
@@ -349,9 +321,7 @@ namespace Axwabo.Helpers {
         /// <param name="type">The type to get the enums from.</param>
         /// <typeparam name="T">The type of the enums.</typeparam>
         /// <returns>An enumerable of the enums.</returns>
-        public static IEnumerable<T> Enums<T>(this Type type) {
-            return Enum.GetValues(type).ToArray<T>();
-        }
+        public static IEnumerable<T> Enums<T>(this Type type) => Enum.GetValues(type).ToArray<T>();
 
         /// <summary>
         /// Gets the defined enums in the specified type.
@@ -360,9 +330,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the enums.</typeparam>
         /// <returns>An enumerable of the enums.</returns>
         /// <remarks>Can be used like <see cref="Enums{T}(System.Type)"/>, but instead of passing in the type, it needs an enum value.</remarks>
-        public static IEnumerable<T> Enums<T>(this T enumType) where T : Enum {
-            return Enum.GetValues(enumType.GetType()).ToArray<T>();
-        }
+        public static IEnumerable<T> Enums<T>(this T enumType) where T : Enum => Enum.GetValues(enumType.GetType()).ToArray<T>();
 
         /// <summary>
         /// Gets the defined enums in the specified type except the given enum.
@@ -370,9 +338,7 @@ namespace Axwabo.Helpers {
         /// <param name="except">The enum to exclude.</param>
         /// <typeparam name="T">The type of the enums.</typeparam>
         /// <returns>An enumerable of the enums.</returns>
-        public static IEnumerable<T> EnumsExcept<T>(this T except) where T : Enum {
-            return EnumsExcept(except, except);
-        }
+        public static IEnumerable<T> EnumsExcept<T>(this T except) where T : Enum => EnumsExcept(except, except);
 
         /// <summary>
         /// Gets the defined enums in the specified type except the given enum.
@@ -382,9 +348,7 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the enums.</typeparam>
         /// <returns>An enumerable of the enums.</returns>
         /// <remarks>Can be used like <see cref="Enums{T}(System.Type)"/>, but instead of passing in the type, it needs some enum value.</remarks>
-        public static IEnumerable<T> EnumsExcept<T>(this T enumType, T except) where T : Enum {
-            return Enums<T>(enumType.GetType()).Where(e => !e.Equals(except));
-        }
+        public static IEnumerable<T> EnumsExcept<T>(this T enumType, T except) where T : Enum => Enums<T>(enumType.GetType()).Where(e => !e.Equals(except));
 
         #endregion
 
@@ -416,9 +380,7 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="type">A type in the assembly.</param>
         /// <returns>The base path to resources.</returns>
-        public static string GetBaseResourcePath(this Type type) {
-            return GetBaseResourcePath(type.Assembly);
-        }
+        public static string GetBaseResourcePath(this Type type) => GetBaseResourcePath(type.Assembly);
 
         /// <summary>
         /// Gets the common part of all resource paths in the given assembly.
@@ -448,9 +410,7 @@ namespace Axwabo.Helpers {
         /// <param name="path">The path of the resource relative to the <see cref="GetBaseResourcePath(System.Type)">base path</see>.</param>
         /// <returns>A stream to access the resource.</returns>
         /// <seealso cref="GetBaseResourcePath(System.Type)"/>
-        public static Stream GetEmbeddedResourceByName(this Type type, string path) {
-            return GetEmbeddedResourceByName(type.Assembly, path);
-        }
+        public static Stream GetEmbeddedResourceByName(this Type type, string path) => GetEmbeddedResourceByName(type.Assembly, path);
 
         /// <summary>
         /// Gets the resource stream embedded within the assembly from the given path, without needing the base path.
@@ -471,9 +431,7 @@ namespace Axwabo.Helpers {
         /// <param name="fullPath">The full path to the resource including the base namespace.</param>
         /// <returns>A stream to access the resource.</returns>
         /// <seealso cref="GetBaseResourcePath(System.Type)"/>
-        public static Stream GetEmbeddedResource(this Type type, string fullPath) {
-            return GetEmbeddedResource(type.Assembly, fullPath);
-        }
+        public static Stream GetEmbeddedResource(this Type type, string fullPath) => GetEmbeddedResource(type.Assembly, fullPath);
 
         /// <summary>
         /// Gets the resource stream embedded within the assembly from the given path.
@@ -482,9 +440,7 @@ namespace Axwabo.Helpers {
         /// <param name="fullPath">The full path to the resource including the base namespace.</param>
         /// <returns>A stream to access the resource.</returns>
         /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
-        public static Stream GetEmbeddedResource(this Assembly assembly, string fullPath) {
-            return assembly.GetManifestResourceStream(fullPath);
-        }
+        public static Stream GetEmbeddedResource(this Assembly assembly, string fullPath) => assembly.GetManifestResourceStream(fullPath);
 
         /// <summary>
         /// Gets the first resource stream embedded within the assembly which contains the given file name.
@@ -492,9 +448,7 @@ namespace Axwabo.Helpers {
         /// <param name="type">A type in the assembly.</param>
         /// <param name="fileName">A file name to search for.</param>
         /// <returns>A stream to access the resource containing the given <paramref name="fileName"/>.</returns>
-        public static Stream FindEmbeddedResource(this Type type, string fileName) {
-            return GetEmbeddedResource(type.Assembly, fileName);
-        }
+        public static Stream FindEmbeddedResource(this Type type, string fileName) => GetEmbeddedResource(type.Assembly, fileName);
 
         /// <summary>
         /// Gets the first resource stream embedded within the assembly which contains the given file name.
@@ -514,9 +468,7 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="stream">The stream to convert.</param>
         /// <returns>A binary reader containing the stream.</returns>
-        public static BinaryReader Binary(this Stream stream) {
-            return stream != null ? new BinaryReader(stream) : null;
-        }
+        public static BinaryReader Binary(this Stream stream) => stream != null ? new BinaryReader(stream) : null;
 
         #endregion
 

@@ -26,9 +26,7 @@ namespace Axwabo.Helpers.Harmony.Attributes {
         /// <param name="typeColonMethodName">The path to the method.</param>
         /// <param name="argumentTypes">The argument types of the method.</param>
         /// <seealso cref="AccessTools.Method(string,System.Type[],System.Type[])">AccessTools.Method</seealso>
-        public NonPublicPatch(string typeColonMethodName, params Type[] argumentTypes) : this(typeColonMethodName) {
-            info.argumentTypes = argumentTypes;
-        }
+        public NonPublicPatch(string typeColonMethodName, params Type[] argumentTypes) : this(typeColonMethodName) => info.argumentTypes = argumentTypes;
 
     }
 

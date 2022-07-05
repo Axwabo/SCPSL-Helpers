@@ -19,30 +19,25 @@ namespace Axwabo.Helpers.Harmony {
         /// <param name="finalizer"></param>
         /// <returns></returns>
         /// <seealso cref="AccessTools.Method(System.Type,string,System.Type[],System.Type[])"/>
-        public static MethodInfo Patch(this HarmonyLib.Harmony harmonyInstance, string typeColonMethodName, MethodInfo prefix = null, MethodInfo postfix = null, MethodInfo transpiler = null, MethodInfo finalizer = null) {
-            return harmonyInstance.Patch(AccessTools.Method(typeColonMethodName), prefix.ToHarmonyMethod(), postfix.ToHarmonyMethod(), transpiler.ToHarmonyMethod(), finalizer.ToHarmonyMethod());
-        }
+        public static MethodInfo Patch(this HarmonyLib.Harmony harmonyInstance, string typeColonMethodName, MethodInfo prefix = null, MethodInfo postfix = null, MethodInfo transpiler = null, MethodInfo finalizer = null) => harmonyInstance.Patch(AccessTools.Method(typeColonMethodName), prefix.ToHarmonyMethod(), postfix.ToHarmonyMethod(), transpiler.ToHarmonyMethod(), finalizer.ToHarmonyMethod());
 
         /// <summary>
         /// Wraps a <see cref="MethodInfo"/> object into a <see cref="HarmonyMethod"/> object.
         /// </summary>
         /// <param name="method">The method to convert.</param>
         /// <returns>The corresponding <see cref="HarmonyMethod"/>.</returns>
-        public static HarmonyMethod ToHarmonyMethod(this MethodInfo method) {
-            return method == null ? null : new HarmonyMethod(method);
-        }
+        public static HarmonyMethod ToHarmonyMethod(this MethodInfo method) => method == null ? null : new HarmonyMethod(method);
 
         /// <summary>
         /// Gets the full signatures of patched methods by the given <paramref name="instance"/>.
         /// </summary>
         /// <param name="instance">The <see cref="HarmonyLib.Harmony">Harmony instance</see> to get the methods from.</param>
         /// <returns>An enumerable of the full signatures.</returns>
-        public static IEnumerable<string> PatchedMethods(this HarmonyLib.Harmony instance) {
-            return instance.GetPatchedMethods()
+        public static IEnumerable<string> PatchedMethods(this HarmonyLib.Harmony instance) =>
+            instance.GetPatchedMethods()
                 .Select(e =>
                     $"{e.DeclaringType?.FullName ?? "???"}.{e.Name}"
                     + $"({string.Join(", ", e.GetParameters().Select(p => p.ParameterType.FullName))})");
-        }
 
     }
 
