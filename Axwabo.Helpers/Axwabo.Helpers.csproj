@@ -67,6 +67,7 @@
     <ItemGroup>
         <Compile Include="ExiledPlayerExtensions.cs" />
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs" />
+        <Compile Include="Harmony\Attributes\NestedClassPatch.cs" />
         <Compile Include="Harmony\Attributes\NonPublicPatch.cs" />
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
