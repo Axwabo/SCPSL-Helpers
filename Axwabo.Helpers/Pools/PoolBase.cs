@@ -18,7 +18,9 @@ namespace Axwabo.Helpers.Pools {
 
         private readonly Queue<T> _queue = new();
 
+        /// <summary>
         /// Creates a pool with no size limit.
+        /// </summary>
         public PoolBase() => MaxSize = 0;
 
         /// <summary>
@@ -42,15 +44,20 @@ namespace Axwabo.Helpers.Pools {
         /// Pulls an element from the pool or uses the given <paramref name="supplier"/> to obtain an object.
         /// </summary>
         /// <param name="supplier">A function to create an object.</param>
+        /// <param name="extra">An extra function to call on the object.</param>
         /// <returns>An object of type <typeparamref name="T"/>.</returns>
-        protected T RentOrGet(Func<T> supplier) => TryDequeue(out var obj) ? obj : supplier();
+        protected T RentOrGet(Func<T> supplier, Action<T> extra = null) {
+            var rent = TryDequeue(out var obj) ? obj : supplier();
+            extra?.Invoke(rent);
+            return rent;
+        }
 
         /// <summary>
         /// Returns an element to the pool and resets it.
         /// </summary>
         /// <param name="obj">The object to return.</param>
         public void Return(T obj) {
-            if (MaxSize == 0 || _queue.Count >= MaxSize)
+            if (MaxSize > 0 && _queue.Count >= MaxSize)
                 DisposeOfObject(obj);
             else {
                 ResetObject(obj);
@@ -59,10 +66,10 @@ namespace Axwabo.Helpers.Pools {
         }
 
         /// <summary>
-        /// a
+        /// Attempts to pull an element from the queue.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The object to set.</param>
+        /// <returns>If the queue had an element.</returns>
         protected bool TryDequeue(out T obj) => _queue.TryDequeue(out obj);
 
         /// <summary>
@@ -79,8 +86,10 @@ namespace Axwabo.Helpers.Pools {
         /// </summary>
         /// <param name="obj">The object to dispose of.</param>
         public virtual void DisposeOfObject(T obj) {
-            if (obj is IPoolResettable disposable)
-                disposable.Destroy();
+            if (obj is IPoolResettable resettable)
+                resettable.Destroy();
+            else if (obj is IDisposable disposable)
+                disposable.Dispose();
         }
 
         /// <inheritdoc />

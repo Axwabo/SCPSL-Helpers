@@ -404,6 +404,13 @@ namespace Axwabo.Helpers {
         }
 
         /// <summary>
+        /// Gets the common part of all resource paths in the calling assembly.
+        /// </summary>
+        /// <returns>The base path to resources.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
+        public static string GetBaseResourcePath() => GetBaseResourcePath(Assembly.GetCallingAssembly());
+
+        /// <summary>
         /// Gets the resource stream embedded within the assembly from the given path, without needing the base path.
         /// </summary>
         /// <param name="type">A type in the assembly.</param>
@@ -425,6 +432,15 @@ namespace Axwabo.Helpers {
         }
 
         /// <summary>
+        /// Gets the resource stream embedded within the calling assembly from the given path, without needing the base path.
+        /// </summary>
+        /// <param name="path">The path of the resource relative to the <see cref="GetBaseResourcePath(System.Type)">base path</see>.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
+        /// <seealso cref="GetEmbeddedResourceByName(System.Reflection.Assembly, string)"/>
+        public static Stream GetEmbeddedResourceByName(string path) => GetEmbeddedResourceByName(Assembly.GetCallingAssembly(), path);
+
+        /// <summary>
         /// Gets the resource stream embedded within the assembly from the given path.
         /// </summary>
         /// <param name="type">A type in the assembly.</param>
@@ -441,6 +457,15 @@ namespace Axwabo.Helpers {
         /// <returns>A stream to access the resource.</returns>
         /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
         public static Stream GetEmbeddedResource(this Assembly assembly, string fullPath) => assembly.GetManifestResourceStream(fullPath);
+
+        /// <summary>
+        /// Gets the resource stream embedded within the calling assembly from the given path.
+        /// </summary>
+        /// <param name="fullPath">The full path to the resource including the base namespace.</param>
+        /// <returns>A stream to access the resource.</returns>
+        /// <seealso cref="GetBaseResourcePath(System.Reflection.Assembly)"/>
+        /// <seealso cref="GetEmbeddedResource(System.Reflection.Assembly, string)"/>
+        public static Stream GetEmbeddedResource(string fullPath) => GetEmbeddedResource(Assembly.GetCallingAssembly(), fullPath);
 
         /// <summary>
         /// Gets the first resource stream embedded within the assembly which contains the given file name.
@@ -462,6 +487,13 @@ namespace Axwabo.Helpers {
                 .Where(name => name.ToLowerInvariant().Contains(lower))
                 .Select(assembly.GetManifestResourceStream).FirstOrDefault();
         }
+
+        /// <summary>
+        /// Gets the first resource stream embedded within the calling assembly which contains the given file name.
+        /// </summary>
+        /// <param name="fileName">A file name to search for.</param>
+        /// <returns>A stream to access the resource containing the given <paramref name="fileName"/>.</returns>
+        public static Stream FindEmbeddedResource(string fileName) => FindEmbeddedResource(Assembly.GetCallingAssembly(), fileName);
 
         /// <summary>
         /// Wraps the given <paramref name="stream"/> into a <see cref="BinaryReader"/>.

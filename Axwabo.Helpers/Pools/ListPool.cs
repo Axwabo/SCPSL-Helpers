@@ -9,16 +9,22 @@ namespace Axwabo.Helpers.Pools {
     /// <typeparam name="T">The type of list the pool contains.</typeparam>
     public class ListPool<T> : PoolBase<List<T>> {
 
+        /// <summary>
         /// A shared instance of the pool.
+        /// </summary>
         public static readonly ListPool<T> Shared = new();
 
         /// <inheritdoc />
         protected override Func<List<T>> DefaultSupplier { get; }
 
+        /// <summary>
         /// The default size of lists created by this pool.
+        /// </summary>
         public int DefaultCapacity { get; set; } = 128;
 
+        /// <summary>
         /// Creates a pool with no size limit.
+        /// </summary>
         public ListPool() => DefaultSupplier = () => new List<T>(DefaultCapacity);
 
         /// <summary>
@@ -30,16 +36,17 @@ namespace Axwabo.Helpers.Pools {
         /// <summary>
         /// Clears the given list.
         /// </summary>
-        /// <param name="obj">The list to clear.</param>
-        protected override void ResetObject(List<T> obj) {
-            obj.Clear();
-            obj.Capacity = 0;
+        /// <param name="list">The list to clear.</param>
+        protected override void ResetObject(List<T> list) {
+            list.Clear();
+            list.Capacity = 0;
         }
 
         /// <summary>
         /// Rents a list with the given capacity. 
         /// </summary>
         /// <param name="capacity">The capacity of the list.</param>
+        /// <returns>A list with the given capacity.</returns>
         public List<T> Rent(int capacity) {
             if (!TryDequeue(out var list))
                 return new List<T>(capacity);
@@ -51,18 +58,17 @@ namespace Axwabo.Helpers.Pools {
         /// Rents a list with the elements in the given <paramref name="enumerable"/>.
         /// </summary>
         /// <param name="enumerable">The enumerable containing elements.</param>
-        public List<T> Rent(IEnumerable<T> enumerable) => RentOrGet(() => {
-            var list = new List<T>();
+        /// <returns>A list with the elements in the given enumerable.</returns>
+        public List<T> Rent(IEnumerable<T> enumerable) => RentOrGet(DefaultSupplier, l => {
             if (enumerable != null)
-                list.AddRange(enumerable);
-            return list;
+                l.AddRange(enumerable);
         });
 
         /// <summary>
         /// Clears the given list.
         /// </summary>
-        /// <param name="obj">The list to clear.</param>
-        public override void DisposeOfObject(List<T> obj) => ResetObject(obj);
+        /// <param name="list">The list to clear.</param>
+        public override void DisposeOfObject(List<T> list) => ResetObject(list);
 
         ~ListPool() => Dispose();
 
