@@ -67,7 +67,7 @@ namespace Axwabo.Helpers {
                 .ToDictionary(k => k.Key, v => ParseColor(v.Value).Hsv())
                 .OrderBy(e => {
                     var colorHsv = e.Value;
-                    return value - (colorHsv[0] * 36000 + colorHsv[1] * 100 + colorHsv[2]);
+                    return Mathf.Abs(colorHsv[0] * 36000 + colorHsv[1] * 100 + colorHsv[2] - value);
                 }).FirstOrDefault();
             return NorthwoodApprovedColorCodes.TryGetValue(closest.Key, out var c) ? c : "#FFFFFF";
         }
