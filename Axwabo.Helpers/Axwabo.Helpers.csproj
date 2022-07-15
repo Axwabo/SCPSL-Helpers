@@ -68,6 +68,7 @@
         <Compile Include="Config\ConfigHelper.cs" />
         <Compile Include="Config\MapPointByName.cs" />
         <Compile Include="Config\MapPointByRoomType.cs" />
+        <Compile Include="Config\SerializedRotation.cs" />
         <Compile Include="ExiledPlayerExtensions.cs" />
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs" />
         <Compile Include="Harmony\Attributes\NestedClassPatch.cs" />
