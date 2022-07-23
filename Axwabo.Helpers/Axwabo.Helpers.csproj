@@ -66,6 +66,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Config\ConfigHelper.cs" />
+        <Compile Include="Config\IMapPoint.cs" />
+        <Compile Include="Config\StaticMapPoint.cs" />
+        <Compile Include="Config\Translations\TranslationAttribute.cs" />
+        <Compile Include="Config\Translations\TranslationHelper.cs" />
+        <Compile Include="Config\Translations\TranslationRegistry.cs" />
         <Compile Include="Config\MapPointByName.cs" />
         <Compile Include="Config\MapPointByRoomType.cs" />
         <Compile Include="Config\SerializedRotation.cs" />
