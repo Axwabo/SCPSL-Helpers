@@ -5,7 +5,7 @@ namespace Axwabo.Helpers.Config.Translations {
     /// <summary>
     /// An attribute to mark fields and properties as a translation value. Must be inherited with a specific enum type to use.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public abstract class TranslationAttribute : Attribute {
 
         /// <summary>
