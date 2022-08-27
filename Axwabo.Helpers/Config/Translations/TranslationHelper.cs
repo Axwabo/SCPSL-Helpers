@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using static Axwabo.Helpers.Config.Translations.AttributeHandler;
 
 namespace Axwabo.Helpers.Config.Translations {
 
@@ -12,9 +13,7 @@ namespace Axwabo.Helpers.Config.Translations {
         /// <summary>
         /// The non-generic type of the registry.
         /// </summary>
-        public static readonly Type TranslationHelperType = typeof(TranslationHelper).Assembly.GetType("Axwabo.Helpers.Config.Translations.TranslationRegistry`1");
-
-        private static readonly Type StringType = typeof(string);
+        public static readonly Type TranslationRegistryType = typeof(TranslationHelper).Assembly.GetType("Axwabo.Helpers.Config.Translations.TranslationRegistry`1");
 
         #region Translating
 
@@ -51,9 +50,6 @@ namespace Axwabo.Helpers.Config.Translations {
 
         public static void RegisterTranslation<T>(this T key, string translation) where T : Enum => TranslationRegistry<T>.RegisterTranslation(key, translation);
 
-        /// <inheritdoc cref="TranslationRegistry{T}.UnregisterTranslation"/>
-        public static bool UnregisterTranslation<T>(this T key) where T : Enum => TranslationRegistry<T>.UnregisterTranslation(key);
-
         /// <summary>
         /// Registers all translations flagged with <see cref="TranslationAttribute"/> in an object of key type <typeparamref name="T"/>.
         /// </summary>
@@ -61,21 +57,16 @@ namespace Axwabo.Helpers.Config.Translations {
         /// <typeparam name="T">The type of the translation key.</typeparam>
         /// <returns>The number of translations registered.</returns>
         public static int RegisterAllTranslations<T>(object containingClass) where T : Enum {
+            if (containingClass == null)
+                return 0;
             var count = 0;
-            var type = typeof(T);
-            foreach (var property in containingClass.GetType().GetProperties().Where(e => e.PropertyType == StringType && e.CanRead))
+            foreach (var property in containingClass.GetType().GetProperties().Where(e => e.CanRead))
             foreach (var attribute in property.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation && translation.EnumType == type) {
-                    RegisterTranslation((T) translation.Value, (string) property.GetValue(containingClass));
-                    count++;
-                }
+                count += RegisterAttributeProperty<T>(attribute, containingClass, property);
 
-            foreach (var field in containingClass.GetType().GetFields().Where(e => e.FieldType == StringType))
+            foreach (var field in containingClass.GetType().GetFields())
             foreach (var attribute in field.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation && translation.EnumType == type) {
-                    RegisterTranslation((T) translation.Value, (string) field.GetValue(containingClass));
-                    count++;
-                }
+                count += RegisterAttributeField<T>(attribute, containingClass, field);
 
             return count;
         }
@@ -89,19 +80,13 @@ namespace Axwabo.Helpers.Config.Translations {
             if (containingClass == null)
                 return 0;
             var count = 0;
-            foreach (var property in containingClass.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(e => e.PropertyType == StringType && e.CanRead))
+            foreach (var property in containingClass.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(e => e.CanRead))
             foreach (var attribute in property.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation) {
-                    TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, property.GetValue(containingClass));
-                    count++;
-                }
+                count += RegisterAttributeProperty(attribute, containingClass, property);
 
-            foreach (var field in containingClass.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance).Where(e => e.FieldType == StringType))
+            foreach (var field in containingClass.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance))
             foreach (var attribute in field.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation) {
-                    TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, field.GetValue(containingClass));
-                    count++;
-                }
+                count += RegisterAttributeField(attribute, containingClass, field);
 
             return count;
         }
@@ -122,19 +107,13 @@ namespace Axwabo.Helpers.Config.Translations {
             if (type == null)
                 return 0;
             var count = 0;
-            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Static).Where(e => e.PropertyType == StringType && e.CanRead))
+            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Static).Where(e => e.CanRead))
             foreach (var attribute in property.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation) {
-                    TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, property.GetValue(type));
-                    count++;
-                }
+                count += RegisterAttributePropertyStatic(attribute, property);
 
-            foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static).Where(e => e.FieldType == StringType))
+            foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
             foreach (var attribute in field.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation) {
-                    TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, field.GetValue(type));
-                    count++;
-                }
+                count += RegisterAttributeFieldStatic(attribute, field);
 
             return count;
         }
@@ -142,6 +121,9 @@ namespace Axwabo.Helpers.Config.Translations {
         #endregion
 
         #region Unregistering
+
+        /// <inheritdoc cref="TranslationRegistry{T}.UnregisterTranslation"/>
+        public static bool UnregisterTranslation<T>(this T key) where T : Enum => TranslationRegistry<T>.UnregisterTranslation(key);
 
         /// <summary>
         /// Unregisters all translations.
@@ -160,15 +142,11 @@ namespace Axwabo.Helpers.Config.Translations {
             var count = 0;
             foreach (var property in containingClass.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             foreach (var attribute in property.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation)
-                    if (TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall<bool>("UnregisterTranslation", translation.Value))
-                        count++;
+                count += UnregisterAttributeProperty(attribute, containingClass, property);
 
             foreach (var field in containingClass.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance))
             foreach (var attribute in field.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation)
-                    if (TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall<bool>("UnregisterTranslation", translation.Value))
-                        count++;
+                count += UnregisterAttributeField(attribute, containingClass, field);
 
             return count;
         }
@@ -191,15 +169,11 @@ namespace Axwabo.Helpers.Config.Translations {
             var count = 0;
             foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Static))
             foreach (var attribute in property.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation)
-                    if (TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall<bool>("UnregisterTranslation", translation.Value))
-                        count++;
+                count += UnregisterAttributePropertyStatic(attribute, property);
 
             foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
             foreach (var attribute in field.GetCustomAttributes(false))
-                if (attribute is TranslationAttribute translation)
-                    if (TranslationHelperType.MakeGenericType(translation.EnumType).StaticCall<bool>("UnregisterTranslation", translation.Value))
-                        count++;
+                count += UnregisterAttributeFieldStatic(attribute, field);
 
             return count;
         }

@@ -12,13 +12,6 @@ namespace Axwabo.Helpers.Harmony {
         #region Basic Instructions
 
         /// <summary>
-        /// Pushes a new object reference to a string literal stored in the metadata.
-        /// </summary>
-        /// <param name="s">The string to load.</param>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the string.</returns>
-        public static CodeInstruction String(string s) => new(OpCodes.Ldstr, s);
-
-        /// <summary>
         /// Loads the argument at index 0 (this in non-static context) onto the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.Ldarg_0"/>
@@ -34,13 +27,26 @@ namespace Axwabo.Helpers.Harmony {
         /// Copies the current topmost value on the evaluation stack, and then pushes the copy onto the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.Dup"/>
-        public static CodeInstruction Dupe => new(OpCodes.Dup);
+        public static CodeInstruction Duplicate => new(OpCodes.Dup);
 
         /// <summary>
         /// Removes the value currently on top of the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.Pop"/>
         public static CodeInstruction Pop => new(OpCodes.Pop);
+
+        /// <summary>
+        /// Pushes a null reference (type O) onto the evaluation stack.
+        /// </summary>
+        /// <seealso cref="OpCodes.Ldnull"/>
+        public static CodeInstruction Null => new(OpCodes.Ldnull);
+
+        /// <summary>
+        /// Pushes a new object reference to a string literal stored in the metadata.
+        /// </summary>
+        /// <param name="s">The string to load.</param>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the string.</returns>
+        public static CodeInstruction String(string s) => new(OpCodes.Ldstr, s);
 
         /// <summary>
         /// Converts a value type to an object reference (type O).
@@ -73,6 +79,23 @@ namespace Axwabo.Helpers.Harmony {
         /// <returns>An <see cref="CodeInstruction">instruction</see> that converts the object to a different type.</returns>
         /// <seealso cref="OpCodes.Castclass"/>
         public static CodeInstruction Cast<T>() => new(OpCodes.Castclass, typeof(T));
+
+        /// <summary>
+        /// Converts a metadata token to its runtime representation, pushing it onto the evaluation stack.
+        /// </summary>
+        /// <param name="info">The type, method or field to convert.</param>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that converts the metadata token to its runtime representation.</returns>
+        /// <seealso cref="OpCodes.Ldtoken"/>
+        public static CodeInstruction LoadToken(MemberInfo info) => new(OpCodes.Ldtoken, info);
+
+        /// <summary>
+        /// Loads a type token for the specified type onto the evaluation stack.
+        /// </summary>
+        /// <typeparam name="T">The type to load.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the type token.</returns>
+        /// <seealso cref="OpCodes.Ldtoken"/>
+        /// <seealso cref="LoadToken"/>
+        public static CodeInstruction LoadTypeToken<T>() => LoadToken(typeof(T));
 
         #endregion
 
@@ -626,6 +649,14 @@ namespace Axwabo.Helpers.Harmony {
         /// <returns>An <see cref="CodeInstruction">instruction</see> that jumps to the label.</returns>
         /// <seealso cref="OpCodes.Brfalse"/>
         public static CodeInstruction Jump(this Label label) => new(OpCodes.Br, label);
+
+        /// <summary>
+        /// Converts a metadata token to its runtime representation, pushing it onto the evaluation stack.
+        /// </summary>
+        /// <param name="info">The type, method or field to convert.</param>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that converts the metadata token to its runtime representation.</returns>
+        /// <seealso cref="OpCodes.Ldtoken"/>
+        public static CodeInstruction Load(this MemberInfo info) => LoadToken(info);
 
         /// <summary>
         /// Creates a LocalBuilder of type <typeparamref name="T"/>.

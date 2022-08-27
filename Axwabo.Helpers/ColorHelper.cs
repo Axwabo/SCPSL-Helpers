@@ -82,6 +82,24 @@ namespace Axwabo.Helpers {
             return new[] {h, s, v};
         }
 
+        /// <summary>
+        /// Converts a <see cref="Color"/> to a HEX string.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <param name="includeHash">If the string should be prefixed with a hash ('#')</param>
+        /// <param name="includeAlpha">If the alpha channel value should be added to the string.</param>
+        /// <returns>The HEX code.</returns>
+        public static string ToHex(this Color color, bool includeHash = true, bool includeAlpha = true) => $"{(includeHash ? "#" : "")}{(includeAlpha ? ColorUtility.ToHtmlStringRGBA(color) : ColorUtility.ToHtmlStringRGB(color))}";
+
+        /// <summary>
+        /// Converts a <see cref="Color32"/> to a HEX string.
+        /// </summary>
+        /// <param name="color">The color to convert.</param>
+        /// <param name="includeHash">If the string should be prefixed with a hash ('#')</param>
+        /// <param name="includeAlpha">If the alpha channel value should be added to the string.</param>
+        /// <returns>The HEX code.</returns>
+        public static string ToHex(this Color32 color, bool includeHash = true, bool includeAlpha = true) => ToHex((Color) color, includeHash, includeAlpha);
+
     }
 
 }

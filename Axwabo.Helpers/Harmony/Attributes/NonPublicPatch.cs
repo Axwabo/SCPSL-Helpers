@@ -15,7 +15,7 @@ namespace Axwabo.Helpers.Harmony.Attributes {
         /// <param name="typeColonMethodName">The path to the method.</param>
         /// <seealso cref="AccessTools.Method(string,System.Type[],System.Type[])">AccessTools.Method</seealso>
         public NonPublicPatch(string typeColonMethodName) {
-            var method = AccessTools.Method(typeColonMethodName);
+            var method = AccessTools.Method(typeColonMethodName) ?? throw new ArgumentException($"No method found for the following query: {typeColonMethodName}", nameof(typeColonMethodName));
             info.declaringType = method.DeclaringType;
             info.methodName = method.Name;
         }
