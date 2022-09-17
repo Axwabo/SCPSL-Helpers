@@ -53,9 +53,6 @@
         <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>..\assemblies\Mirror.dll</HintPath>
         </Reference>
-        <Reference Include="Mirror.Components, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\Mirror.Components.dll</HintPath>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\assemblies\UnityEngine.dll</HintPath>
