@@ -12,7 +12,7 @@ namespace Axwabo.Helpers.Config {
     public struct MapPointByName : IMapPoint {
 
         /// <summary>
-        /// An empty config object, representing no rooms.
+        /// An empty config object representing no rooms.
         /// </summary>
         public static readonly MapPointByName Empty = new();
 

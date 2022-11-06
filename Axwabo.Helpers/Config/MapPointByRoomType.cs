@@ -13,14 +13,14 @@ namespace Axwabo.Helpers.Config {
     public struct MapPointByRoomType : IMapPoint {
 
         /// <summary>
-        /// An empty config object, representing no rooms.
+        /// An empty config object representing no rooms.
         /// </summary>
         public static readonly MapPointByRoomType Empty = new(RoomType.Unknown);
 
         #region Info
 
         /// <summary>
-        /// The type of thea|ad room.
+        /// The type of the room.
         /// </summary>
         public RoomType Type { get; set; }
 

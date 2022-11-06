@@ -10,7 +10,7 @@ namespace Axwabo.Helpers.Config {
     public struct StaticMapPoint : IMapPoint {
 
         /// <summary>
-        /// An empty config object, placed at the center of the world without rotation.
+        /// An empty config object placed at the center of the world without rotation.
         /// </summary>
         public static readonly StaticMapPoint Empty = new();
 

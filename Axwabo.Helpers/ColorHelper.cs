@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Axwabo.Helpers {
 
     /// <summary>
-    /// Helper methods for <see cref="Color"/> objects.
+    /// Helper methods for <see cref="Color"/> structs.
     /// </summary>
     public static class ColorHelper {
 
@@ -47,6 +47,14 @@ namespace Axwabo.Helpers {
             {"Black", "#000000"},
             {"White", "#FFFFFF"}
         });
+
+        /// <summary>
+        /// Gets the Northwood approved color for a given color name.
+        /// </summary>
+        /// <param name="colorName">The name of the color.</param>
+        /// <returns>The Northwood approved color if it was found; otherwise, <see cref="Color.black"/>.</returns>
+        public static Color GetNorthwoodApprovedColor(string colorName) =>
+            NorthwoodApprovedColorCodes.TryGetValue(colorName, out var colorCode) ? ParseColor(colorCode) : Color.black;
 
         /// <summary>
         /// Gets the closest color approved by Northwood based on HSV values.

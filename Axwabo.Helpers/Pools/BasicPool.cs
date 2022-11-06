@@ -8,7 +8,9 @@ namespace Axwabo.Helpers.Pools {
     /// <typeparam name="T">The type of object the pool contains.</typeparam>
     public class BasicPool<T> : PoolBase<T> where T : new() {
 
+        /// <summary>
         /// A shared instance of the pool.
+        /// </summary>
         public static readonly BasicPool<T> Shared = new();
 
         /// <inheritdoc />

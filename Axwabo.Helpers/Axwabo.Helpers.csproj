@@ -85,6 +85,7 @@
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="ColorHelper.cs" />
+        <Compile Include="PlayerInfo\PlayerRoleAndInfoWrapper.cs" />
         <Compile Include="Pools\BasicPool.cs" />
         <Compile Include="Pools\DictionaryPool.cs" />
         <Compile Include="Pools\PoolBase.cs" />
