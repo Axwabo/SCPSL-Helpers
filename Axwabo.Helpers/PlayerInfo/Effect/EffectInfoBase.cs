@@ -8,24 +8,68 @@ using InventorySystem.Items.Usables.Scp244.Hypothermia;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect {
 
+    /// <summary>
+    /// A base class for storing information about a <see cref="PlayerEffect"/>.
+    /// </summary>
+    /// <seealso cref="StandardPlayerInfo"/>
     public abstract class EffectInfoBase {
 
-        protected EffectInfoBase(float duration, byte intensity) {
+        /// <summary>
+        /// Creates a base object for storing information about an effect.
+        /// </summary>
+        /// <param name="isEnabled">Whether the effect is enabled.</param>
+        /// <param name="duration">The duration of the effect.</param>
+        /// <param name="intensity">The intensity of the effect.</param>
+        protected EffectInfoBase(bool isEnabled, float duration, byte intensity) {
+            IsEnabled = isEnabled;
             Duration = duration;
             Intensity = intensity;
         }
 
+        /// <summary>
+        /// Whether the effect is enabled.
+        /// </summary>
+        public bool IsEnabled { get; }
+
+        /// <summary>
+        /// The remaining time of the effect.
+        /// </summary>
         public float Duration { get; }
 
+        /// <summary>
+        /// The intensity of the effect.
+        /// </summary>
         public byte Intensity { get; }
 
+        /// <summary>
+        /// Applies the information to the effect on the given <paramref name="player"/>.
+        /// </summary>
+        /// <param name="player">The player to apply the effect to.</param>
         public abstract void ApplyTo(Player player);
 
+        /// <summary>
+        /// Gets the information about a <see cref="PlayerEffect"/>.
+        /// </summary>
+        /// <param name="effect">The effect to get the information from.</param>
+        /// <returns>The information about the effect.</returns>
         public static EffectInfoBase FromEffect(PlayerEffect effect) => effect switch {
             Hypothermia h => (HypothermiaInfo) h,
-            _ => StandardEffectInfo.Get(effect, GetEffectType(effect))
+            _ => (StandardEffectInfo) effect
         };
 
+        /// <summary>
+        /// Converts a <see cref="PlayerEffect"/> enumerable to an <see cref="EffectInfoBase"/> list.
+        /// </summary>
+        /// <param name="effects">The effects to convert.</param>
+        /// <returns>The list of converted effects.</returns>
+        public static List<EffectInfoBase> EffectsToList(IEnumerable<PlayerEffect> effects) => effects?.Select(FromEffect).ToList();
+
+        /// <summary>
+        /// Converts the <see cref="Type"/> of an <see cref="PlayerEffect">effect object</see> to an <see cref="EffectType"/>.
+        /// </summary>
+        /// <param name="effect">The effect to get the type of.</param>
+        /// <returns>The type of the effect.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the effect type is unknown.</exception>
         public static EffectType GetEffectType(PlayerEffect effect) => effect switch {
             Amnesia => EffectType.Amnesia,
             Asphyxiated => EffectType.Asphyxiated,
@@ -59,8 +103,6 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             Scp1853 => EffectType.Scp1853,
             _ => throw new InvalidOperationException("Unknown effect provided")
         };
-
-        public static List<EffectInfoBase> EffectsToList(IEnumerable<PlayerEffect> effects) => effects?.Select(FromEffect).ToList();
 
     }
 

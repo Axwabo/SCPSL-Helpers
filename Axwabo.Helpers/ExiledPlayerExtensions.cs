@@ -10,7 +10,9 @@ using Utils;
 
 namespace Axwabo.Helpers {
 
+    /// <summary>
     /// Extension methods for the EXILED <see cref="Player"/> API.
+    /// </summary>
     public static class ExiledPlayerExtensions {
 
         private static readonly MethodInfo DeathScreenAttacker = AccessTools.Method(typeof(PlayerStats), "TargetReceiveAttackerDeathReason");

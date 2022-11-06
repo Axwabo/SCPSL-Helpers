@@ -13,7 +13,7 @@ namespace Axwabo.Helpers {
         /// <summary>
         /// Wraps a non-generic <see cref="IEnumerator"/> into an enumerable.
         /// </summary>
-        public class EnumeratorWrapper : IEnumerable {
+        public readonly struct EnumeratorWrapper : IEnumerable {
 
             /// <summary>
             /// Creates a new <see cref="EnumeratorWrapper"/> instance.
@@ -32,7 +32,7 @@ namespace Axwabo.Helpers {
         /// <summary>
         /// Wraps a generic <see cref="IEnumerator{T}"/> into an enumerable.
         /// </summary>
-        public class GenericEnumeratorWrapper<T> : IEnumerable<T> {
+        public readonly struct GenericEnumeratorWrapper<T> : IEnumerable<T> {
 
             /// <summary>
             /// Creates a new <see cref="GenericEnumeratorWrapper{T}"/> instance.

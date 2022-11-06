@@ -8,7 +8,9 @@ using HarmonyLib;
 
 namespace Axwabo.Helpers {
 
+    /// <summary>
     /// Extension methods for quicker use of Reflection.
+    /// </summary>
     public static class ReflectionHelper {
 
         #region Get-set explicit type
@@ -392,11 +394,11 @@ namespace Axwabo.Helpers {
             if (names.Length is 0)
                 return null;
             var common = "";
-            var curDotIndex = 0;
-            while (names.Select(e => e.IndexOf('.', curDotIndex + 1)).AllTheSame(out var index)) {
+            var curDotIndex = new[] {0};
+            while (names.Select(e => e.IndexOf('.', curDotIndex[0] + 1)).AllTheSame(out var index)) {
                 if (index < 0 || !names.Select(e => e.Substring(0, index)).AllTheSame(out var sub))
                     break;
-                curDotIndex = index;
+                curDotIndex[0] = index;
                 common = sub;
             }
 

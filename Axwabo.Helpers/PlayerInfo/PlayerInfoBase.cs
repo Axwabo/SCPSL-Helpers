@@ -39,7 +39,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="rotation">The rotation of the player.</param>
         /// <param name="health">The base HP of the player.</param>
         /// <param name="ahp">The additional HP of the player.</param>
-        /// <param name="effects">The active effects of the player.</param>
+        /// <param name="effects">The effects of the player.</param>
         /// <seealso cref="EffectInfoBase"/>
         /// <seealso cref="StandardPlayerInfo"/>
         protected PlayerInfoBase(Vector3 position, Vector2 rotation, float health, float ahp, List<EffectInfoBase> effects) {
@@ -71,13 +71,13 @@ namespace Axwabo.Helpers.PlayerInfo {
         public float Ahp { get; }
 
         /// <summary>
-        /// The active effects of the player.
+        /// The effects of the player.
         /// </summary>
         /// <seealso cref="EffectInfoBase"/>
         public ReadOnlyCollection<EffectInfoBase> Effects { get; }
 
         /// <summary>
-        /// Applies the gameplay data to the given player.
+        /// Applies the gameplay data to the given <paramref name="player"/>.
         /// </summary>
         /// <param name="player">The player to apply the data to.</param>
         public virtual void ApplyTo(Player player) {
@@ -91,7 +91,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         }
 
         /// <summary>
-        /// Sets the AHP or Hume Shield of the given player.
+        /// Sets the AHP or Hume Shield of the given <paramref name="player"/>.
         /// </summary>
         /// <param name="player">The player to set the AHP of.</param>
         /// <param name="ahp">The AHP to set.</param>
