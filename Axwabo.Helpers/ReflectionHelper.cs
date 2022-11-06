@@ -370,7 +370,7 @@ namespace Axwabo.Helpers {
                 value = x;
             }
 
-            return count > 0;
+            return count is not 0;
         }
 
         #region Embedded resources
@@ -389,7 +389,7 @@ namespace Axwabo.Helpers {
         /// <returns>The base path to resources.</returns>
         public static string GetBaseResourcePath(this Assembly assembly) {
             var names = assembly.GetManifestResourceNames();
-            if (names.Length < 1)
+            if (names.Length is 0)
                 return null;
             var common = "";
             var curDotIndex = 0;

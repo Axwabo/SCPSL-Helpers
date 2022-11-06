@@ -58,8 +58,6 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="dictionary">The dictionary to clear.</param>
         public override void DisposeOfObject(Dictionary<TKey, TValue> dictionary) => ResetObject(dictionary);
 
-        ~DictionaryPool() => Dispose();
-
     }
 
 }

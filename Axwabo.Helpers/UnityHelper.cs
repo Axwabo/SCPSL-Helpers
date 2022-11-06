@@ -341,9 +341,10 @@ namespace Axwabo.Helpers {
         /// Sends a fake SyncVar to the given <see cref="NetworkConnection"/>.
         /// </summary>
         /// <param name="connection">The connection to send the fake SyncVar to.</param>
+        /// <param name="behaviorType">The type of the behavior that contains the <paramref name="property"/>.</param>
         /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
         /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
-        /// <param name="valueType">The type used to serialize the value</param>
+        /// <param name="valueType">The type used to serialize the value.</param>
         /// <param name="value">The fake value of the SyncVar.</param>
         /// <example>
         /// To send a fake value of <b>field "PlayerName"</b>, the property would be named <b>NetworkPlayerName</b><br/>
@@ -352,14 +353,16 @@ namespace Axwabo.Helpers {
         /// </example>
         /// <exception cref="ArgumentNullException">Thrown if the supplied <paramref name="valueType"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown if the <paramref name="property"/> was not found on the behavior or no serializer was found for the given <paramref name="valueType"/>.</exception>
-        /// <seealso cref="SendFakeSyncVarGeneric{T}"/>
-        public static void SendFakeSyncVarOfType(this NetworkConnection connection, NetworkBehaviour behavior, string property, Type valueType, object value) {
+        /// <seealso cref="SendFakeSyncVarGeneric{TBehavior, TSyncVar}"/>
+        public static void SendFakeSyncVarOfType(this NetworkConnection connection, Type behaviorType, NetworkBehaviour behavior, string property, Type valueType, object value) {
             if (valueType == null)
                 throw new ArgumentNullException(nameof(valueType));
-            if (!TryGetDirtyBit(behavior.GetType(), property, out var dirtyBit))
-                throw new ArgumentException($"Could not find dirty bit for {property} on {behavior.GetType().FullName}");
+            if (!typeof(NetworkBehaviour).IsAssignableFrom(behaviorType))
+                throw new ArgumentException($"The given behavior type {behaviorType.FullName} does not inherit from {nameof(NetworkBehaviour)}", nameof(behaviorType));
+            if (!TryGetDirtyBit(behaviorType, property, out var dirtyBit))
+                throw new ArgumentException($"Could not find dirty bit for {property} on {behaviorType.FullName}", nameof(behaviorType));
             if (!TryGetWriterExtension(valueType, out var writer))
-                throw new ArgumentException($"Could not find writer extension for {valueType.FullName}");
+                throw new ArgumentException($"Could not find writer extension for {valueType.FullName}", nameof(valueType));
             var owner = NetworkWriterPool.GetWriter();
             var observer = NetworkWriterPool.GetWriter();
             WriteCustomSyncVar(behavior, CustomSyncVarGenerator, owner, observer);
@@ -385,8 +388,27 @@ namespace Axwabo.Helpers {
         /// <param name="connection">The connection to send the fake SyncVar to.</param>
         /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
         /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
+        /// <param name="valueType">The type used to serialize the value.</param>
         /// <param name="value">The fake value of the SyncVar.</param>
-        /// <typeparam name="T">The type used to serialize the SyncVar.</typeparam>
+        /// <example>
+        /// To send a fake value of <b>field "PlayerName"</b>, the property would be named <b>NetworkPlayerName</b><br/>
+        /// <b>Code:</b>
+        /// <code>myConnection.SendFakeSyncVarOfType(myBehavior, "NetworkPlayerName", typeof(string), "Fake Name");</code>
+        /// </example>
+        /// <exception cref="ArgumentNullException">Thrown if the supplied <paramref name="valueType"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if the <paramref name="property"/> was not found on the behavior or no serializer was found for the given <paramref name="valueType"/>.</exception>
+        /// <seealso cref="SendFakeSyncVarGeneric{T}"/>
+        public static void SendFakeSyncVarOfType(this NetworkConnection connection, NetworkBehaviour behavior, string property, Type valueType, object value) =>
+            SendFakeSyncVarOfType(connection, behavior.GetType(), behavior, property, valueType, value);
+
+        /// <summary>
+        /// Sends a fake SyncVar to the given <see cref="NetworkConnection"/>.
+        /// </summary>
+        /// <param name="connection">The connection to send the fake SyncVar to.</param>
+        /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
+        /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
+        /// <param name="value">The fake value of the SyncVar.</param>
+        /// <typeparam name="TSyncVar">The type used to serialize the SyncVar.</typeparam>
         /// <remarks>
         /// Useful when a base type is used to serialize a SyncVar, but the actual value is a derived type; or if the value is null.
         /// </remarks>
@@ -395,9 +417,46 @@ namespace Axwabo.Helpers {
         /// <b>Code:</b>
         /// <code>myConnection.SendFakeSyncVarGeneric&lt;FirearmBase&gt;(myBehavior, "NetworkFirearmController", new DerivedFirearmController());</code>
         /// </example>
-        /// <seealso cref="SendFakeSyncVarOfType"/>
-        public static void SendFakeSyncVarGeneric<T>(this NetworkConnection connection, NetworkBehaviour behavior, string property, object value) =>
-            SendFakeSyncVarOfType(connection, behavior, property, typeof(T), value);
+        /// <seealso cref="SendFakeSyncVarOfType(Mirror.NetworkConnection,Mirror.NetworkBehaviour,string,System.Type,object)"/>
+        public static void SendFakeSyncVarGeneric<TSyncVar>(this NetworkConnection connection, NetworkBehaviour behavior, string property, object value) =>
+            SendFakeSyncVarOfType(connection, behavior, property, typeof(TSyncVar), value);
+
+        /// <summary>
+        /// Sends a fake SyncVar to the given <see cref="NetworkConnection"/>.
+        /// </summary>
+        /// <param name="connection">The connection to send the fake SyncVar to.</param>
+        /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
+        /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
+        /// <param name="value">The fake value of the SyncVar.</param>
+        /// <typeparam name="TBehavior">The type of the behavior that contains the <paramref name="property"/>.</typeparam>
+        /// <typeparam name="TSyncVar">The type used to serialize the SyncVar.</typeparam>
+        /// <remarks>
+        /// Useful when a base type is used to serialize a SyncVar, but the actual value is a derived type; or if the value is null.
+        /// </remarks>
+        /// <example>
+        /// To send a fake value of <b>field "FirearmController"</b>, the property would be named <b>NetworkFirearmController</b><br/>
+        /// <b>Code:</b>
+        /// <code>myConnection.SendFakeSyncVarGeneric&lt;FirearmBase&gt;(myBehavior, "NetworkFirearmController", new DerivedFirearmController());</code>
+        /// </example>
+        /// <seealso cref="SendFakeSyncVarOfType(Mirror.NetworkConnection,Mirror.NetworkBehaviour,string,System.Type,object)"/>
+        public static void SendFakeSyncVarGeneric<TBehavior, TSyncVar>(this NetworkConnection connection, NetworkBehaviour behavior, string property, object value) where TBehavior : NetworkBehaviour =>
+            SendFakeSyncVarOfType(connection, typeof(TBehavior), behavior, property, typeof(TSyncVar), value);
+
+        /// <summary>
+        /// Sends a fake SyncVar to the given <see cref="NetworkConnection"/>.
+        /// </summary>
+        /// <param name="connection">The connection to send the fake SyncVar to.</param>
+        /// <param name="behaviorType">The type of the behavior that contains the <paramref name="property"/>.</param>
+        /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
+        /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
+        /// <param name="value">The fake value of the SyncVar.</param>
+        /// <example>
+        /// To send a fake value of <b>field "PlayerName"</b>, the property would be named <b>NetworkPlayerName</b><br/>
+        /// <b>Code:</b>
+        /// <code>myConnection.SendFakeSyncVar(myBehavior, "NetworkPlayerName", "Fake Name");</code>
+        /// </example>
+        public static void SendFakeSyncVar(this NetworkConnection connection, Type behaviorType, NetworkBehaviour behavior, string property, object value) =>
+            SendFakeSyncVarOfType(connection, behaviorType, behavior, property, value?.GetType(), value);
 
         /// <summary>
         /// Sends a fake SyncVar to the given <see cref="NetworkConnection"/>.
@@ -418,6 +477,7 @@ namespace Axwabo.Helpers {
         /// Re-synchronizes the value of a SyncVar for the given <see cref="NetworkConnection"/>.
         /// </summary>
         /// <param name="connection">The connection to send the SyncVar to.</param>
+        /// <param name="behaviorType">The type of the behavior that contains the <paramref name="property"/>.</param>
         /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
         /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
         /// <example>
@@ -425,10 +485,24 @@ namespace Axwabo.Helpers {
         /// <b>Code:</b>
         /// <code>myConnection.ReSyncSyncVar(myBehavior, "NetworkMySyncVar");</code>
         /// </example>
-        public static void ReSyncSyncVar(this NetworkConnection connection, NetworkBehaviour behavior, string property) {
+        public static void ReSyncSyncVar(this NetworkConnection connection, Type behaviorType, NetworkBehaviour behavior, string property) {
             var prop = AccessTools.PropertyGetter(behavior.GetType(), property);
-            SendFakeSyncVarOfType(connection, behavior, property, prop.ReturnType, prop.Invoke(behavior, null));
+            SendFakeSyncVarOfType(connection, behaviorType, behavior, property, prop.ReturnType, prop.Invoke(behavior, null));
         }
+
+        /// <summary>
+        /// Re-synchronizes the value of a SyncVar for the given <see cref="NetworkConnection"/>.
+        /// </summary>
+        /// <param name="connection">The connection to send the SyncVar to.</param>
+        /// <param name="behavior">The <see cref="NetworkBehaviour"/> that contains the SyncVar.</param>
+        /// <param name="property">The name of the SyncVar.<br/>A property name should be passed that is defined in the containing class with the name as the SyncVar and prefix of "Network".</param>
+        /// <example>
+        /// To resend the value of <b>field "MySyncVar"</b>, the property would be named <b>NetworkMySyncVar</b><br/>
+        /// <b>Code:</b>
+        /// <code>myConnection.ReSyncSyncVar(myBehavior, "NetworkMySyncVar");</code>
+        /// </example>
+        public static void ReSyncSyncVar(this NetworkConnection connection, NetworkBehaviour behavior, string property) =>
+            ReSyncSyncVar(connection, behavior.GetType(), behavior, property);
 
         /// <summary>
         /// Writes a custom SyncVar value to the writer.

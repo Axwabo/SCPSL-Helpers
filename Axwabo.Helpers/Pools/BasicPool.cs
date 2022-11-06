@@ -20,8 +20,6 @@ namespace Axwabo.Helpers.Pools {
         /// <inheritdoc />
         public BasicPool(uint maxSize) : base(maxSize) => DefaultSupplier = () => new T();
         
-        ~BasicPool() => Dispose();
-
     }
 
 }

@@ -70,8 +70,6 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="list">The list to clear.</param>
         public override void DisposeOfObject(List<T> list) => ResetObject(list);
 
-        ~ListPool() => Dispose();
-
     }
 
 }

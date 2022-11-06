@@ -95,8 +95,6 @@ namespace Axwabo.Helpers.Pools {
         /// <inheritdoc />
         public void Dispose() => _queue.Clear();
 
-        ~PoolBase() => Dispose();
-
     }
 
 }

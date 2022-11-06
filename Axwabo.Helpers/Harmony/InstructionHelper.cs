@@ -6,7 +6,9 @@ using HarmonyLib;
 
 namespace Axwabo.Helpers.Harmony {
 
-    /// A helper class to create <see cref="CodeInstruction">CodeInstructions</see>.
+    /// <summary>
+    /// A helper class to assist in creating <see cref="CodeInstruction">CodeInstructions</see>.
+    /// </summary>
     public static class InstructionHelper {
 
         #region Basic Instructions
@@ -96,6 +98,38 @@ namespace Axwabo.Helpers.Harmony {
         /// <seealso cref="OpCodes.Ldtoken"/>
         /// <seealso cref="LoadToken"/>
         public static CodeInstruction LoadTypeToken<T>() => LoadToken(typeof(T));
+
+        #endregion
+
+        #region Elements and Indexes
+
+        /// <summary>
+        /// Loads an object reference as a type O (object reference) onto the evaluation stack indirectly.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the object reference.</returns>
+        /// <seealso cref="OpCodes.Ldind_Ref"/>
+        public static CodeInstruction LdindRef => new(OpCodes.Ldind_Ref);
+
+        /// <summary>
+        /// Stores an object reference value at a supplied address.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the object reference.</returns>
+        /// <seealso cref="OpCodes.Stind_Ref"/>
+        public static CodeInstruction StindRef => new(OpCodes.Stind_Ref);
+
+        /// <summary>
+        /// Loads the element containing an object reference at a specified array index onto the top of the evaluation stack as type O (object reference).
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the object reference.</returns>
+        /// <seealso cref="OpCodes.Ldind_Ref"/>
+        public static CodeInstruction LdelemRef => new(OpCodes.Ldelem_Ref);
+
+        /// <summary>
+        /// Replaces the array element at a given index with the object ref value (type O) on the evaluation stack.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that sets the array element.</returns>
+        /// <seealso cref="OpCodes.Ldind_Ref"/>
+        public static CodeInstruction StelemRef => new(OpCodes.Stelem_Ref);
 
         #endregion
 
@@ -649,6 +683,14 @@ namespace Axwabo.Helpers.Harmony {
         /// <returns>An <see cref="CodeInstruction">instruction</see> that jumps to the label.</returns>
         /// <seealso cref="OpCodes.Brfalse"/>
         public static CodeInstruction Jump(this Label label) => new(OpCodes.Br, label);
+
+        /// <summary>
+        /// Exits a protected region of code, unconditionally transferring control to a specific target instruction.
+        /// </summary>
+        /// <param name="label">The label of the instruction to jump to.</param>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that leaves the current block and jumps to the label.</returns>
+        /// <seealso cref="OpCodes.Leave"/>
+        public static CodeInstruction Leave(this Label label) => new(OpCodes.Leave, label);
 
         /// <summary>
         /// Converts a metadata token to its runtime representation, pushing it onto the evaluation stack.
