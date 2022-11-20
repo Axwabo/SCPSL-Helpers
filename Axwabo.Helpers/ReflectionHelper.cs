@@ -140,7 +140,10 @@ namespace Axwabo.Helpers {
         /// <param name="value">The new value to set.</param>
         /// <typeparam name="T">The type of the instance object.</typeparam>
         /// <returns>The <typeparamref name="T"/> object itself.</returns>
-        public static T SetProp<T>(this T obj, string property, object value) => (T) SetProp(obj.GetType(), obj, property, value);
+        public static T SetProp<T>(this T obj, string property, object value) {
+            SetProp(obj.GetType(), obj, property, value);
+            return obj;
+        }
 
         #endregion
 
@@ -294,6 +297,8 @@ namespace Axwabo.Helpers {
 
         #endregion
 
+        #region Enumerable methods
+
         /// <summary>
         /// Maps an enumerable of an unknown type (e.g. nested private class) to an inner field of that type.
         /// </summary>
@@ -314,6 +319,29 @@ namespace Axwabo.Helpers {
         /// <typeparam name="T">The type of the object to convert to.</typeparam>
         /// <returns>An enumerable of type <typeparamref name="T"/>.</returns>
         public static IEnumerable<T> MapUnknownTypeArray<T>(this object obj, string fieldName, Func<object, T> mapper) => (from object o in Get<IEnumerable>(obj, fieldName) select mapper(o)).ToList();
+
+        /// <summary>
+        /// Checks if every value in the enumerable is the same.
+        /// </summary>
+        /// <param name="enumerable">The enumerable to check.</param>
+        /// <param name="value">The value to check for.</param>
+        /// <param name="comparer">A custom comparer for the type of the value.</param>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <returns>If every item of the enumerable is the same.</returns>
+        public static bool AllTheSame<T>(this IEnumerable<T> enumerable, out T value, IEqualityComparer<T> comparer = null) {
+            value = default;
+            var count = 0;
+            foreach (var x in enumerable) {
+                if (count != 0 && !(comparer ?? EqualityComparer<T>.Default).Equals(x, value))
+                    return false;
+                count++;
+                value = x;
+            }
+
+            return count is not 0;
+        }
+
+        #endregion
 
         #region Enums
 
@@ -353,27 +381,6 @@ namespace Axwabo.Helpers {
         public static IEnumerable<T> EnumsExcept<T>(this T enumType, T except) where T : Enum => Enums<T>(enumType.GetType()).Where(e => !e.Equals(except));
 
         #endregion
-
-        /// <summary>
-        /// Checks if every value in the enumerable is the same.
-        /// </summary>
-        /// <param name="enumerable">The enumerable to check.</param>
-        /// <param name="value">The value to check for.</param>
-        /// <param name="comparer">A custom comparer for the type of the value.</param>
-        /// <typeparam name="T">The type of the value.</typeparam>
-        /// <returns>If every item of the enumerable is the same.</returns>
-        public static bool AllTheSame<T>(this IEnumerable<T> enumerable, out T value, IEqualityComparer<T> comparer = null) {
-            value = default;
-            var count = 0;
-            foreach (var x in enumerable) {
-                if (count != 0 && !(comparer ?? EqualityComparer<T>.Default).Equals(x, value))
-                    return false;
-                count++;
-                value = x;
-            }
-
-            return count is not 0;
-        }
 
         #region Embedded resources
 

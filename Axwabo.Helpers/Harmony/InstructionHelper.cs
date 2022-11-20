@@ -80,7 +80,7 @@ namespace Axwabo.Helpers.Harmony {
         /// <typeparam name="T">The type to cast to.</typeparam>
         /// <returns>An <see cref="CodeInstruction">instruction</see> that converts the object to a different type.</returns>
         /// <seealso cref="OpCodes.Castclass"/>
-        public static CodeInstruction Cast<T>() => new(OpCodes.Castclass, typeof(T));
+        public static CodeInstruction Cast<T>() => Cast(typeof(T));
 
         /// <summary>
         /// Converts a metadata token to its runtime representation, pushing it onto the evaluation stack.
@@ -130,6 +130,154 @@ namespace Axwabo.Helpers.Harmony {
         /// <returns>An <see cref="CodeInstruction">instruction</see> that sets the array element.</returns>
         /// <seealso cref="OpCodes.Ldind_Ref"/>
         public static CodeInstruction StelemRef => new(OpCodes.Stelem_Ref);
+
+        /// <summary>
+        /// Loads the element with type int32 at a specified array index onto the top of the evaluation stack as an int32.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the int32.</returns>
+        /// <seealso cref="OpCodes.Ldelem_I4"/>
+        public static CodeInstruction LdelemI4 => new(OpCodes.Ldelem_I4);
+
+        /// <summary>
+        /// Replaces the array element at a given index with the int32 value on the evaluation stack.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that sets the array element.</returns>
+        /// <seealso cref="OpCodes.Ldelem_I4"/>
+        public static CodeInstruction StelemI4 => new(OpCodes.Stelem_I4);
+
+        /// <summary>
+        /// Loads a value of type int32 as an int32 onto the evaluation stack indirectly.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the int.</returns>
+        /// <seealso cref="OpCodes.Ldind_I4"/>
+        public static CodeInstruction LdindI4 => new(OpCodes.Ldind_I4);
+
+        /// <summary>
+        /// Stores a value of type int32 at a supplied address.
+        /// </summary>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the int.</returns>
+        /// <seealso cref="OpCodes.Stind_I4"/>
+        public static CodeInstruction StindI4 => new(OpCodes.Stind_I4);
+
+        /// <summary>
+        /// Loads the object or value type of type <typeparamref name="T"/> onto the evaluation stack at a supplied address.
+        /// </summary>
+        /// <typeparam name="T">The type of value to load.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the value.</returns>
+        /// <seealso cref="LdindRef"/>
+        /// <seealso cref="LdindI4"/>
+        /// <seealso cref="Stind{T}"/>
+        public static CodeInstruction Ldind<T>() {
+            var type = typeof(T);
+            return !type.IsValueType
+                ? LdindRef
+                : type == typeof(sbyte)
+                    ? new CodeInstruction(OpCodes.Ldind_I1)
+                    : type == typeof(short)
+                        ? new CodeInstruction(OpCodes.Ldind_I2)
+                        : type == typeof(int)
+                            ? LdindI4
+                            : type == typeof(long)
+                                ? new CodeInstruction(OpCodes.Ldind_I8)
+                                : type == typeof(float)
+                                    ? new CodeInstruction(OpCodes.Ldind_R4)
+                                    : type == typeof(double)
+                                        ? new CodeInstruction(OpCodes.Ldind_R8)
+                                        : type == typeof(byte)
+                                            ? new CodeInstruction(OpCodes.Ldind_U1)
+                                            : type == typeof(ushort)
+                                                ? new CodeInstruction(OpCodes.Ldind_U2)
+                                                : type == typeof(uint)
+                                                    ? new CodeInstruction(OpCodes.Ldind_U4)
+                                                    : new CodeInstruction(OpCodes.Ldobj); // beautiful btw
+        }
+
+        /// <summary>
+        /// Stores the object or value type of type <typeparamref name="T"/> at a supplied address.
+        /// </summary>
+        /// <typeparam name="T">The type of value to store.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the value.</returns>
+        /// <seealso cref="StindRef"/>
+        /// <seealso cref="StindI4"/>
+        /// <seealso cref="Ldind{T}"/>
+        public static CodeInstruction Stind<T>() {
+            var type = typeof(T);
+            return !type.IsValueType
+                ? StindRef
+                : type == typeof(sbyte)
+                    ? new CodeInstruction(OpCodes.Stind_I1)
+                    : type == typeof(short)
+                        ? new CodeInstruction(OpCodes.Stind_I2)
+                        : type == typeof(int)
+                            ? StindI4
+                            : type == typeof(long)
+                                ? new CodeInstruction(OpCodes.Stind_I8)
+                                : type == typeof(float)
+                                    ? new CodeInstruction(OpCodes.Stind_R4)
+                                    : type == typeof(double)
+                                        ? new CodeInstruction(OpCodes.Stind_R8)
+                                        : new CodeInstruction(OpCodes.Stobj);
+        }
+
+        /// <summary>
+        /// Loads the element with type <typeparamref name="T"/> at a specified array index onto the top of the evaluation stack as type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of value to load.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the value.</returns>
+        /// <seealso cref="LdelemRef"/>
+        /// <seealso cref="LdelemI4"/>
+        /// <seealso cref="Stelem{T}"/>
+        public static CodeInstruction Ldelem<T>() {
+            var type = typeof(T);
+            return !type.IsValueType
+                ? LdelemRef
+                : type == typeof(sbyte)
+                    ? new CodeInstruction(OpCodes.Ldelem_I1)
+                    : type == typeof(short)
+                        ? new CodeInstruction(OpCodes.Ldelem_I2)
+                        : type == typeof(int)
+                            ? LdelemI4
+                            : type == typeof(long)
+                                ? new CodeInstruction(OpCodes.Ldelem_I8)
+                                : type == typeof(float)
+                                    ? new CodeInstruction(OpCodes.Ldelem_R4)
+                                    : type == typeof(double)
+                                        ? new CodeInstruction(OpCodes.Ldelem_R8)
+                                        : type == typeof(byte)
+                                            ? new CodeInstruction(OpCodes.Ldelem_U1)
+                                            : type == typeof(ushort)
+                                                ? new CodeInstruction(OpCodes.Ldelem_U2)
+                                                : type == typeof(uint)
+                                                    ? new CodeInstruction(OpCodes.Ldelem_U4)
+                                                    : new CodeInstruction(OpCodes.Ldelem);
+        }
+
+        /// <summary>
+        /// Replaces the array element at a given index with the value on the top of the evaluation stack.
+        /// </summary>
+        /// <typeparam name="T">The type of value to store.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the value.</returns>
+        /// <seealso cref="StelemRef"/>
+        /// <seealso cref="StelemI4"/>
+        /// <seealso cref="Ldelem{T}"/>
+        public static CodeInstruction Stelem<T>() {
+            var type = typeof(T);
+            return !type.IsValueType
+                ? StelemRef
+                : type == typeof(sbyte)
+                    ? new CodeInstruction(OpCodes.Stelem_I1)
+                    : type == typeof(short)
+                        ? new CodeInstruction(OpCodes.Stelem_I2)
+                        : type == typeof(int)
+                            ? StelemI4
+                            : type == typeof(long)
+                                ? new CodeInstruction(OpCodes.Stelem_I8)
+                                : type == typeof(float)
+                                    ? new CodeInstruction(OpCodes.Stelem_R4)
+                                    : type == typeof(double)
+                                        ? new CodeInstruction(OpCodes.Stelem_R8)
+                                        : new CodeInstruction(OpCodes.Stelem);
+        }
 
         #endregion
 
@@ -227,25 +375,25 @@ namespace Axwabo.Helpers.Harmony {
         /// Computes the bitwise complement of the integer value on top of the stack and pushes the result onto the evaluation stack as the same type.
         /// </summary>
         /// <seealso cref="OpCodes.Not"/>
-        public static CodeInstruction LogicalNot => new(OpCodes.Not);
+        public static CodeInstruction BitwiseNot => new(OpCodes.Not);
 
         /// <summary>
         /// Computes the bitwise AND of two values and pushes the result onto the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.And"/>
-        public static CodeInstruction LogicalAnd => new(OpCodes.And);
+        public static CodeInstruction BitwiseAnd => new(OpCodes.And);
 
         /// <summary>
         /// Computes the bitwise complement of the two integer values on top of the stack and pushes the result onto the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.Xor"/>
-        public static CodeInstruction LogicalOr => new(OpCodes.Or);
+        public static CodeInstruction BitwiseOr => new(OpCodes.Or);
 
         /// <summary>
         /// Computes the bitwise XOR of the top two values on the evaluation stack, pushing the result onto the evaluation stack.
         /// </summary>
         /// <seealso cref="OpCodes.Xor"/>
-        public static CodeInstruction Xor => new(OpCodes.Xor);
+        public static CodeInstruction BitwiseXor => new(OpCodes.Xor);
 
         /// <summary>
         /// Shifts an integer value to the left (in zeroes) by a specified number of bits, pushing the result onto the evaluation stack.
