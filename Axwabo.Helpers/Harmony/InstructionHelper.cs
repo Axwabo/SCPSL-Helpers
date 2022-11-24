@@ -83,6 +83,20 @@ namespace Axwabo.Helpers.Harmony {
         public static CodeInstruction Cast<T>() => Cast(typeof(T));
 
         /// <summary>
+        /// Tests whether an object reference (type O) is an instance of a particular class.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that checks for a particular class.</returns>
+        public static CodeInstruction IsInstance(Type type) => new(OpCodes.Isinst, type);
+
+        /// <summary>
+        /// Tests whether an object reference (type O) is an instance of a particular class.
+        /// </summary>
+        /// <typeparam name="T">The type to check.</typeparam>
+        /// <returns>An <see cref="CodeInstruction">instruction</see> that checks for a particular class.</returns>
+        public static CodeInstruction IsInstance<T>() => IsInstance(typeof(T));
+
+        /// <summary>
         /// Converts a metadata token to its runtime representation, pushing it onto the evaluation stack.
         /// </summary>
         /// <param name="info">The type, method or field to convert.</param>

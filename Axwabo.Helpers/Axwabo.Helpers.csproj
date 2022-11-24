@@ -100,6 +100,7 @@
         <Compile Include="PlayerInfo\Effect\StandardEffectInfo.cs" />
         <Compile Include="PlayerInfo\Scp079Info.cs" />
         <Compile Include="PlayerInfo\PlayerInfoBase.cs" />
+        <Compile Include="RichTextHelper.cs" />
         <Compile Include="UnityHelper.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
