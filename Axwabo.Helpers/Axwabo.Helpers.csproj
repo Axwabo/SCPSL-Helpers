@@ -85,7 +85,11 @@
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="ColorHelper.cs" />
-        <Compile Include="PlayerInfo\PlayerRoleAndInfoWrapper.cs" />
+        <Compile Include="PlayerInfo\CustomRoleAndInfoWrapper.cs" />
+        <Compile Include="PlayerInfo\PlayerInfoExtensions.cs" />
+        <Compile Include="PlayerInfo\IPlayerInfoWithRole.cs" />
+        <Compile Include="PlayerInfo\PlayerInfoObtainer.cs" />
+        <Compile Include="PlayerInfo\RoleTypeAndInfoWrapper.cs" />
         <Compile Include="Pools\BasicPool.cs" />
         <Compile Include="Pools\DictionaryPool.cs" />
         <Compile Include="Pools\PoolBase.cs" />
