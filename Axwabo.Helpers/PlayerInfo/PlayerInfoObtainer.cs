@@ -1,17 +1,18 @@
-﻿using Exiled.API.Features;
-
-namespace Axwabo.Helpers.PlayerInfo {
+﻿namespace Axwabo.Helpers.PlayerInfo {
 
     public readonly struct PlayerInfoObtainer {
 
         private static uint _id;
 
+        public static readonly PlayerInfoObtainer Empty = new();
+
         public readonly PlayerCheck Check;
         public readonly PlayerInfoGetter Get;
         public readonly PlayerRoleSetter SetRole;
         public readonly uint Id;
-        
+
         public bool IsValid => Check != null && Get != null;
+        public bool CanSetRole => SetRole != null;
 
         public PlayerInfoObtainer(PlayerCheck check, PlayerInfoGetter get, PlayerRoleSetter setRole = null) {
             Check = check;
@@ -21,11 +22,5 @@ namespace Axwabo.Helpers.PlayerInfo {
         }
 
     }
-
-    public delegate bool PlayerCheck(Player player);
-
-    public delegate PlayerInfoBase PlayerInfoGetter(Player player);
-
-    public delegate void PlayerRoleSetter(Player player);
 
 }

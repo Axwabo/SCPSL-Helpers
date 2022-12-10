@@ -2,6 +2,11 @@
 
 namespace Axwabo.Helpers.PlayerInfo {
 
+    /// <summary>
+    /// A base interface for player info and role structs.
+    /// </summary>
+    /// <seealso cref="CustomRoleAndInfoWrapper"/>
+    /// <seealso cref="RoleTypeAndInfoWrapper"/>
     public interface IPlayerInfoWithRole {
 
         /// <summary>

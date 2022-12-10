@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
+        <NoWarn>0659,0660,0661</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}</ProjectGuid>
@@ -85,7 +88,9 @@
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="ColorHelper.cs" />
+        <Compile Include="HintQueue.cs" />
         <Compile Include="PlayerInfo\CustomRoleAndInfoWrapper.cs" />
+        <Compile Include="PlayerInfo\Delegates.cs" />
         <Compile Include="PlayerInfo\PlayerInfoExtensions.cs" />
         <Compile Include="PlayerInfo\IPlayerInfoWithRole.cs" />
         <Compile Include="PlayerInfo\PlayerInfoObtainer.cs" />

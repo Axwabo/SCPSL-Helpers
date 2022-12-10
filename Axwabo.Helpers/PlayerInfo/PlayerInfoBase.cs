@@ -44,10 +44,11 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <returns>Whether the obtainer was unregistered.</returns>
         public static bool UnregisterCustomObtainer(uint id) => CustomObtainers.RemoveAll(obtainer => obtainer.Id == id) > 0;
 
-        #endregion
-
-        #region Common Methods
-
+        /// <summary>
+        /// Gets the first matching info obtainer for the given <paramref name="player"/>.
+        /// </summary>
+        /// <param name="player">The player to get the obtainer from.</param>
+        /// <returns>The first matching obtainer, or <see cref="PlayerInfoObtainer.Empty"/> if none were found.</returns>
         public static PlayerInfoObtainer GetFirstMatchingObtainer(Player player) {
             foreach (var obtainer in CustomObtainers.Where(e => e.IsValid))
                 if (obtainer.Check(player))
@@ -55,16 +56,22 @@ namespace Axwabo.Helpers.PlayerInfo {
             foreach (var obtainer in DefaultObtainers.Where(e => e.IsValid))
                 if (obtainer.Check(player))
                     return obtainer;
-            return default;
+            return PlayerInfoObtainer.Empty;
         }
+
+        #endregion
+
+        #region Common Methods
 
         /// <summary>
         /// Creates a <see cref="PlayerInfoBase"/> from a player based on the registered obtainers.
         /// </summary>
         /// <param name="player">The player to obtain the info from.</param>
         /// <returns>The player info. If no special obtainers were found, it will be a <see cref="StandardPlayerInfo"/>.</returns>
+        /// <see cref="StandardPlayerInfo.Get"/>
         /// <seealso cref="RegisterCustomObtainer"/>
         /// <seealso cref="UnregisterCustomObtainer"/>
+        /// <seealso cref="GetFirstMatchingObtainer"/>
         public static PlayerInfoBase CreateAutomatically(Player player) {
             var obtainer = GetFirstMatchingObtainer(player);
             return obtainer.IsValid ? obtainer.Get(player) : StandardPlayerInfo.Get(player);
@@ -121,7 +128,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         public float Health { get; }
 
         /// <summary>
-        /// The additional HP of the player.
+        /// The additional HP or Hume Shield of the player.
         /// </summary>
         public float Ahp { get; }
 

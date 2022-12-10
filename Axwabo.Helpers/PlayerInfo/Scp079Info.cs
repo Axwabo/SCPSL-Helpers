@@ -83,6 +83,8 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         /// <inheritdoc />
         public override void ApplyTo(Player player) {
+            if (!player.IsConnected)
+                return;
             var script = player.ReferenceHub.scp079PlayerScript;
             script.Network_curLvl = Tier;
             script.Network_curMana = AuxiliaryPower;

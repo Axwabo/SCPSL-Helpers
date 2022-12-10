@@ -1,4 +1,5 @@
-﻿using Exiled.API.Features;
+﻿using System;
+using Exiled.API.Features;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -16,7 +17,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// Creates a new <see cref="RoleTypeAndInfoWrapper"/> instance from the player using the given <paramref name="infoGetter"/>.
         /// </summary>
         /// <param name="player">The player to get the info from.</param>
-        /// <param name="infoGetter">A function that returns the info object.</param>
+        /// <param name="infoGetter">A method that returns the info object.</param>
         /// <returns>A new <see cref="RoleTypeAndInfoWrapper"/> instance.</returns>
         public static RoleTypeAndInfoWrapper Get(Player player, PlayerInfoGetter infoGetter) =>
             player is null ? Empty : new RoleTypeAndInfoWrapper(player.Ccm().NetworkCurClass, infoGetter(player));
@@ -26,10 +27,8 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         public readonly RoleType Role;
 
-        private readonly PlayerInfoBase _info;
-
         /// <inheritdoc/>
-        public PlayerInfoBase Info => _info;
+        public PlayerInfoBase Info { get; }
 
         /// <summary>
         /// Creates a new <see cref="RoleTypeAndInfoWrapper"/> instance.
@@ -38,7 +37,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="info">Gameplay information about the player.</param>
         public RoleTypeAndInfoWrapper(RoleType role, PlayerInfoBase info) {
             Role = role;
-            _info = info;
+            Info = info ?? throw new ArgumentNullException(nameof(info));
         }
 
         /// <inheritdoc/>
