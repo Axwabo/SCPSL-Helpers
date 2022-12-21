@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Exiled.API.Features;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers {
@@ -41,7 +41,7 @@ namespace Axwabo.Helpers {
         private readonly Queue<HintItem> _queue = new();
 
         /// <summary>
-        /// The <see cref="Exiled.API.Features.Player"/> this component is attached to.
+        /// The <see cref="PluginAPI.Core.Player"/> this component is attached to.
         /// </summary>
         public Player Player { get; private set; }
 
@@ -63,7 +63,7 @@ namespace Axwabo.Helpers {
         public void Clear() {
             _queue.Clear();
             CurrentHint = null;
-            Player.ShowHint("");
+            Player.ReceiveHint("", 0);
         }
 
         /// <summary>
@@ -74,13 +74,15 @@ namespace Axwabo.Helpers {
         private void Awake() => Player = Player.Get(gameObject) ?? throw new InvalidOperationException("HintQueue must be attached to a player.");
 
         private void Update() {
+            /*
             if (Player.HasHint)
                 return;
+            */
             CurrentHint = null;
             if (!_queue.TryDequeue(out var item))
                 return;
             CurrentHint = item.Message;
-            Player.ShowHint(item.Message, item.Duration);
+            Player.ReceiveHint(item.Message, item.Duration);
         }
 
     }

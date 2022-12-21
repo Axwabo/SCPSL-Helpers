@@ -1,50 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using CommandSystem;
-using Exiled.API.Features;
-using HarmonyLib;
+using PlayerRoles;
+using PlayerRoles.PlayableScps;
+using PlayerRoles.Spectating;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using Utils;
 
 namespace Axwabo.Helpers {
 
     /// <summary>
-    /// Extension methods for the EXILED <see cref="Player"/> API.
+    /// Extension methods for the <see cref="Player"/> API.
     /// </summary>
-    public static class ExiledPlayerExtensions {
-
-        private static readonly MethodInfo DeathScreenAttacker = AccessTools.Method(typeof(PlayerStats), "TargetReceiveAttackerDeathReason");
-        private static readonly MethodInfo DeathScreenSpecific = AccessTools.Method(typeof(PlayerStats), "TargetReceiveSpecificDeathReason");
+    public static class PlayerExtensions {
 
         /// <summary>
         /// Gets the team stored in the player's <see cref="CharacterClassManager"/>.
         /// </summary>
         /// <param name="player">The player to get the team from.</param>
         /// <returns>The actual team of the player.</returns>
-        public static Team ActualTeam(this Player player) => Ccm(player).CurRole.team;
+        public static Team Team(this Player player) => player.ReferenceHub.GetTeam();
 
         /// <summary>
         /// Gets the faction stored in the player's <see cref="CharacterClassManager"/>.
         /// </summary>
         /// <param name="player">The player to get the faction from.</param>
         /// <returns>The actual faction of the player.</returns>
-        public static Faction ActualFaction(this Player player) => Misc.GetFaction(Ccm(player).CurRole.team);
+        public static Faction Faction(this Player player) => player.ReferenceHub.GetFaction();
 
         /// <summary>
-        /// Gets the player's <see cref="CharacterClassManager"/>.
+        /// Gets the player's <see cref="PlayerRoleManager"/>.
         /// </summary>
-        /// <param name="player">The player to get the CCM from.</param>
-        /// <returns>The CCM of the player.</returns>
-        public static CharacterClassManager Ccm(this Player player) => player.ReferenceHub.characterClassManager;
+        /// <param name="player">The player to get the RM from.</param>
+        /// <returns>The RM of the player.</returns>
+        public static PlayerRoleManager Rm(this Player player) => player.ReferenceHub.roleManager;
 
         /// <summary>
         /// Checks if the player is actually an SCP based on its <see cref="CharacterClassManager"/>.
         /// </summary>
         /// <param name="player">The player to check.</param>
         /// <returns>Whether the player is actually an SCP.</returns>
-        public static bool IsActuallyScp(this Player player) => player.ReferenceHub.characterClassManager.CurRole.fullName.Contains("SCP-");
+        public static bool IsScp(this Player player) => player.Rm().CurrentRole is FpcStandardScp;
 
         /// <summary>
         /// Parses Remote Admin arguments to a <see cref="Player"/> list.
@@ -80,12 +78,11 @@ namespace Axwabo.Helpers {
         }
 
         /// <summary>
-        /// Gets the current <see cref="Role">vanilla role</see> of the player.
+        /// Gets the role of the player.
         /// </summary>
-        /// <param name="player">The player to get the role of.</param>
-        /// <returns></returns>
-        /// <remarks>It does not supply an <see cref="Exiled.API.Features.Roles.Role">EXILED role</see>.</remarks>
-        public static Role VanillaRole(this Player player) => player.Ccm().CurRole;
+        /// <param name="player">The player to get the role from.</param>
+        /// <returns>A <see cref="PlayerRoleBase"/> object.</returns>
+        public static PlayerRoleBase Role(this Player player) => player.Rm().CurrentRole;
 
         /// <summary>
         /// Puts the player to spectator without spawning a ragdoll.
@@ -93,16 +90,13 @@ namespace Axwabo.Helpers {
         /// <param name="player">The player to kill.</param>
         /// <param name="handler">The death reason to show to the player.</param>
         public static void ForceClassToSpectator(this Player player, DamageHandlerBase handler) {
-            var hub = player.ReferenceHub;
-            var ccm = hub.characterClassManager;
-            ccm.SetClassID(RoleType.Spectator, CharacterClassManager.SpawnReason.Died);
+            var rm = player.Rm();
+            rm.ServerSetRole(RoleTypeId.Spectator, RoleChangeReason.Died);
             if (handler == null)
                 return;
-            ccm.TargetConsolePrint(ccm.connectionToClient, "You died. Reason: " + handler.ServerLogsText, "yellow");
-            if (handler is AttackerDamageHandler {Attacker: var attacker})
-                DeathScreenAttacker.Invoke(hub.playerStats, new object[] {attacker.Nickname, attacker.Role});
-            else
-                DeathScreenSpecific.Invoke(hub.playerStats, new object[] {handler});
+            player.SendConsoleMessage($"You died. Reason: {handler.ServerLogsText}", "yellow");
+            if (rm.CurrentRole is SpectatorRole currentRole)
+                currentRole.ServerSetData(handler);
         }
 
         /// <summary>
@@ -111,22 +105,22 @@ namespace Axwabo.Helpers {
         /// <param name="player">The player to kill.</param>
         /// <param name="reason">The death reason to show to the player.</param>
         public static void ForceClassToSpectator(this Player player, string reason = null) {
-            var hub = player.ReferenceHub;
-            var ccm = hub.characterClassManager;
-            ccm.SetClassID(RoleType.Spectator, CharacterClassManager.SpawnReason.Died);
+            var rm = player.Rm();
+            rm.ServerSetRole(RoleTypeId.Spectator, RoleChangeReason.Died);
             if (string.IsNullOrEmpty(reason))
                 return;
-            ccm.TargetConsolePrint(ccm.connectionToClient, "You died. Reason: " + reason, "yellow");
-            DeathScreenSpecific.Invoke(hub.playerStats, new object[] {new CustomReasonDamageHandler(reason)});
+            player.SendConsoleMessage($"You died. Reason: {reason}", "yellow");
+            if (rm.CurrentRole is SpectatorRole currentRole)
+                currentRole.ServerSetData(new CustomReasonDamageHandler(reason));
         }
-        
+
         /// <summary>
         /// Adds a hint to the player's hint queue.
         /// </summary>
         /// <param name="player">The player to show then hint for.</param>
         /// <param name="message">The message to show.</param>
         /// <param name="duration">The duration of the hint in seconds.</param>
-        public static void QueueHint(this Player player, string message, float duration = 5f) => 
+        public static void QueueHint(this Player player, string message, float duration = 5f) =>
             player.GameObject.GetOrAddComponent<HintQueue>().Enqueue(message, duration);
 
         /// <summary>

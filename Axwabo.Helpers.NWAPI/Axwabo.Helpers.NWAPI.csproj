@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
+        <NoWarn>0659,0660,0661</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{DDA40975-59C4-4038-B04F-570A5519A773}</ProjectGuid>
@@ -9,12 +12,12 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>Axwabo.Helpers</RootNamespace>
         <AssemblyName>Axwabo.Helpers</AssemblyName>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
@@ -22,41 +25,47 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <DocumentationFile>bin\Debug\Axwabo.Helpers.NWAPI.xml</DocumentationFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\Release\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <DocumentationFile>bin\Release\Axwabo.Helpers.NWAPI.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net35\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Assembly-CSharp.dll</HintPath>
+          <HintPath>..\assemblies-nw\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Assembly-CSharp-firstpass.dll</HintPath>
+          <HintPath>..\assemblies-nw\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\CommandSystem.Core.dll</HintPath>
+          <HintPath>..\assemblies-nw\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Mirror">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Mirror.dll</HintPath>
+          <HintPath>..\assemblies-nw\Mirror.dll</HintPath>
         </Reference>
         <Reference Include="Mirror.Components">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Mirror.Components.dll</HintPath>
+          <HintPath>..\assemblies-nw\Mirror.Components.dll</HintPath>
+          <Aliases>MirrorComponents</Aliases>
         </Reference>
         <Reference Include="PluginAPI">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\PluginAPI.dll</HintPath>
+          <HintPath>..\assemblies-nw\PluginAPI.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="UnityEngine">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\UnityEngine.dll</HintPath>
+          <HintPath>..\assemblies-nw\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>..\assemblies-nw\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -74,7 +83,7 @@
         <Compile Include="Config\Translations\TranslationHelper.cs" />
         <Compile Include="Config\Translations\TranslationRegistry.cs" />
         <Compile Include="EnumeratorWrapping.cs" />
-        <Compile Include="ExiledPlayerExtensions.cs" />
+        <Compile Include="PlayerExtensions.cs" />
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs" />
         <Compile Include="Harmony\Attributes\NestedClassPatch.cs" />
         <Compile Include="Harmony\Attributes\NonPublicPatch.cs" />
@@ -103,6 +112,9 @@
         <Compile Include="ReflectionHelper.cs" />
         <Compile Include="RichTextHelper.cs" />
         <Compile Include="UnityHelper.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

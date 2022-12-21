@@ -1,5 +1,4 @@
 ﻿using System;
-using Exiled.API.Features;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config {

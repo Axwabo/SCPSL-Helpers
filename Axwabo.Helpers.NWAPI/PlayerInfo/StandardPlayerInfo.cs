@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Axwabo.Helpers.PlayerInfo.Effect;
-using Exiled.API.Features;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo {
@@ -23,7 +23,7 @@ namespace Axwabo.Helpers.PlayerInfo {
             player.Rotation,
             player.Health,
             GetAhp(player),
-            EffectInfoBase.EffectsToList(player.ActiveEffects)
+            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects)
         );
 
         /// <summary>

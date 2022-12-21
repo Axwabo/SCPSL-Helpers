@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Effect;
-using Exiled.API.Features;
 using MEC;
 using PlayableScps.Interfaces;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo {

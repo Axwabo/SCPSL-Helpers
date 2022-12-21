@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using Exiled.API.Enums;
-using Exiled.API.Extensions;
-using Exiled.API.Features;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
 

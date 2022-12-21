@@ -1,6 +1,4 @@
-﻿using CustomPlayerEffects;
-using Exiled.API.Enums;
-using Exiled.API.Features;
+﻿using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect {
 
