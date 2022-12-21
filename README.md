@@ -1,4 +1,5 @@
 # Axwabo.Helpers
+
 Helper library for working with SCP:SL plugins.
 
 Includes various methods to make workflow easier and to shorten code.
@@ -9,9 +10,16 @@ Makes using Reflection and patching methods with Harmony simpler.
 
 Note: this is a dependency, not a plugin.
 
-1. Download the **Axwabo.Helpers.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/latest/)
+## EXILED
+
+1. Download the **Axwabo.Helpers.dll** from
+   the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/latest/)
 2. Put the DLL into the EXILED dependencies folder (on Windows: **%appdata%/EXILED/plugins/dependencies/**)
 3. Any plugins using this library should work after a server restart
+
+## Northwood Plugin API
+
+Axwabo.Helpers isn't available for NWAPI yet.
 
 # Examples
 
@@ -21,14 +29,14 @@ You can _static import_ the **Axwabo.Helpers.Harmony.InstructionHelper** class t
 
 CodeInstruction examples:
 
-| Property/Method     | Corresponding OpCode |
-|---------------------|----------------------|
-| This                | ldarg.0              |
-| Return              | ret                  |
-| Dupe                | dup                  |
-| Pop                 | pop                  |
-| Ldloc(index)        | ldloc index          |
-| Call(type, method)  | call/callvirt        |
+| Property/Method    | Corresponding OpCode |
+|--------------------|----------------------|
+| This               | ldarg.0              |
+| Return             | ret                  |
+| Duplicate          | dup                  |
+| Pop                | pop                  |
+| Ldloc(index)       | ldloc index          |
+| Call(type, method) | call/callvirt        |
 
 The **Call** method automatically sets the opcode to **callvirt** if the specified method is virtual.
 

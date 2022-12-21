@@ -4,6 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 assemblies/
+assemblies-nw/
 .git/
 Axwabo.Helpers.sln.DotSettings.user
 .idea/
