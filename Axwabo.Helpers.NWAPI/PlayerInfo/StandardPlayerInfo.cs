@@ -22,6 +22,7 @@ namespace Axwabo.Helpers.PlayerInfo {
             player.Position,
             player.Rotation,
             player.Health,
+            GetHs(player),
             GetAhp(player),
             EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects)
         );
@@ -32,9 +33,10 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="pos">The position of the player.</param>
         /// <param name="rot">The rotation of the player.</param>
         /// <param name="health">The base HP of the player.</param>
+        /// <param name="humeShield">The Hume Shield of the player.</param>
         /// <param name="ahp">The additional HP of the player.</param>
         /// <param name="effects">The effects of the player.</param>
-        public StandardPlayerInfo(Vector3 pos, Vector2 rot, float health, float ahp, List<EffectInfoBase> effects) : base(pos, rot, health, ahp, effects) {
+        public StandardPlayerInfo(Vector3 pos, Vector2 rot, float health, float humeShield, float ahp, List<EffectInfoBase> effects) : base(pos, rot, health, humeShield,ahp, effects) {
         }
 
     }

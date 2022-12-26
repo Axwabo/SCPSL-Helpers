@@ -1,4 +1,5 @@
-﻿using PluginAPI.Core;
+﻿using PlayerRoles;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -24,7 +25,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         public static PlayerInfoBase GetInfo(this Player p) => PlayerInfoBase.CreateAutomatically(p);
 
         /// <summary>
-        /// Gets the player info with the <see cref="RoleType">vanilla role type</see> from the player. 
+        /// Gets the player info with the <see cref="RoleTypeId">vanilla role type</see> from the player. 
         /// </summary>
         /// <param name="p">The player to get the info from.</param>
         /// <returns>The player info. If no special obtainers were found, it will be a <see cref="StandardPlayerInfo"/>.</returns>

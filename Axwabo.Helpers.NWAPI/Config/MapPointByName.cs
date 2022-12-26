@@ -1,4 +1,5 @@
 ﻿using System;
+using PluginAPI.Core.Zones;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
@@ -86,12 +87,12 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// Gets the room component for the given <see cref="Type">room type</see>.
         /// </summary>
-        public Room RoomObject() => ConfigHelper.GetRoomByRoomName(RoomName);
+        public FacilityRoom RoomObject() => ConfigHelper.GetRoomByRoomName(RoomName);
 
         /// <summary>
         /// Gets the transform of the room object.
         /// </summary>
-        public Transform RoomTransform() => RoomObject().SafeGetTransform();
+        public Transform RoomTransform() => RoomObject()?.Transform;
 
         /// <summary>
         /// Gets the world-space position and rotation by applying the offset to the room.

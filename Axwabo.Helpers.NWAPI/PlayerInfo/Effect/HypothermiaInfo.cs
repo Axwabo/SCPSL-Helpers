@@ -108,7 +108,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             foreach (var effect in subEffects)
                 switch (effect) {
                     case AttackCooldownSubEffect or TemperatureSubEffect:
-                        effect.UpdateEffect(Exposure);
+                        typeof(HypothermiaSubEffectBase).Call(effect, "UpdateEffect", Exposure);
                         break;
                     case DamageSubEffect damage:
                         damage.Set("_damageCounter", DamageCounter);

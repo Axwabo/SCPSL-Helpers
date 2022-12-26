@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Axwabo.Helpers.PlayerInfo.Effect;
 using CommandSystem;
+using CustomPlayerEffects;
 using PlayerRoles;
 using PlayerRoles.PlayableScps;
 using PlayerRoles.Spectating;
@@ -128,6 +130,18 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="player">The player to clear the hint queue for.</param>
         public static void ClearHints(this Player player) => player.GameObject.GetOrAddComponent<HintQueue>().Clear();
+        
+        /// <summary>
+        /// Determines whether the player is still connected to the server by checking its GameObject.
+        /// </summary>
+        /// <param name="player">The player to check.</param>
+        /// <returns>Whether the player is connected.</returns>
+        public static bool IsConnected(this Player player) => player.GameObject != null;
+        
+        public static StatusEffectBase GetEffect(this Player player, EffectType effectType) {
+            var type = EffectInfoBase.EffectTypeToType(effectType);
+            return player.ReferenceHub.playerEffectsController.AllEffects.FirstOrDefault(e => e.GetType() == type);
+        }
 
     }
 

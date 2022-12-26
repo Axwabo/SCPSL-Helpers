@@ -1,10 +1,12 @@
 ﻿using System;
+using MapGeneration;
+using PluginAPI.Core.Zones;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
 
     /// <summary>
-    /// A config object representing an offset to a room defined by the given <see cref="RoomType"/>.
+    /// A config object representing an offset to a room defined by the given <see cref="ImageGenerator.RoomType"/>.
     /// </summary>
     /// <seealso cref="ConfigHelper.GetRoomName"/>
     [Serializable]
@@ -85,12 +87,12 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// Gets the room component for the given <see cref="Type">room type</see>.
         /// </summary>
-        public Room RoomObject() => Type == RoomType.Unknown ? null : Room.Get(Type);
+        public FacilityRoom RoomObject() => Type == RoomType.Unknown ? null : ConfigHelper.GetRoomByType(Type);
 
         /// <summary>
         /// Gets the transform of the room object.
         /// </summary>
-        public Transform RoomTransform() => RoomObject().SafeGetTransform();
+        public Transform RoomTransform() => RoomObject()?.Transform;
 
         /// <summary>
         /// Gets the world-space position and rotation by applying the offset to the room.

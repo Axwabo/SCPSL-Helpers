@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using MapGeneration;
+using PluginAPI.Core;
+using PluginAPI.Core.Zones;
+using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
 
@@ -33,20 +37,20 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="name">The name of the room.</param>
         /// <returns>The room, or null if it couldn't be found.</returns>
-        public static Room GetRoomByRoomName(string name) {
+        public static FacilityRoom GetRoomByRoomName(string name) {
             name = name.ToLowerInvariant();
-            return string.IsNullOrEmpty(name) ? null : Room.Get(r => r.name.ToLowerInvariant().Contains(name)).FirstOrDefault();
+            return string.IsNullOrEmpty(name) ? null : Facility.Rooms.FirstOrDefault(r => r.GameObject.name.ToLowerInvariant().Contains(name));
         }
 
         /// <summary>
-        /// Gets the transform of the component without producing a NullReferenceException.
+        /// Gets the transform of the component without throwing a NullReferenceException.
         /// </summary>
         /// <param name="o">The component to get the transform from.</param>
         /// <returns>The transform of the component or null.</returns>
         public static Transform SafeGetTransform(this Component o) => o == null ? null : o.transform;
 
         /// <summary>
-        /// Gets the transform of the object without producing a NullReferenceException.
+        /// Gets the transform of the object without throwing a NullReferenceException.
         /// </summary>
         /// <param name="o">The object to get the transform from.</param>
         /// <returns>The transform of the object or null.</returns>
@@ -116,7 +120,7 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="rawName">The name of the room.</param>
         /// <returns>The EXILED room type.</returns>
-        public static RoomType GetRoomType(string rawName) => rawName.RemoveBracketsOnEndOfName() switch {
+        public static RoomType GetRoomType(string rawName) => rawName.RemoveParenthesesOnEndOfName() switch {
             "EZ_Cafeteria" => RoomType.EzCafeteria,
             "EZ_CollapsedTunnel" => RoomType.EzCollapsedTunnel,
             "EZ_Crossing" => RoomType.EzCrossing,
@@ -169,6 +173,18 @@ namespace Axwabo.Helpers.Config {
             "PocketWorld" => RoomType.Pocket,
             _ => RoomType.Unknown
         };
+
+        public static string RemoveParenthesesOnEndOfName(this string name) {
+            var startIndex = name.IndexOf('(') - 1;
+            if (startIndex > 0)
+                name = name.Remove(startIndex, name.Length - startIndex);
+            return name;
+        }
+
+        public static FacilityRoom GetRoomByType(RoomType type) {
+            var name = type.GetRoomName();
+            return Facility.Rooms.FirstOrDefault(e => e.GameObject.name.RemoveParenthesesOnEndOfName() == name);
+        }
 
     }
 

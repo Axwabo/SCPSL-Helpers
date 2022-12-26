@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Effect;
-using MEC;
-using PlayableScps.Interfaces;
+using PlayerRoles.FirstPersonControl;
+using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
@@ -78,27 +78,20 @@ namespace Axwabo.Helpers.PlayerInfo {
         }
 
         /// <summary>
+        /// Gets the Hume Shield value of the player, or -1 if the player is not currently playing as an <see cref="IHumeShieldedRole"/>.
+        /// </summary>
+        /// <param name="player">The player to get the HS value of.</param>
+        /// <returns>The HS value, or -1 if there's no Hume Shield.</returns>
+        protected static float GetHs(Player player) => player.Role() is not IHumeShieldedRole hs ? -1 : hs.HumeShieldModule.HsCurrent;
+
+        /// <summary>
         /// Gets the AHP value of the player, or -1 if there are no currently active AHP processes.
         /// </summary>
         /// <param name="player">The player to get the AHP value of.</param>
-        /// <returns>The AHP value of, or -1 if there are no active processes.</returns>
+        /// <returns>The AHP value, or -1 if there are no active processes.</returns>
         protected static float GetAhp(Player player) {
             var ahp = (AhpStat) player.ReferenceHub.playerStats.StatModules[1];
             return GetProcesses(ahp).Count is 0 ? -1 : ahp.CurValue;
-        }
-
-        /// <summary>
-        /// Sets the AHP or Hume Shield of the given <paramref name="player"/>.
-        /// </summary>
-        /// <param name="player">The player to set the AHP of.</param>
-        /// <param name="ahp">The AHP to set.</param>
-        protected static void SetAhp(Player player, float ahp) {
-            if (!player.IsConnected)
-                return;
-            if (player.ReferenceHub.scpsController is {CurrentScp: IShielded {Shield: var shield}})
-                shield.CurrentAmount = Mathf.Min(ahp, shield.Limit);
-            else
-                player.ArtificialHealth = ahp;
         }
 
         /// <summary>
@@ -120,7 +113,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// The rotation of the player.
         /// </summary>
-        public Vector2 Rotation { get; }
+        public Vector3 Rotation { get; }
 
         /// <summary>
         /// The base HP of the player.
@@ -128,7 +121,12 @@ namespace Axwabo.Helpers.PlayerInfo {
         public float Health { get; }
 
         /// <summary>
-        /// The additional HP or Hume Shield of the player.
+        /// The Hume Shield of the player.
+        /// </summary>
+        public float HumeShield { get; }
+
+        /// <summary>
+        /// The additional HP of the player.
         /// </summary>
         public float Ahp { get; }
 
@@ -146,14 +144,16 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="position">The position of the player.</param>
         /// <param name="rotation">The rotation of the player.</param>
         /// <param name="health">The base HP of the player.</param>
+        /// <param name="humeShield"></param>
         /// <param name="ahp">The additional HP of the player.</param>
         /// <param name="effects">The effects of the player.</param>
         /// <seealso cref="EffectInfoBase"/>
         /// <seealso cref="StandardPlayerInfo"/>
-        protected PlayerInfoBase(Vector3 position, Vector2 rotation, float health, float ahp, List<EffectInfoBase> effects) {
+        protected PlayerInfoBase(Vector3 position, Vector3 rotation, float health, float humeShield, float ahp, List<EffectInfoBase> effects) {
             Position = position;
             Rotation = rotation;
             Health = health;
+            HumeShield = humeShield;
             Ahp = ahp;
             Effects = effects?.AsReadOnly();
         }
@@ -163,12 +163,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="player">The player to apply the data to.</param>
         public virtual void ApplyTo(Player player) {
-            if (!player.IsConnected)
+            if (!player.IsConnected())
                 return;
-            player.ReferenceHub.playerMovementSync.OnPlayerClassChange(Position, new PlayerMovementSync.PlayerRotation(Rotation.x, Rotation.y));
+            player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation);
             player.Health = Health;
-            if (!(Ahp < 0))
-                Timing.CallDelayed(0.2f, () => SetAhp(player, Ahp));
+            var stats = player.ReferenceHub.playerStats.StatModules;
+            if (Ahp >= 0)
+                stats[1].CurValue = Ahp;
+            stats[2].CurValue = HumeShield;
             foreach (var effect in Effects)
                 effect?.ApplyTo(player);
         }

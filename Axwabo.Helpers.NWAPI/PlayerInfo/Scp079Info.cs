@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using PlayerRoles.PlayableScps.Scp079;
+using PlayerRoles.PlayableScps.Scp079.Cameras;
+using PlayerRoles.PlayableScps.Scp079.Rewards;
 using PluginAPI.Core;
 using UnityEngine;
 
@@ -10,10 +13,56 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// </summary>
     /// <seealso cref="StandardPlayerInfo"/>
     /// <seealso cref="PlayerInfoBase"/>
-    /// <seealso cref="Scp079PlayerScript"/>
+    /// <seealso cref="Scp079Role"/>
     public sealed class Scp079Info : PlayerInfoBase {
 
         private const float Health079 = 100000f;
+
+        /// <summary>
+        /// Attempts to get all main subroutines of SCP-079.
+        /// </summary>
+        /// <param name="role">The role to get the main subroutines from.</param>
+        /// <param name="tierManager">The tier manager of SCP-079.</param>
+        /// <param name="auxManager">The auxiliary power manager of SCP-079.</param>
+        /// <param name="cameraSync">The camera sync of SCP-079.</param>
+        /// <param name="signalHandler">The lost signal handler of SCP-079.</param>
+        /// <param name="rewardManager">The reward manager of SCP-079.</param>
+        /// <returns></returns>
+        public static bool TryGetAll079Subroutines(Scp079Role role, out Scp079TierManager tierManager, out Scp079AuxManager auxManager, out Scp079CurrentCameraSync cameraSync, out Scp079LostSignalHandler signalHandler, out Scp079RewardManager rewardManager) {
+            tierManager = null;
+            auxManager = null;
+            cameraSync = null;
+            signalHandler = null;
+            rewardManager = null;
+            if (role == null)
+                return false;
+            var propertiesSet = 0;
+            foreach (var sub in role.SubroutineModule.AllSubroutines)
+                switch (sub) {
+                    case Scp079TierManager t:
+                        tierManager = t;
+                        propertiesSet++;
+                        break;
+                    case Scp079AuxManager a:
+                        auxManager = a;
+                        propertiesSet++;
+                        break;
+                    case Scp079CurrentCameraSync sync:
+                        cameraSync = sync;
+                        propertiesSet++;
+                        break;
+                    case Scp079LostSignalHandler signal:
+                        signalHandler = signal;
+                        propertiesSet++;
+                        break;
+                    case Scp079RewardManager r:
+                        rewardManager = r;
+                        propertiesSet++;
+                        break;
+                }
+
+            return propertiesSet == 5;
+        }
 
         /// <summary>
         /// Creates an <see cref="Scp079Info"/> instance using the given <paramref name="player"/>.
@@ -21,8 +70,10 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="player">The player to get the information from.</param>
         /// <returns>The information about SCP-079.</returns>
         public static Scp079Info Get(Player player) {
-            var script = player.ReferenceHub.scp079PlayerScript;
-            return script == null || !script.iAm079 ? null : new Scp079Info(script.Lvl, script.Mana, script.Exp, script.CurrentLDCooldown, script.currentCamera, script.lockedDoors.ToList());
+            var role = player.Rm().CurrentRole as Scp079Role;
+            if (!TryGetAll079Subroutines(role, out var tierManager, out var auxManager, out var cameraSync, out var signalHandler, out var rewardManager))
+                return null;
+            return new Scp079Info(tierManager.AccessTierIndex, auxManager.CurrentAux, cameraSync.CurrentCamera.SyncId, signalHandler.RemainingTime, rewardManager);
         }
 
         /// <summary>
@@ -30,7 +81,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="p">The player to check.</param>
         /// <returns>Whether the given player is SCP-079.</returns>
-        public static bool Is079(Player p) => p.Ccm().CurRole is {roleId: RoleType.Scp079};
+        public static bool Is079(Player p) => p.Role() is Scp079Role;
 
         /// <summary>
         /// Creates an <see cref="Scp079Info"/> instance.
@@ -41,7 +92,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="lockdownCooldown">The cooldown until lockdown can be used again.</param>
         /// <param name="currentCamera">The camera that SCP-079 is using.</param>
         /// <param name="lockedDoors">The list of doors that SCP-079 has locked.</param>
-        public Scp079Info(byte tier, float auxiliaryPower, float experience, float lockdownCooldown, Camera079 currentCamera, List<uint> lockedDoors) : base(Vector3.zero, Vector2.zero, Health079, -1, null) {
+        public Scp079Info(byte tier, float auxiliaryPower, float experience, float lockdownCooldown, Scp079Camera currentCamera, List<uint> lockedDoors) : base(Vector3.zero, Vector3.zero, Health079, -1, -1, null) {
             Tier = tier;
             AuxiliaryPower = auxiliaryPower;
             Experience = experience;
@@ -53,7 +104,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// The current tier/level of SCP-079.
         /// </summary>
-        public byte Tier { get; }
+        public int Tier { get; }
 
         /// <summary>
         /// The current AP of SCP-079.
@@ -63,7 +114,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// The current EXP of SCP-079.
         /// </summary>
-        public float Experience { get; }
+        public int Experience { get; }
 
         /// <summary>
         /// The cooldown until lockdown can be used again.
@@ -73,7 +124,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// The camera that SCP-079 is using.
         /// </summary>
-        public Camera079 CurrentCamera { get; }
+        public Scp079Camera CurrentCamera { get; }
 
         /// <summary>
         /// The list of doors that SCP-079 has locked.
@@ -82,19 +133,14 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         /// <inheritdoc />
         public override void ApplyTo(Player player) {
-            if (!player.IsConnected)
+            if (!player.IsConnected())
                 return;
-            var script = player.ReferenceHub.scp079PlayerScript;
-            script.Network_curLvl = Tier;
-            script.Network_curMana = AuxiliaryPower;
-            script.Network_curExp = Experience;
-            script.CurrentLDCooldown = LockdownCooldown;
-            if (LockedDoors != null) {
-                script.lockedDoors.Clear();
-                script.lockedDoors.AddRange(LockedDoors);
-            }
-
-            script.Call("RpcSwitchCamera", CurrentCamera.cameraId, false);
+            if (!TryGetAll079Subroutines(player.Role() as Scp079Role, out var tierManager, out var auxManager, out var cameraSync, out var signalHandler, out var rewardManager))
+                return;
+            tierManager.SetProp(nameof(Scp079TierManager.AccessTierIndex), Tier);
+            tierManager.TotalExp = Experience;
+            auxManager.CurrentAux = AuxiliaryPower;
+            cameraSync.SetProp(nameof(Scp079CurrentCameraSync.CurrentCamera), CurrentCamera);
         }
 
     }
