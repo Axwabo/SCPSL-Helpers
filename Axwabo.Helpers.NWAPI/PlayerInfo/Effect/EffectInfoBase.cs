@@ -4,7 +4,6 @@ using System.Linq;
 using CustomPlayerEffects;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
 using PluginAPI.Core;
-using Respawning;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect {
 
@@ -70,7 +69,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         /// <param name="effect">The effect to get the type of.</param>
         /// <returns>The type of the effect.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the effect type is unknown.</exception>
-        public static EffectType EffectToEffectType(StatusEffectBase effect) => effect switch {
+        public static EffectType EffectInstanceToEffectType(StatusEffectBase effect) => effect switch {
             AmnesiaItems => EffectType.AmnesiaItems,
             AmnesiaVision => EffectType.AmnesiaVision,
             Asphyxiated => EffectType.Asphyxiated,
@@ -108,7 +107,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             _ => throw new InvalidOperationException("Unknown effect provided")
         };
 
-        public static Type EffectTypeToType(EffectType effectType) =>
+        public static Type EffectTypeToSystemType(EffectType effectType) =>
             effectType switch {
                 EffectType.AmnesiaItems => typeof(AmnesiaItems),
                 EffectType.AmnesiaVision => typeof(AmnesiaVision),

@@ -23,7 +23,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         /// <returns>The information about the effect.</returns>
         /// <seealso cref="op_Explicit"/>
         public static StandardEffectInfo Get(StatusEffectBase effect) =>
-            effect == null ? null : new StandardEffectInfo(effect.IsEnabled, EffectToEffectType(effect), effect.Duration, effect.Intensity);
+            effect == null ? null : new StandardEffectInfo(effect.IsEnabled, EffectInstanceToEffectType(effect), effect.Duration, effect.Intensity);
 
         /// <summary>
         /// Creates a <see cref="StandardEffectInfo"/> instance.

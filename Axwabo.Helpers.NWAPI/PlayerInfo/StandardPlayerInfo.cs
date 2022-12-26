@@ -36,7 +36,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="humeShield">The Hume Shield of the player.</param>
         /// <param name="ahp">The additional HP of the player.</param>
         /// <param name="effects">The effects of the player.</param>
-        public StandardPlayerInfo(Vector3 pos, Vector2 rot, float health, float humeShield, float ahp, List<EffectInfoBase> effects) : base(pos, rot, health, humeShield,ahp, effects) {
+        public StandardPlayerInfo(Vector3 pos, Vector3 rot, float health, float humeShield, float ahp, List<EffectInfoBase> effects) : base(pos, rot, health, humeShield,ahp, effects) {
         }
 
     }

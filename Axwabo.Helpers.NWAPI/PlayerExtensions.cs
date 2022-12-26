@@ -47,6 +47,22 @@ namespace Axwabo.Helpers {
         public static bool IsScp(this Player player) => player.Rm().CurrentRole is FpcStandardScp;
 
         /// <summary>
+        /// Gets the role of the player.
+        /// </summary>
+        /// <param name="player">The player to get the role from.</param>
+        /// <returns>A <see cref="PlayerRoleBase"/> object.</returns>
+        public static PlayerRoleBase Role(this Player player) => player.Rm().CurrentRole;
+
+        public static T RoleAs<T>(this Player player) where T : PlayerRoleBase => player.Role() as T;
+
+        public static bool RoleIs<T>(this Player player) where T : PlayerRoleBase => player.Role() is T;
+
+        public static bool RoleIs<T>(this Player player, out T role) where T : PlayerRoleBase {
+            role = RoleAs<T>(player);
+            return role != null;
+        }
+
+        /// <summary>
         /// Parses Remote Admin arguments to a <see cref="Player"/> list.
         /// </summary>
         /// <param name="args">The list of arguments passed to the command.</param>
@@ -78,13 +94,6 @@ namespace Axwabo.Helpers {
                     return;
             }
         }
-
-        /// <summary>
-        /// Gets the role of the player.
-        /// </summary>
-        /// <param name="player">The player to get the role from.</param>
-        /// <returns>A <see cref="PlayerRoleBase"/> object.</returns>
-        public static PlayerRoleBase Role(this Player player) => player.Rm().CurrentRole;
 
         /// <summary>
         /// Puts the player to spectator without spawning a ragdoll.
@@ -130,16 +139,16 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="player">The player to clear the hint queue for.</param>
         public static void ClearHints(this Player player) => player.GameObject.GetOrAddComponent<HintQueue>().Clear();
-        
+
         /// <summary>
         /// Determines whether the player is still connected to the server by checking its GameObject.
         /// </summary>
         /// <param name="player">The player to check.</param>
         /// <returns>Whether the player is connected.</returns>
         public static bool IsConnected(this Player player) => player.GameObject != null;
-        
+
         public static StatusEffectBase GetEffect(this Player player, EffectType effectType) {
-            var type = EffectInfoBase.EffectTypeToType(effectType);
+            var type = EffectInfoBase.EffectTypeToSystemType(effectType);
             return player.ReferenceHub.playerEffectsController.AllEffects.FirstOrDefault(e => e.GetType() == type);
         }
 

@@ -68,7 +68,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="player">The player to obtain the info from.</param>
         /// <returns>The player info. If no special obtainers were found, it will be a <see cref="StandardPlayerInfo"/>.</returns>
-        /// <see cref="StandardPlayerInfo.Get"/>
+        /// <seealso cref="StandardPlayerInfo.Get"/>
         /// <seealso cref="RegisterCustomObtainer"/>
         /// <seealso cref="UnregisterCustomObtainer"/>
         /// <seealso cref="GetFirstMatchingObtainer"/>
@@ -99,7 +99,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="stat">The stat to get the active processes of.</param>
         /// <returns>The list of active processes.</returns>
-        public static List<AhpStat.AhpProcess> GetProcesses(AhpStat stat) => stat.Get<List<AhpStat.AhpProcess>>("_activeProcesses");
+        public static List<AhpStat.AhpProcess> GetProcesses(AhpStat stat) => stat._activeProcesses;
 
         #endregion
 

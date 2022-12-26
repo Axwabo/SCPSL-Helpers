@@ -27,6 +27,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <DocumentationFile>bin\Debug\Axwabo.Helpers.NWAPI.xml</DocumentationFile>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>x64</PlatformTarget>
@@ -37,6 +38,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <DocumentationFile>bin\Release\Axwabo.Helpers.NWAPI.xml</DocumentationFile>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -130,6 +132,7 @@
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="HintQueue.cs" />
+        <Compile Include="PlayerInfo\CooldownInfo.cs" />
         <Compile Include="PlayerInfo\CustomRoleAndInfoWrapper.cs" />
         <Compile Include="PlayerInfo\Delegates.cs" />
         <Compile Include="PlayerInfo\Effect\EffectInfoBase.cs" />
@@ -142,6 +145,7 @@
         <Compile Include="PlayerInfo\PlayerInfoObtainer.cs" />
         <Compile Include="PlayerInfo\RoleTypeAndInfoWrapper.cs" />
         <Compile Include="PlayerInfo\Scp079Info.cs" />
+        <Compile Include="PlayerInfo\Scp079SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\StandardPlayerInfo.cs" />
         <Compile Include="Pools\BasicPool.cs" />
         <Compile Include="Pools\DictionaryPool.cs" />

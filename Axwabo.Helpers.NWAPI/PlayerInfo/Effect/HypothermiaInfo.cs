@@ -8,6 +8,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
     /// </summary>
     /// <seealso cref="EffectInfoBase"/>
     /// <seealso cref="StandardEffectInfo"/>
+    // TODO: fix this
     public sealed class HypothermiaInfo : EffectInfoBase {
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                 return null;
             var duration = hypothermia.TimeLeft;
             var intensity = hypothermia.Intensity;
-            var subEffects = hypothermia.Get<HypothermiaSubEffectBase[]>("_subEffects");
+            var subEffects = hypothermia.SubEffects;
             if (subEffects == null)
                 return null;
             var prevExposure = 0f;
@@ -38,13 +39,13 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             foreach (var effect in subEffects)
                 switch (effect) {
                     case AttackCooldownSubEffect attack:
-                        prevExposure = attack.Get<float>("_prevExpo");
+                        prevExposure = attack._prevExpo;
                         break;
                     case DamageSubEffect damage:
-                        damageCounter = damage.Get<float>("_damageCounter");
+                        damageCounter = damage._damageCounter;
                         break;
                     case HumeShieldSubEffect shield:
-                        decreaseTimer = shield.Get<float>("_decreaseTimer");
+                        decreaseTimer = shield._decreaseTimer;
                         humeBlocked = shield.Get<bool>("_humeBlocked");
                         break;
                 }
@@ -102,20 +103,19 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             hypothermia.IsEnabled = true;
             hypothermia.ServerChangeDuration(Duration);
             hypothermia.Intensity = Intensity;
-            var subEffects = hypothermia.Get<HypothermiaSubEffectBase[]>("_subEffects");
+            var subEffects = hypothermia.SubEffects;
             if (subEffects == null)
                 return;
             foreach (var effect in subEffects)
                 switch (effect) {
                     case AttackCooldownSubEffect or TemperatureSubEffect:
-                        typeof(HypothermiaSubEffectBase).Call(effect, "UpdateEffect", Exposure);
+                        effect.UpdateEffect(Exposure);
                         break;
                     case DamageSubEffect damage:
-                        damage.Set("_damageCounter", DamageCounter);
+                        damage._damageCounter = DamageCounter;
                         break;
                     case HumeShieldSubEffect shield:
-                        shield.Set("_decreaseTimer", DecreaseTimer);
-                        shield.Set("_humeBlocked", HumeBlocked);
+                        shield._decreaseTimer = DecreaseTimer;
                         break;
                 }
         }
