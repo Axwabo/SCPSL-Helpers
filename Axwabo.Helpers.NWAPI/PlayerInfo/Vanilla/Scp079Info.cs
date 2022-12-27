@@ -120,29 +120,29 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         public override void ApplyTo(Player player) {
             if (!player.IsConnected())
                 return;
-            var container = Scp079SubroutineContainer.Get(player.Role() as Scp079Role);
-            if (!container.IsValid)
+            var routines = Scp079SubroutineContainer.Get(player.Role() as Scp079Role);
+            if (!routines.IsValid)
                 return;
 
             var networkTime = NetworkTime.time;
 
-            container.TierManager.TotalExp = Experience;
-            container.AuxManager.CurrentAux = AuxiliaryPower;
-            container.CurrentCameraSync.CurrentCamera = CurrentCamera;
+            routines.TierManager.TotalExp = Experience;
+            routines.AuxManager.CurrentAux = AuxiliaryPower;
+            routines.CurrentCameraSync.CurrentCamera = CurrentCamera;
 
-            var zoneBlackout = container.ZoneBlackout;
+            var zoneBlackout = routines.ZoneBlackout;
             zoneBlackout._syncZone = BlackoutZone;
             ZoneBlackoutCooldown.ApplyTo(zoneBlackout._cooldownTimer);
 
-            var tesla = container.TeslaAbility;
+            var tesla = routines.TeslaAbility;
             tesla._nextUseTime = TeslaAbilityNextUseTime;
 
-            var rewardManager = container.RewardManager;
+            var rewardManager = routines.RewardManager;
             var marked = rewardManager._markedRooms;
             foreach (var pair in RewardCooldowns)
                 marked[pair.Key] = networkTime + pair.Value;
 
-            var lostSignalHandler = container.LostSignalHandler;
+            var lostSignalHandler = routines.LostSignalHandler;
             lostSignalHandler._recoveryTime = SignalLossRecoveryTime;
 
             tesla.Sync();

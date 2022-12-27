@@ -29,7 +29,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <returns>The AHP value, or -1 if there are no active processes.</returns>
         public static float GetAhp(Player player) {
             var ahp = (AhpStat) player.ReferenceHub.playerStats.StatModules[AhpIndex];
-            return PlayerInfoBase.GetProcesses(ahp).Count is 0 ? -1 : ahp.CurValue;
+            return ahp._activeProcesses.Count is 0 ? -1 : ahp.CurValue;
         }
 
         /// <summary>

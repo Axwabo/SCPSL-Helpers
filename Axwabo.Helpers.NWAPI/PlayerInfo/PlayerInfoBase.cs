@@ -22,8 +22,10 @@ namespace Axwabo.Helpers.PlayerInfo {
         private static readonly List<PlayerInfoObtainer> CustomObtainers = new();
 
         private static readonly PlayerInfoObtainer[] DefaultObtainers = {
+            new(Scp049Info.Is049, Scp049Info.Get),
             new(Scp079Info.Is079, Scp079Info.Get),
-            new(Scp049Info.Is049, Scp049Info.Get)
+            new(Scp106Info.Is106, Scp106Info.Get),
+            new(Scp939Info.Is939, Scp939Info.Get)
         };
 
         /// <summary>
@@ -60,11 +62,7 @@ namespace Axwabo.Helpers.PlayerInfo {
                     return obtainer;
             return PlayerInfoObtainer.Empty;
         }
-
-        #endregion
-
-        #region Common Methods
-
+        
         /// <summary>
         /// Creates a <see cref="PlayerInfoBase"/> from a player based on the registered obtainers.
         /// </summary>
@@ -78,13 +76,6 @@ namespace Axwabo.Helpers.PlayerInfo {
             var obtainer = GetFirstMatchingObtainer(player);
             return obtainer.IsValid ? obtainer.Get(player) : StandardPlayerInfo.Get(player);
         }
-
-        /// <summary>
-        /// Gets the list of active AHP processes for the given <paramref name="stat"/>.
-        /// </summary>
-        /// <param name="stat">The stat to get the active processes of.</param>
-        /// <returns>The list of active processes.</returns>
-        public static List<AhpStat.AhpProcess> GetProcesses(AhpStat stat) => stat._activeProcesses;
 
         #endregion
 
