@@ -1,5 +1,7 @@
 ﻿using PlayerRoles;
+using PlayerRoles.PlayableScps.Subroutines;
 using PluginAPI.Core;
+using Utils.Networking;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -72,6 +74,12 @@ namespace Axwabo.Helpers.PlayerInfo {
             info.SetClassAndApplyInfo(to);
             return true;
         }
+
+        /// <summary>
+        /// Sends a subroutine sync message to all authenticated players.
+        /// </summary>
+        /// <param name="routine">The routine to sync.</param>
+        public static void Sync(this ScpSubroutineBase routine) => new SubroutineMessage(routine, true).SendToAuthenticated();
 
     }
 

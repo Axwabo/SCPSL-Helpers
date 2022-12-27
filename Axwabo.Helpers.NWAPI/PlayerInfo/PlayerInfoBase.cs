@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
+using Axwabo.Helpers.PlayerInfo.Vanilla;
 using PlayerRoles.FirstPersonControl;
-using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
@@ -21,7 +22,8 @@ namespace Axwabo.Helpers.PlayerInfo {
         private static readonly List<PlayerInfoObtainer> CustomObtainers = new();
 
         private static readonly PlayerInfoObtainer[] DefaultObtainers = {
-            new(Scp079Info.Is079, Scp079Info.Get)
+            new(Scp079Info.Is079, Scp079Info.Get),
+            new(Scp049Info.Is049, Scp049Info.Get)
         };
 
         /// <summary>
@@ -78,23 +80,6 @@ namespace Axwabo.Helpers.PlayerInfo {
         }
 
         /// <summary>
-        /// Gets the Hume Shield value of the player, or -1 if the player is not currently playing as an <see cref="IHumeShieldedRole"/>.
-        /// </summary>
-        /// <param name="player">The player to get the HS value of.</param>
-        /// <returns>The HS value, or -1 if there's no Hume Shield.</returns>
-        protected static float GetHs(Player player) => player.Role() is not IHumeShieldedRole hs ? -1 : hs.HumeShieldModule.HsCurrent;
-
-        /// <summary>
-        /// Gets the AHP value of the player, or -1 if there are no currently active AHP processes.
-        /// </summary>
-        /// <param name="player">The player to get the AHP value of.</param>
-        /// <returns>The AHP value, or -1 if there are no active processes.</returns>
-        protected static float GetAhp(Player player) {
-            var ahp = (AhpStat) player.ReferenceHub.playerStats.StatModules[1];
-            return GetProcesses(ahp).Count is 0 ? -1 : ahp.CurValue;
-        }
-
-        /// <summary>
         /// Gets the list of active AHP processes for the given <paramref name="stat"/>.
         /// </summary>
         /// <param name="stat">The stat to get the active processes of.</param>
@@ -126,6 +111,11 @@ namespace Axwabo.Helpers.PlayerInfo {
         public float HumeShield { get; }
 
         /// <summary>
+        /// The stamina of the player.
+        /// </summary>
+        public float Stamina { get; }
+
+        /// <summary>
         /// The additional HP of the player.
         /// </summary>
         public float Ahp { get; }
@@ -141,21 +131,17 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// Creates a base object for storing information about a player.
         /// </summary>
-        /// <param name="position">The position of the player.</param>
-        /// <param name="rotation">The rotation of the player.</param>
-        /// <param name="health">The base HP of the player.</param>
-        /// <param name="humeShield"></param>
-        /// <param name="ahp">The additional HP of the player.</param>
-        /// <param name="effects">The effects of the player.</param>
+        /// <param name="roleInfo">Basic information about the player.</param>
         /// <seealso cref="EffectInfoBase"/>
         /// <seealso cref="StandardPlayerInfo"/>
-        protected PlayerInfoBase(Vector3 position, Vector3 rotation, float health, float humeShield, float ahp, List<EffectInfoBase> effects) {
-            Position = position;
-            Rotation = rotation;
-            Health = health;
-            HumeShield = humeShield;
-            Ahp = ahp;
-            Effects = effects?.AsReadOnly();
+        protected PlayerInfoBase(BasicRoleInfo roleInfo) {
+            Position = roleInfo.Position;
+            Rotation = roleInfo.Rotation;
+            Health = roleInfo.Health;
+            HumeShield = roleInfo.HumeShield;
+            Stamina = roleInfo.Stamina;
+            Ahp = roleInfo.Ahp;
+            Effects = roleInfo.Effects?.AsReadOnly();
         }
 
         /// <summary>
@@ -169,8 +155,10 @@ namespace Axwabo.Helpers.PlayerInfo {
             player.Health = Health;
             var stats = player.ReferenceHub.playerStats.StatModules;
             if (Ahp >= 0)
-                stats[1].CurValue = Ahp;
-            stats[2].CurValue = HumeShield;
+                stats[BasicRoleInfo.AhpIndex].CurValue = Ahp;
+            stats[BasicRoleInfo.StaminaIndex].CurValue = Stamina;
+            if (HumeShield >= 0)
+                stats[BasicRoleInfo.HumeShieldIndex].CurValue = HumeShield;
             foreach (var effect in Effects)
                 effect?.ApplyTo(player);
         }

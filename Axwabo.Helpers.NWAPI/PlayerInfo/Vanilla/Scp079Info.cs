@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Axwabo.Helpers.PlayerInfo.Containers;
 using MapGeneration;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp079;
@@ -7,7 +8,7 @@ using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PluginAPI.Core;
 using UnityEngine;
 
-namespace Axwabo.Helpers.PlayerInfo {
+namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
     /// <summary>
     /// Contains information about SCP-079.
@@ -19,6 +20,8 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         private const float Health079 = 100000f;
 
+        private static readonly BasicRoleInfo BasicScp079Info = new(Vector3.zero, Vector3.zero, Health079, -1, -1, -1, null);
+
         /// <summary>
         /// Creates an <see cref="Scp079Info"/> instance using the given <paramref name="player"/>.
         /// </summary>
@@ -29,13 +32,16 @@ namespace Axwabo.Helpers.PlayerInfo {
             if (!routines.IsValid)
                 return null;
             var zoneBlackout = routines.ZoneBlackout;
+            var tierManager = routines.TierManager;
             return new Scp079Info(
-                routines.TierManager.AccessTierIndex,
+                tierManager.TotalExp,
                 routines.AuxManager.CurrentAux,
-                routines.CurrentCameraSync.CurrentCamera.SyncId,
                 routines.CurrentCameraSync.CurrentCamera,
                 zoneBlackout._cooldownTimer,
-                zoneBlackout._syncZone
+                zoneBlackout._syncZone,
+                routines.TeslaAbility._nextUseTime,
+                GetMarkedRoomsDelta(routines.RewardManager._markedRooms),
+                routines.LostSignalHandler._recoveryTime
             );
         }
 
@@ -54,27 +60,34 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>
         /// Creates an <see cref="Scp079Info"/> instance.
         /// </summary>
-        /// <param name="tier">The current tier/level of SCP-079.</param>
-        /// <param name="auxiliaryPower">The current auxiliary power of SCP-079.</param>
         /// <param name="experience">The current experience of SCP-079.</param>
+        /// <param name="auxiliaryPower">The current auxiliary power of SCP-079.</param>
         /// <param name="currentCamera"></param>
         /// <param name="zoneBlackoutCooldown"></param>
         /// <param name="blackoutZone"></param>
-        public Scp079Info(int tier, float auxiliaryPower, int experience, Scp079Camera currentCamera, CooldownInfo zoneBlackoutCooldown, FacilityZone blackoutZone) : base(Vector3.zero, Vector3.zero, Health079, -1, -1, null) {
-            Tier = tier;
+        /// <param name="teslaAbilityNextUseTime"></param>
+        /// <param name="rewardCooldowns"></param>
+        /// <param name="signalLossRecoveryTime"></param>
+        public Scp079Info(int experience,
+            float auxiliaryPower,
+            Scp079Camera currentCamera,
+            CooldownInfo zoneBlackoutCooldown,
+            FacilityZone blackoutZone,
+            double teslaAbilityNextUseTime,
+            Dictionary<RoomIdentifier, double> rewardCooldowns,
+            double signalLossRecoveryTime
+        ) : base(BasicScp079Info) {
             AuxiliaryPower = auxiliaryPower;
             Experience = experience;
             CurrentCamera = currentCamera;
             ZoneBlackoutCooldown = zoneBlackoutCooldown;
             BlackoutZone = blackoutZone;
+            TeslaAbilityNextUseTime = teslaAbilityNextUseTime;
+            RewardCooldowns = rewardCooldowns;
+            SignalLossRecoveryTime = signalLossRecoveryTime;
         }
 
         #region Properties
-
-        /// <summary>
-        /// The current tier/level of SCP-079.
-        /// </summary>
-        public int Tier { get; }
 
         /// <summary>
         /// The current AP of SCP-079.
@@ -92,8 +105,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         public Scp079Camera CurrentCamera { get; }
 
         public CooldownInfo ZoneBlackoutCooldown { get; }
-        
+
         public FacilityZone BlackoutZone { get; }
+
+        public double TeslaAbilityNextUseTime { get; }
+
+        public Dictionary<RoomIdentifier, double> RewardCooldowns { get; }
+
+        public double SignalLossRecoveryTime { get; }
 
         #endregion
 
@@ -104,13 +123,31 @@ namespace Axwabo.Helpers.PlayerInfo {
             var container = Scp079SubroutineContainer.Get(player.Role() as Scp079Role);
             if (!container.IsValid)
                 return;
-            container.TierManager.AccessTierIndex = Tier;
+
+            var networkTime = NetworkTime.time;
+
             container.TierManager.TotalExp = Experience;
             container.AuxManager.CurrentAux = AuxiliaryPower;
             container.CurrentCameraSync.CurrentCamera = CurrentCamera;
+
             var zoneBlackout = container.ZoneBlackout;
             zoneBlackout._syncZone = BlackoutZone;
             ZoneBlackoutCooldown.ApplyTo(zoneBlackout._cooldownTimer);
+
+            var tesla = container.TeslaAbility;
+            tesla._nextUseTime = TeslaAbilityNextUseTime;
+
+            var rewardManager = container.RewardManager;
+            var marked = rewardManager._markedRooms;
+            foreach (var pair in RewardCooldowns)
+                marked[pair.Key] = networkTime + pair.Value;
+
+            var lostSignalHandler = container.LostSignalHandler;
+            lostSignalHandler._recoveryTime = SignalLossRecoveryTime;
+
+            tesla.Sync();
+            zoneBlackout.Sync();
+            lostSignalHandler.Sync();
         }
 
     }

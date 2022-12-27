@@ -2,6 +2,7 @@
 
     public enum EffectType {
 
+        None,
         AmnesiaItems,
         AmnesiaVision,
         Asphyxiated,
@@ -35,7 +36,10 @@
         SpawnProtected,
         Stained,
         Traumatized,
-        Vitality
+        Vitality,
+
+        Scp559,
+        Scp956Target
 
     }
 

@@ -53,10 +53,29 @@ namespace Axwabo.Helpers {
         /// <returns>A <see cref="PlayerRoleBase"/> object.</returns>
         public static PlayerRoleBase Role(this Player player) => player.Rm().CurrentRole;
 
-        public static T RoleAs<T>(this Player player) where T : PlayerRoleBase => player.Role() as T;
+        /// <summary>
+        /// Gets the role of the player and safely casts it to <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="player">The player to get the role from.</param>
+        /// <typeparam name="T">The type of the role.</typeparam>
+        /// <returns>A <typeparamref name="T"/> role.</returns>
+        public static T RoleAs<T>(this Player player) where T : PlayerRoleBase => Role(player) as T;
 
-        public static bool RoleIs<T>(this Player player) where T : PlayerRoleBase => player.Role() is T;
+        /// <summary>
+        /// Determines if the player's role is of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="player">The player to check.</param>
+        /// <typeparam name="T">The type of the role.</typeparam>
+        /// <returns>Whether the player's role is <typeparamref name="T"/>.</returns>
+        public static bool RoleIs<T>(this Player player) where T : PlayerRoleBase => Role(player) is T;
 
+        /// <summary>
+        /// Determines if the player's role is of type <typeparamref name="T"/> and casts it.
+        /// </summary>
+        /// <param name="player">The player to check.</param>
+        /// <param name="role">The role of the player.</param>
+        /// <typeparam name="T">The type of the role.</typeparam>
+        /// <returns>Whether the player's role is <typeparamref name="T"/>.</returns>
         public static bool RoleIs<T>(this Player player, out T role) where T : PlayerRoleBase {
             role = RoleAs<T>(player);
             return role != null;
@@ -147,6 +166,12 @@ namespace Axwabo.Helpers {
         /// <returns>Whether the player is connected.</returns>
         public static bool IsConnected(this Player player) => player.GameObject != null;
 
+        /// <summary>
+        /// Gets an effect instance from the player.
+        /// </summary>
+        /// <param name="player">The player to get the effect from.</param>
+        /// <param name="effectType">The type of the effect.</param>
+        /// <returns>The effect instance.</returns>
         public static StatusEffectBase GetEffect(this Player player, EffectType effectType) {
             var type = EffectInfoBase.EffectTypeToSystemType(effectType);
             return player.ReferenceHub.playerEffectsController.AllEffects.FirstOrDefault(e => e.GetType() == type);

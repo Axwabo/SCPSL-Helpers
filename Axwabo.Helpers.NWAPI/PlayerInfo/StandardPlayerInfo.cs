@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Axwabo.Helpers.PlayerInfo.Effect;
+﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using PluginAPI.Core;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -18,25 +16,13 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="player">The player to get the information from.</param>
         /// <returns>A <see cref="StandardPlayerInfo"/> instance.</returns>
-        public static StandardPlayerInfo Get(Player player) => new(
-            player.Position,
-            player.Rotation,
-            player.Health,
-            GetHs(player),
-            GetAhp(player),
-            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects)
-        );
+        public static StandardPlayerInfo Get(Player player) => new(BasicRoleInfo.Get(player));
 
         /// <summary>
         /// Creates a <see cref="StandardPlayerInfo"/> instance.
         /// </summary>
-        /// <param name="pos">The position of the player.</param>
-        /// <param name="rot">The rotation of the player.</param>
-        /// <param name="health">The base HP of the player.</param>
-        /// <param name="humeShield">The Hume Shield of the player.</param>
-        /// <param name="ahp">The additional HP of the player.</param>
-        /// <param name="effects">The effects of the player.</param>
-        public StandardPlayerInfo(Vector3 pos, Vector3 rot, float health, float humeShield, float ahp, List<EffectInfoBase> effects) : base(pos, rot, health, humeShield,ahp, effects) {
+        /// <param name="info">Basic information about the player.</param>
+        public StandardPlayerInfo(BasicRoleInfo info) : base(info) {
         }
 
     }

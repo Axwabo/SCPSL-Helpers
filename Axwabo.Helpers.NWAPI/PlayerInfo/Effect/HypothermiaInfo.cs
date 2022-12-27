@@ -46,7 +46,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                         break;
                     case HumeShieldSubEffect shield:
                         decreaseTimer = shield._decreaseTimer;
-                        humeBlocked = shield.Get<bool>("_humeBlocked");
+                        humeBlocked = shield.HumeShieldBlocked;
                         break;
                 }
 
@@ -116,6 +116,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                         break;
                     case HumeShieldSubEffect shield:
                         shield._decreaseTimer = DecreaseTimer;
+                        shield.HumeShieldBlocked = HumeBlocked;
                         break;
                 }
         }
