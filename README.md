@@ -19,7 +19,11 @@ Note: this is a dependency, not a plugin.
 
 ## Northwood Plugin API
 
-Axwabo.Helpers isn't available for NWAPI yet.
+1. Download the **Axwabo.Helpers-nw.dll** [pre-release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
+2. Put the DLL into the PluginAPI dependencies folder (on Windows: **%appdata%/SCP Secret Laboratory/PluginAPI/port/dependencies/**)
+3. Any plugins using this library should work after a server restart
+
+Note: using it as a global dependency may not work, put the DLL into all of your servers' dependency folders.
 
 # Examples
 
