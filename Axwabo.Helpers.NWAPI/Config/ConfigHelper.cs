@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using MapGeneration;
-using PluginAPI.Core;
-using PluginAPI.Core.Zones;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
@@ -10,6 +8,8 @@ namespace Axwabo.Helpers.Config {
     /// Helper methods for custom config structs.
     /// </summary>
     public static class ConfigHelper {
+
+        public static RoomIdentifier[] Rooms => Object.FindObjectsOfType<RoomIdentifier>();
 
         /// <summary>
         /// Gets the position and rotation based on an offset and a transform object. 
@@ -37,9 +37,9 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="name">The name of the room.</param>
         /// <returns>The room, or null if it couldn't be found.</returns>
-        public static FacilityRoom GetRoomByRoomName(string name) {
+        public static RoomIdentifier GetRoomByRoomName(string name) {
             name = name.ToLowerInvariant();
-            return string.IsNullOrEmpty(name) ? null : Facility.Rooms.FirstOrDefault(r => r.GameObject.name.ToLowerInvariant().Contains(name));
+            return string.IsNullOrEmpty(name) ? null : Rooms.FirstOrDefault(r => r.gameObject.name.ToLowerInvariant().Contains(name));
         }
 
         /// <summary>
@@ -181,9 +181,9 @@ namespace Axwabo.Helpers.Config {
             return name;
         }
 
-        public static FacilityRoom GetRoomByType(RoomType type) {
+        public static RoomIdentifier GetRoomByType(RoomType type) {
             var name = type.GetRoomName();
-            return Facility.Rooms.FirstOrDefault(e => e.GameObject.name.RemoveParenthesesOnEndOfName() == name);
+            return Rooms.FirstOrDefault(e => e.gameObject.name.RemoveParenthesesOnEndOfName() == name);
         }
 
     }

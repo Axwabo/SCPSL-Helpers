@@ -19,7 +19,7 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// The world-space position of the point.
         /// </summary>
-        public Vector3 Position { get; set; }
+        public SerializedRotation Position { get; set; }
 
         /// <summary>
         /// The world-space rotation of the point.
@@ -36,7 +36,7 @@ namespace Axwabo.Helpers.Config {
         /// <param name="x">Position on the X axis.</param>
         /// <param name="y">Position on the Y axis.</param>
         /// <param name="z">Position on the Z axis.</param>
-        public StaticMapPoint(float x, float y = 0, float z = 0) : this(new Vector3(x, y, z)) {
+        public StaticMapPoint(float x, float y = 0, float z = 0) : this(new SerializedRotation(x, y, z)) {
         }
 
         /// <summary>
@@ -46,14 +46,14 @@ namespace Axwabo.Helpers.Config {
         /// <param name="y">Position on the Y axis.</param>
         /// <param name="z">Position on the Z axis.</param>
         /// <param name="rotation">The rotation of the point.</param>
-        public StaticMapPoint(float x, float y, float z, SerializedRotation rotation) : this(new Vector3(x, y, z), rotation) {
+        public StaticMapPoint(float x, float y, float z, SerializedRotation rotation) : this(new SerializedRotation(x, y, z), rotation) {
         }
 
         /// <summary>
         /// Initializes a new instance with the given position.
         /// </summary>
         /// <param name="position">The position of the point.</param>
-        public StaticMapPoint(Vector3 position) : this(position, SerializedRotation.Identity) {
+        public StaticMapPoint(SerializedRotation position) : this(position, SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="position">The position of the point.</param>
         /// <param name="rotation">The rotation of the point.</param>
-        public StaticMapPoint(Vector3 position, SerializedRotation rotation) {
+        public StaticMapPoint(SerializedRotation position, SerializedRotation rotation) {
             Position = position;
             Rotation = rotation;
         }
