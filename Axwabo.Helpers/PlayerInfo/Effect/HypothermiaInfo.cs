@@ -1,5 +1,4 @@
-﻿using Exiled.API.Enums;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect {
@@ -29,7 +28,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                 return null;
             var duration = hypothermia.TimeLeft;
             var intensity = hypothermia.Intensity;
-            var subEffects = hypothermia.Get<HypothermiaSubEffectBase[]>("_subEffects");
+            var subEffects = hypothermia.SubEffects;
             if (subEffects == null)
                 return null;
             var prevExposure = 0f;
@@ -39,14 +38,14 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             foreach (var effect in subEffects)
                 switch (effect) {
                     case AttackCooldownSubEffect attack:
-                        prevExposure = attack.Get<float>("_prevExpo");
+                        prevExposure = attack._prevExpo;
                         break;
                     case DamageSubEffect damage:
-                        damageCounter = damage.Get<float>("_damageCounter");
+                        damageCounter = damage._damageCounter;
                         break;
                     case HumeShieldSubEffect shield:
-                        decreaseTimer = shield.Get<float>("_decreaseTimer");
-                        humeBlocked = shield.Get<bool>("_humeBlocked");
+                        decreaseTimer = shield._decreaseTimer;
+                        humeBlocked = shield.HumeShieldBlocked;
                         break;
                 }
 
@@ -103,7 +102,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             hypothermia.IsEnabled = true;
             hypothermia.ServerChangeDuration(Duration);
             hypothermia.Intensity = Intensity;
-            var subEffects = hypothermia.Get<HypothermiaSubEffectBase[]>("_subEffects");
+            var subEffects = hypothermia.SubEffects;
             if (subEffects == null)
                 return;
             foreach (var effect in subEffects)
@@ -112,11 +111,11 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                         effect.UpdateEffect(Exposure);
                         break;
                     case DamageSubEffect damage:
-                        damage.Set("_damageCounter", DamageCounter);
+                        damage._damageCounter = DamageCounter;
                         break;
                     case HumeShieldSubEffect shield:
-                        shield.Set("_decreaseTimer", DecreaseTimer);
-                        shield.Set("_humeBlocked", HumeBlocked);
+                        shield._decreaseTimer = DecreaseTimer;
+                        shield.HumeShieldBlocked = HumeBlocked;
                         break;
                 }
         }

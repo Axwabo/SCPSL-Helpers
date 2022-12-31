@@ -1,4 +1,7 @@
-﻿using Exiled.API.Features;
+﻿using PlayerRoles;
+using PlayerRoles.PlayableScps.Subroutines;
+using PluginAPI.Core;
+using Utils.Networking;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -24,7 +27,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         public static PlayerInfoBase GetInfo(this Player p) => PlayerInfoBase.CreateAutomatically(p);
 
         /// <summary>
-        /// Gets the player info with the <see cref="RoleType">vanilla role type</see> from the player. 
+        /// Gets the player info with the <see cref="RoleTypeId">vanilla role type</see> from the player. 
         /// </summary>
         /// <param name="p">The player to get the info from.</param>
         /// <returns>The player info. If no special obtainers were found, it will be a <see cref="StandardPlayerInfo"/>.</returns>
@@ -71,6 +74,12 @@ namespace Axwabo.Helpers.PlayerInfo {
             info.SetClassAndApplyInfo(to);
             return true;
         }
+
+        /// <summary>
+        /// Sends a subroutine sync message to all authenticated players.
+        /// </summary>
+        /// <param name="routine">The routine to sync.</param>
+        public static void Sync(this ScpSubroutineBase routine) => new SubroutineMessage(routine, true).SendToAuthenticated();
 
     }
 

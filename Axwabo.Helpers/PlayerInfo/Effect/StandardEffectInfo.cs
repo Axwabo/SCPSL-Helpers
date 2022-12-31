@@ -18,13 +18,13 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         public static StandardEffectInfo Get(Player player, EffectType type) => Get(player.GetEffect(type));
 
         /// <summary>
-        /// Converts a <see cref="PlayerEffect"/> to a <see cref="StandardEffectInfo"/>.
+        /// Converts a <see cref="StatusEffectBase"/> to a <see cref="StandardEffectInfo"/>.
         /// </summary>
         /// <param name="effect">The effect to convert.</param>
         /// <returns>The information about the effect.</returns>
         /// <seealso cref="op_Explicit"/>
-        public static StandardEffectInfo Get(PlayerEffect effect) =>
-            effect == null ? null : new StandardEffectInfo(effect.IsEnabled, GetEffectType(effect), effect.Duration, effect.Intensity);
+        public static StandardEffectInfo Get(StatusEffectBase effect) =>
+            effect == null ? null : new StandardEffectInfo(effect.IsEnabled, EffectInstanceToEffectType(effect), effect.Duration, effect.Intensity);
 
         /// <summary>
         /// Creates a <see cref="StandardEffectInfo"/> instance.
@@ -46,21 +46,21 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             if (effect == null)
                 return;
             if (!IsEnabled) {
-                effect.IsEnabled = false;
+                effect.ServerDisable();
                 return;
             }
 
-            player.EnableEffect(EffectType, Duration);
-            effect.Intensity = Intensity;
+            effect.IsEnabled = true;
+            effect.ServerSetState(Intensity, Duration);
         }
 
         /// <summary>
-        /// Converts a <see cref="PlayerEffect"/> to a <see cref="StandardEffectInfo"/>.
+        /// Converts a <see cref="StatusEffectBase"/> to a <see cref="StandardEffectInfo"/>.
         /// </summary>
         /// <param name="effect">The effect to convert.</param>
         /// <returns>The information about the effect.</returns>
-        /// <seealso cref="Get(CustomPlayerEffects.PlayerEffect)"/>
-        public static explicit operator StandardEffectInfo(PlayerEffect effect) => Get(effect);
+        /// <seealso cref="Get(CustomPlayerEffects.StatusEffectBase)"/>
+        public static explicit operator StandardEffectInfo(StatusEffectBase effect) => Get(effect);
 
     }
 

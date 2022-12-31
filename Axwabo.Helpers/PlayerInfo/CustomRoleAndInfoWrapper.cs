@@ -29,7 +29,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="player">The player to get the info from.</param>
         /// <param name="obtainer">A <see cref="PlayerInfoObtainer"/> struct to get the methods from.</param>
         /// <returns>A new <see cref="CustomRoleAndInfoWrapper"/> instance.</returns>
-        /// <seealso cref="Get(Exiled.API.Features.Player,Axwabo.Helpers.PlayerInfo.PlayerInfoGetter,Axwabo.Helpers.PlayerInfo.PlayerRoleSetter)"/>
+        /// <seealso cref="Get(Player,Axwabo.Helpers.PlayerInfo.PlayerInfoGetter,Axwabo.Helpers.PlayerInfo.PlayerRoleSetter)"/>
         public static CustomRoleAndInfoWrapper Get(Player player, PlayerInfoObtainer obtainer) => !obtainer.CanSetRole ? Empty : Get(player, obtainer.Get, obtainer.SetRole);
 
         /// <summary>
