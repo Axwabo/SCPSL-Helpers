@@ -26,12 +26,12 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// World-space position offset to apply to the room.
         /// </summary>
-        public SerializedRotation PositionOffset{ get; set; }
+        public SerializedRotation PositionOffset { get; set; }
 
         /// <summary>
         /// Rotational offset to the room.
         /// </summary>
-        public SerializedRotation RotationOffset{ get; set; }
+        public SerializedRotation RotationOffset { get; set; }
 
         #endregion
 

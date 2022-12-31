@@ -63,7 +63,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         public CooldownInfo SenseCooldown { get; }
 
         public CooldownInfo SenseDuration { get; }
-        
+
         public CooldownInfo AttackCooldown { get; }
 
         #endregion
@@ -84,10 +84,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             var sense = routines.SenseAbility;
             SenseCooldown.ApplyTo(sense.Cooldown);
             SenseDuration.ApplyTo(sense.Duration);
-            
+
             var attack = routines.AttackAbility;
             AttackCooldown.ApplyTo(attack.Cooldown);
-            
+
             call.Sync();
             sense.Sync();
             attack.Sync();

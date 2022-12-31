@@ -60,7 +60,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
                 return;
             routines.Vigor._vigor = Vigor;
             routines.StalkAbility.IsActive = IsStalking;
-            
+
             var sinkhole = routines.SinkholeController;
             SinkholeCooldown.ApplyTo(sinkhole.Cooldown);
             sinkhole.Sync();

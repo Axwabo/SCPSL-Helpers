@@ -46,7 +46,7 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="enumerable">The enumerable containing pairs.</param>
         /// <returns>A dictionary with the elements in the given enumerable.</returns>
         public Dictionary<TKey, TValue> Rent(IEnumerable<KeyValuePair<TKey, TValue>> enumerable) => RentOrGet(DefaultSupplier, dict => {
-            if (enumerable == null) 
+            if (enumerable == null)
                 return;
             foreach (var pair in enumerable)
                 dict.Add(pair.Key, pair.Value);

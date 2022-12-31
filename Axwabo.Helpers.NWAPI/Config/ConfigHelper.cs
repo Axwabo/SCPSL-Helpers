@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using MapGeneration;
 using UnityEngine;
 
@@ -9,6 +11,27 @@ namespace Axwabo.Helpers.Config {
     /// </summary>
     public static class ConfigHelper {
 
+        private static readonly Dictionary<string, RoomType> NameToValue = new();
+        private static readonly Dictionary<RoomType, string> ValueToName = new();
+
+        static ConfigHelper() {
+            var members = typeof(RoomType).GetMembers();
+            var enums = typeof(RoomType).Enums<RoomType>().ToArray();
+            foreach (var memberInfo in members) {
+                var attr = memberInfo.GetCustomAttribute<RoomNameAttribute>();
+                if (attr == null)
+                    continue;
+                var value = enums.FirstOrDefault(e => e.ToString() == memberInfo.Name);
+                if (value == RoomType.Unknown)
+                    continue;
+                NameToValue[attr.Name] = value;
+                ValueToName[value] = attr.Name;
+            }
+        }
+
+        /// <summary>
+        /// Gets all <see cref="RoomIdentifier"/>s in the scene.
+        /// </summary>
         public static RoomIdentifier[] Rooms => Object.FindObjectsOfType<RoomIdentifier>();
 
         /// <summary>
@@ -61,124 +84,18 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="type">The EXILED room type.</param>
         /// <returns>The room's name.</returns>
-        public static string GetRoomName(this RoomType type) => type switch {
-            RoomType.EzCafeteria => "EZ_Cafeteria",
-            RoomType.EzCollapsedTunnel => "EZ_CollapsedTunnel",
-            RoomType.EzCrossing => "EZ_Crossing",
-            RoomType.EzCurve => "EZ_Curve",
-            RoomType.EzVent => "EZ_Endoof",
-            RoomType.EzGateA => "EZ_GateA",
-            RoomType.EzGateB => "EZ_GateB",
-            RoomType.EzIntercom => "EZ_Intercom",
-            RoomType.EzPcs => "EZ_PCs",
-            RoomType.EzDownstairsPcs => "EZ_PCs_small",
-            RoomType.EzShelter => "EZ_Shelter",
-            RoomType.EzConference => "EZ_Smallrooms2",
-            RoomType.EzStraight => "EZ_Straight",
-            RoomType.EzTCross => "EZ_ThreeWay",
-            RoomType.EzUpstairsPcs => "EZ_upstairs",
-            RoomType.Hcz049 => "HCZ_049",
-            RoomType.Hcz079 => "HCZ_079",
-            RoomType.Hcz106 => "HCZ_106",
-            RoomType.Hcz096 => "HCZ_457",
-            RoomType.HczChkpA => "HCZ_ChkpA",
-            RoomType.HczChkpB => "HCZ_ChkpB",
-            RoomType.HczCrossing => "HCZ_Crossing",
-            RoomType.HczCurve => "HCZ_Curve",
-            RoomType.HczEzCheckpoint => "HCZ_EZ_Checkpoint",
-            RoomType.HczHid => "HCZ_Hid",
-            RoomType.HczNuke => "HCZ_Nuke",
-            RoomType.HczTCross => "HCZ_Room3",
-            RoomType.HczArmory => "HCZ_Room3ar",
-            RoomType.HczServers => "HCZ_Servers",
-            RoomType.HczStraight => "HCZ_Straight",
-            RoomType.HczTesla => "HCZ_Tesla",
-            RoomType.Hcz939 => "HCZ_Testroom",
-            RoomType.Lcz173 => "LCZ_173",
-            RoomType.Lcz330 => "LCZ_330",
-            RoomType.LczGlassBox => "LCZ_372",
-            RoomType.Lcz914 => "LCZ_914",
-            RoomType.LczAirlock => "LCZ_Airlock",
-            RoomType.LczArmory => "LCZ_Armory",
-            RoomType.LczCafe => "LCZ_Cafe",
-            RoomType.LczChkpA => "LCZ_ChkpA",
-            RoomType.LczChkpB => "LCZ_ChkpB",
-            RoomType.LczClassDSpawn => "LCZ_ClassDSpawn",
-            RoomType.LczCrossing => "LCZ_Crossing",
-            RoomType.LczCurve => "LCZ_Curve",
-            RoomType.LczPlants => "LCZ_Plants",
-            RoomType.LczStraight => "LCZ_Straight",
-            RoomType.LczTCross => "LCZ_TCross",
-            RoomType.LczToilets => "LCZ_Toilets",
-            RoomType.Surface => "Outside",
-            RoomType.Pocket => "PocketWorld",
-            _ => ""
-        };
+        public static string GetRoomName(this RoomType type) => ValueToName.TryGetValue(type, out var name) ? name : null;
 
         /// <summary>
         /// Gets the <see cref="RoomType"/> based on the room's name.
         /// </summary>
         /// <param name="rawName">The name of the room.</param>
         /// <returns>The EXILED room type.</returns>
-        public static RoomType GetRoomType(string rawName) => rawName.RemoveParenthesesOnEndOfName() switch {
-            "EZ_Cafeteria" => RoomType.EzCafeteria,
-            "EZ_CollapsedTunnel" => RoomType.EzCollapsedTunnel,
-            "EZ_Crossing" => RoomType.EzCrossing,
-            "EZ_Curve" => RoomType.EzCurve,
-            "EZ_Endoof" => RoomType.EzVent,
-            "EZ_GateA" => RoomType.EzGateA,
-            "EZ_GateB" => RoomType.EzGateB,
-            "EZ_Intercom" => RoomType.EzIntercom,
-            "EZ_PCs" => RoomType.EzPcs,
-            "EZ_PCs_small" => RoomType.EzDownstairsPcs,
-            "EZ_Shelter" => RoomType.EzShelter,
-            "EZ_Smallrooms2" => RoomType.EzConference,
-            "EZ_Straight" => RoomType.EzStraight,
-            "EZ_ThreeWay" => RoomType.EzTCross,
-            "EZ_upstairs" => RoomType.EzUpstairsPcs,
-            "HCZ_049" => RoomType.Hcz049,
-            "HCZ_079" => RoomType.Hcz079,
-            "HCZ_106" => RoomType.Hcz106,
-            "HCZ_457" => RoomType.Hcz096,
-            "HCZ_ChkpA" => RoomType.HczChkpA,
-            "HCZ_ChkpB" => RoomType.HczChkpB,
-            "HCZ_Crossing" => RoomType.HczCrossing,
-            "HCZ_Curve" => RoomType.HczCurve,
-            "HCZ_EZ_Checkpoint" => RoomType.HczEzCheckpoint,
-            "HCZ_Hid" => RoomType.HczHid,
-            "HCZ_Nuke" => RoomType.HczNuke,
-            "HCZ_Room3" => RoomType.HczTCross,
-            "HCZ_Room3ar" => RoomType.HczArmory,
-            "HCZ_Servers" => RoomType.HczServers,
-            "HCZ_Straight" => RoomType.HczStraight,
-            "HCZ_Tesla" => RoomType.HczTesla,
-            "HCZ_Testroom" => RoomType.Hcz939,
-            "LCZ_173" => RoomType.Lcz173,
-            "LCZ_330" => RoomType.Lcz330,
-            "LCZ_372" => RoomType.LczGlassBox,
-            "LCZ_914" => RoomType.Lcz914,
-            "LCZ_Airlock" => RoomType.LczAirlock,
-            "LCZ_Armory" => RoomType.LczArmory,
-            "LCZ_Cafe" => RoomType.LczCafe,
-            "LCZ_ChkpA" => RoomType.LczChkpA,
-            "LCZ_ChkpB" => RoomType.LczChkpB,
-            "LCZ_ClassDSpawn" => RoomType.LczClassDSpawn,
-            "LCZ_Crossing" => RoomType.LczCrossing,
-            "LCZ_Curve" => RoomType.LczCurve,
-            "LCZ_Plants" => RoomType.LczPlants,
-            "LCZ_Straight" => RoomType.LczStraight,
-            "LCZ_TCross" => RoomType.LczTCross,
-            "LCZ_Toilets" => RoomType.LczToilets,
-            "Outside" => RoomType.Surface,
-            "PocketWorld" => RoomType.Pocket,
-            _ => RoomType.Unknown
-        };
+        public static RoomType GetRoomType(string rawName) => NameToValue.TryGetValue(rawName.RemoveParenthesesOnEndOfName(), out var type) ? type : RoomType.Unknown;
 
         public static string RemoveParenthesesOnEndOfName(this string name) {
             var startIndex = name.IndexOf('(') - 1;
-            if (startIndex > 0)
-                name = name.Remove(startIndex, name.Length - startIndex);
-            return name;
+            return startIndex > 0 ? name.Remove(startIndex, name.Length - startIndex) : name;
         }
 
         public static RoomIdentifier GetRoomByType(RoomType type) {

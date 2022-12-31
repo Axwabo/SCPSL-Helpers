@@ -61,7 +61,7 @@ namespace Axwabo.Helpers.PlayerInfo {
                     return obtainer;
             return PlayerInfoObtainer.Empty;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="PlayerInfoBase"/> from a player based on the registered obtainers.
         /// </summary>

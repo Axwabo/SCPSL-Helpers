@@ -14,7 +14,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         }
 
         public void ApplyTo(AbilityCooldown cooldown) {
-            cooldown.NextUse    = NextUse;
+            cooldown.NextUse = NextUse;
             cooldown.InitialTime = InitialUse;
         }
 
