@@ -7,7 +7,6 @@ namespace Axwabo.Helpers.Config {
     /// <summary>
     /// A config object representing an offset to a room defined by a room's name.
     /// </summary>
-    /// <seealso cref="ConfigHelper.GetRoomName"/>
     [Serializable]
     public struct MapPointByName : IMapPoint {
 
@@ -26,7 +25,7 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// World-space position offset to apply to the room.
         /// </summary>
-        public Vector3 PositionOffset { get; set; }
+        public SerializedRotation PositionOffset { get; set; }
 
         /// <summary>
         /// Rotational offset to the room.
@@ -41,7 +40,7 @@ namespace Axwabo.Helpers.Config {
         /// Initializes a new instance without any offset.
         /// </summary>
         /// <param name="name">The name of the room.</param>
-        public MapPointByName(string name) : this(name, Vector3.zero, SerializedRotation.Identity) {
+        public MapPointByName(string name) : this(name, SerializedRotation.Identity, SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="name">The name of the room.</param>
         /// <param name="positionOffset">A world-space position offset.</param>
-        public MapPointByName(string name, Vector3 positionOffset) : this(name, positionOffset, SerializedRotation.Identity) {
+        public MapPointByName(string name, SerializedRotation positionOffset) : this(name, positionOffset, SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -59,7 +58,7 @@ namespace Axwabo.Helpers.Config {
         /// <param name="x">Offset on the X axis.</param>
         /// <param name="y">Offset on the Y axis.</param>
         /// <param name="z">Offset on the Z axis.</param>
-        public MapPointByName(string name, float x, float y, float z) : this(name, new Vector3(x, y, z), SerializedRotation.Identity) {
+        public MapPointByName(string name, float x, float y, float z) : this(name, new SerializedRotation(x, y, z), SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace Axwabo.Helpers.Config {
         /// <param name="name">The name of the room.</param>
         /// <param name="positionOffset">A world-space position offset.</param>
         /// <param name="rotationOffset">A rotational offset.</param>
-        public MapPointByName(string name, Vector3 positionOffset, SerializedRotation rotationOffset) {
+        public MapPointByName(string name, SerializedRotation positionOffset, SerializedRotation rotationOffset) {
             RoomName = name;
             PositionOffset = positionOffset;
             RotationOffset = rotationOffset;

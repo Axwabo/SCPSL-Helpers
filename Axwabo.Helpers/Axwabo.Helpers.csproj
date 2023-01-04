@@ -100,6 +100,9 @@
     <ItemGroup>
         <Compile Include="Config\ConfigHelper.cs" />
         <Compile Include="Config\IMapPoint.cs" />
+        <Compile Include="Config\MapPointByName.cs" />
+        <Compile Include="Config\MapPointByRoomType.cs" />
+        <Compile Include="Config\SerializedRotation.cs" />
         <Compile Include="Config\StaticMapPoint.cs" />
         <Compile Include="Config\Translations\AttributeHandler.cs" />
         <Compile Include="Config\Translations\RegisterNestedTranslationsAttribute.cs" />
@@ -107,9 +110,6 @@
         <Compile Include="Config\Translations\TranslationAttribute.cs" />
         <Compile Include="Config\Translations\TranslationHelper.cs" />
         <Compile Include="Config\Translations\TranslationRegistry.cs" />
-        <Compile Include="Config\MapPointByName.cs" />
-        <Compile Include="Config\MapPointByRoomType.cs" />
-        <Compile Include="Config\SerializedRotation.cs" />
         <Compile Include="EnumeratorWrapping.cs" />
         <Compile Include="ExiledPlayerExtensions.cs" />
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs" />

@@ -1,14 +1,14 @@
 ﻿using System;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using MapGeneration;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
 
     /// <summary>
-    /// A config object representing an offset to a room defined by the given <see cref="RoomType"/>.
+    /// A config object representing an offset to a room defined by the given <see cref="ImageGenerator.RoomType"/>.
     /// </summary>
-    /// <seealso cref="ConfigHelper.GetRoomName"/>
     [Serializable]
     public struct MapPointByRoomType : IMapPoint {
 
@@ -27,7 +27,7 @@ namespace Axwabo.Helpers.Config {
         /// <summary>
         /// World-space position offset to apply to the room.
         /// </summary>
-        public Vector3 PositionOffset { get; set; }
+        public SerializedRotation PositionOffset { get; set; }
 
         /// <summary>
         /// Rotational offset to the room.
@@ -42,7 +42,7 @@ namespace Axwabo.Helpers.Config {
         /// Initializes a new instance without any offset.
         /// </summary>
         /// <param name="type">The type of the room.</param>
-        public MapPointByRoomType(RoomType type) : this(type, Vector3.zero, SerializedRotation.Identity) {
+        public MapPointByRoomType(RoomType type) : this(type, SerializedRotation.Identity, SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Axwabo.Helpers.Config {
         /// </summary>
         /// <param name="type">The type of the room.</param>
         /// <param name="positionOffset">A world-space position offset.</param>
-        public MapPointByRoomType(RoomType type, Vector3 positionOffset) : this(type, positionOffset, SerializedRotation.Identity) {
+        public MapPointByRoomType(RoomType type, SerializedRotation positionOffset) : this(type, positionOffset, SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Axwabo.Helpers.Config {
         /// <param name="x">Offset on the X axis.</param>
         /// <param name="y">Offset on the Y axis.</param>
         /// <param name="z">Offset on the Z axis.</param>
-        public MapPointByRoomType(RoomType type, float x = 0, float y = 0, float z = 0) : this(type, new Vector3(x, y, z), SerializedRotation.Identity) {
+        public MapPointByRoomType(RoomType type, float x = 0, float y = 0, float z = 0) : this(type, new SerializedRotation(x, y, z), SerializedRotation.Identity) {
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Axwabo.Helpers.Config {
         /// <param name="type">The type of the room.</param>
         /// <param name="positionOffset">A world-space position offset.</param>
         /// <param name="rotationOffset">A rotational offset.</param>
-        public MapPointByRoomType(RoomType type, Vector3 positionOffset, SerializedRotation rotationOffset) {
+        public MapPointByRoomType(RoomType type, SerializedRotation positionOffset, SerializedRotation rotationOffset) {
             Type = type;
             PositionOffset = positionOffset;
             RotationOffset = rotationOffset;

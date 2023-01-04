@@ -31,28 +31,23 @@ namespace Axwabo.Helpers.Config {
         }
 
         /// <summary>
-        /// Gets a room by the name of its GameObject.
-        /// </summary>
-        /// <param name="name">The name of the room.</param>
-        /// <returns>The room, or null if it couldn't be found.</returns>
-        public static Room GetRoomByRoomName(string name) {
-            name = name.ToLowerInvariant();
-            return string.IsNullOrEmpty(name) ? null : Room.Get(r => r.name.ToLowerInvariant().Contains(name)).FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Gets the transform of the component without producing a NullReferenceException.
+        /// Gets the transform of the component without throwing a NullReferenceException.
         /// </summary>
         /// <param name="o">The component to get the transform from.</param>
         /// <returns>The transform of the component or null.</returns>
         public static Transform SafeGetTransform(this Component o) => o == null ? null : o.transform;
 
         /// <summary>
-        /// Gets the transform of the object without producing a NullReferenceException.
+        /// Gets the transform of the object without throwing a NullReferenceException.
         /// </summary>
         /// <param name="o">The object to get the transform from.</param>
         /// <returns>The transform of the object or null.</returns>
         public static Transform SafeGetTransform(this GameObject o) => o == null ? null : o.transform;
+
+        public static Room GetRoomByRoomName(string roomName) {
+            var lower = roomName.ToLower();
+            return Room.List.FirstOrDefault(e => e.name.ToLower().Contains(lower));
+        }
 
     }
 
