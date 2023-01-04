@@ -1,8 +1,11 @@
-﻿using PlayerRoles.PlayableScps.Subroutines;
+﻿using Mirror;
+using PlayerRoles.PlayableScps.Subroutines;
 
-namespace Axwabo.Helpers.PlayerInfo {
+namespace Axwabo.Helpers.PlayerInfo.Containers {
 
     public readonly struct CooldownInfo {
+
+        public readonly double Snapshot;
 
         public readonly double InitialUse;
 
@@ -11,11 +14,13 @@ namespace Axwabo.Helpers.PlayerInfo {
         public CooldownInfo(double initialUse, double nextUse) {
             InitialUse = initialUse;
             NextUse = nextUse;
+            Snapshot = NetworkTime.time;
         }
 
         public void ApplyTo(AbilityCooldown cooldown) {
-            cooldown.NextUse = NextUse;
-            cooldown.InitialTime = InitialUse;
+            var offset = NetworkTime.time - Snapshot;
+            cooldown.NextUse = NextUse + offset;
+            cooldown.InitialTime = InitialUse + offset;
         }
 
         public static implicit operator CooldownInfo(AbilityCooldown cooldown) => new(cooldown.InitialTime, cooldown.NextUse);

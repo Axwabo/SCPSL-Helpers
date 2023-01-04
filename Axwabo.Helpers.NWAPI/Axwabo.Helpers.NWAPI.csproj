@@ -134,11 +134,12 @@
         <Compile Include="Harmony\HarmonyHelper.cs" />
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="HintQueue.cs" />
+        <Compile Include="PlayerInfo\Containers\CooldownInfo.cs" />
         <Compile Include="PlayerInfo\Containers\Scp049SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp079SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\BasicRoleInfo.cs" />
         <Compile Include="PlayerInfo\Containers\Scp106SubroutineContainer.cs" />
-        <Compile Include="PlayerInfo\CooldownInfo.cs" />
+        <Compile Include="PlayerInfo\Containers\Scp173SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\CustomRoleAndInfoWrapper.cs" />
         <Compile Include="PlayerInfo\Delegates.cs" />
         <Compile Include="PlayerInfo\Effect\EffectInfoBase.cs" />
@@ -154,6 +155,7 @@
         <Compile Include="PlayerInfo\Vanilla\Scp049Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp079Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp106Info.cs" />
+        <Compile Include="PlayerInfo\Vanilla\Scp173Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp939Info.cs" />
         <Compile Include="Pools\BasicPool.cs" />
         <Compile Include="Pools\DictionaryPool.cs" />

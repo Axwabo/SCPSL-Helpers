@@ -8,7 +8,6 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
     /// </summary>
     /// <seealso cref="EffectInfoBase"/>
     /// <seealso cref="StandardEffectInfo"/>
-    // TODO: fix this
     public sealed class HypothermiaInfo : EffectInfoBase {
 
         /// <summary>

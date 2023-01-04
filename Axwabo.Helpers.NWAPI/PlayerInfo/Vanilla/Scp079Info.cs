@@ -31,6 +31,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             var routines = Scp079SubroutineContainer.Get(player.RoleAs<Scp079Role>());
             if (!routines.IsValid)
                 return null;
+            var time = NetworkTime.time;
             var zoneBlackout = routines.ZoneBlackout;
             var tierManager = routines.TierManager;
             return new Scp079Info(
@@ -39,9 +40,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
                 routines.CurrentCameraSync.CurrentCamera,
                 zoneBlackout._cooldownTimer,
                 zoneBlackout._syncZone,
-                routines.TeslaAbility._nextUseTime,
+                routines.TeslaAbility._nextUseTime - time,
                 GetMarkedRoomsDelta(routines.RewardManager._markedRooms),
-                routines.LostSignalHandler._recoveryTime
+                routines.LostSignalHandler._recoveryTime - time,
+                routines.Map._state
             );
         }
 
@@ -53,8 +55,8 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         public static bool Is079(Player p) => p.RoleIs<Scp079Role>();
 
         private static Dictionary<RoomIdentifier, double> GetMarkedRoomsDelta(Dictionary<RoomIdentifier, double> marked) {
-            var networkTime = NetworkTime.time;
-            return marked.ToDictionary(k => k.Key, v => networkTime - v.Value);
+            var time = NetworkTime.time;
+            return marked.ToDictionary(k => k.Key, v => time - v.Value);
         }
 
         /// <summary>
@@ -66,25 +68,28 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <param name="zoneBlackoutCooldown"></param>
         /// <param name="blackoutZone"></param>
         /// <param name="teslaAbilityNextUseTime"></param>
-        /// <param name="rewardCooldowns"></param>
+        /// <param name="rewardCooldown"></param>
         /// <param name="signalLossRecoveryTime"></param>
+        /// <param name="mapOpen"></param>
         public Scp079Info(int experience,
             float auxiliaryPower,
             Scp079Camera currentCamera,
             CooldownInfo zoneBlackoutCooldown,
             FacilityZone blackoutZone,
             double teslaAbilityNextUseTime,
-            Dictionary<RoomIdentifier, double> rewardCooldowns,
-            double signalLossRecoveryTime
-        ) : base(BasicScp079Info) {
+            Dictionary<RoomIdentifier, double> rewardCooldown,
+            double signalLossRecoveryTime,
+            bool mapOpen) : base(BasicScp079Info) {
             AuxiliaryPower = auxiliaryPower;
             Experience = experience;
             CurrentCamera = currentCamera;
+            CameraRotation = new Vector2(CurrentCamera.HorizontalRotation, CurrentCamera.VerticalRotation);
             ZoneBlackoutCooldown = zoneBlackoutCooldown;
             BlackoutZone = blackoutZone;
             TeslaAbilityNextUseTime = teslaAbilityNextUseTime;
-            RewardCooldowns = rewardCooldowns;
+            RewardCooldown = rewardCooldown;
             SignalLossRecoveryTime = signalLossRecoveryTime;
+            MapOpen = mapOpen;
         }
 
         #region Properties
@@ -104,15 +109,19 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// </summary>
         public Scp079Camera CurrentCamera { get; }
 
+        public Vector2 CameraRotation { get; }
+
         public CooldownInfo ZoneBlackoutCooldown { get; }
 
         public FacilityZone BlackoutZone { get; }
 
         public double TeslaAbilityNextUseTime { get; }
 
-        public Dictionary<RoomIdentifier, double> RewardCooldowns { get; }
+        public Dictionary<RoomIdentifier, double> RewardCooldown { get; }
 
         public double SignalLossRecoveryTime { get; }
+        
+        public bool MapOpen { get; }
 
         #endregion
 
@@ -120,14 +129,17 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         public override void ApplyTo(Player player) {
             if (!player.IsConnected())
                 return;
-            var routines = Scp079SubroutineContainer.Get(player.Role() as Scp079Role);
+            var routines = Scp079SubroutineContainer.Get(player.RoleAs<Scp079Role>());
             if (!routines.IsValid)
                 return;
 
-            var networkTime = NetworkTime.time;
+            var time = NetworkTime.time;
 
             routines.TierManager.TotalExp = Experience;
             routines.AuxManager.CurrentAux = AuxiliaryPower;
+
+            CurrentCamera.HorizontalRotation = CameraRotation.x;
+            CurrentCamera.VerticalRotation = CameraRotation.y;
             routines.CurrentCameraSync.CurrentCamera = CurrentCamera;
 
             var zoneBlackout = routines.ZoneBlackout;
@@ -135,19 +147,25 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             ZoneBlackoutCooldown.ApplyTo(zoneBlackout._cooldownTimer);
 
             var tesla = routines.TeslaAbility;
-            tesla._nextUseTime = TeslaAbilityNextUseTime;
+            tesla._nextUseTime = TeslaAbilityNextUseTime + time;
 
             var rewardManager = routines.RewardManager;
             var marked = rewardManager._markedRooms;
-            foreach (var pair in RewardCooldowns)
-                marked[pair.Key] = networkTime + pair.Value;
+            foreach (var pair in RewardCooldown)
+                marked[pair.Key] = pair.Value + time;
 
             var lostSignalHandler = routines.LostSignalHandler;
-            lostSignalHandler._recoveryTime = SignalLossRecoveryTime;
+            lostSignalHandler._recoveryTime = SignalLossRecoveryTime + time;
 
+            var map = routines.Map;
+            map._state = MapOpen;
+
+            routines.CameraRotationSync.Sync();
             tesla.Sync();
-            zoneBlackout.Sync();
+            if (BlackoutZone != FacilityZone.None)
+                zoneBlackout.Sync();
             lostSignalHandler.Sync();
+            map.Sync();
         }
 
     }
