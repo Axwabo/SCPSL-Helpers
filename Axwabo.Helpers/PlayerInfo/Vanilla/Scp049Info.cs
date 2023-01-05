@@ -1,4 +1,5 @@
-﻿using Axwabo.Helpers.PlayerInfo.Containers;
+﻿using System.Linq;
+using Axwabo.Helpers.PlayerInfo.Containers;
 using Exiled.API.Features;
 using PlayerRoles.PlayableScps.Scp049;
 
@@ -28,6 +29,8 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
                 call.Duration,
                 sense.Cooldown,
                 sense.Duration,
+                sense.Target,
+                sense.DeadTargets.ToArray(),
                 routines.AttackAbility.Cooldown,
                 BasicRoleInfo.Get(player)
             );
@@ -44,13 +47,16 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             CooldownInfo callDuration,
             CooldownInfo senseCooldown,
             CooldownInfo senseDuration,
+            ReferenceHub target,
+            ReferenceHub[] deadTargets,
             CooldownInfo attackCooldown,
-            BasicRoleInfo basicRoleInfo
-        ) : base(basicRoleInfo) {
+            BasicRoleInfo basicRoleInfo) : base(basicRoleInfo) {
             CallCooldown = callCooldown;
             CallDuration = callDuration;
             SenseCooldown = senseCooldown;
             SenseDuration = senseDuration;
+            Target = target;
+            DeadTargets = deadTargets;
             AttackCooldown = attackCooldown;
         }
 
@@ -63,6 +69,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         public CooldownInfo SenseCooldown { get; }
 
         public CooldownInfo SenseDuration { get; }
+
+        public ReferenceHub Target { get; }
+
+        public ReferenceHub[] DeadTargets { get; }
 
         public CooldownInfo AttackCooldown { get; }
 
@@ -84,6 +94,12 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             var sense = routines.SenseAbility;
             SenseCooldown.ApplyTo(sense.Cooldown);
             SenseDuration.ApplyTo(sense.Duration);
+
+            var hasTarget = Target != null;
+            sense.HasTarget = hasTarget;
+            if (hasTarget)
+                sense.Target = Target;
+            sense.DeadTargets.AddRange(DeadTargets);
 
             var attack = routines.AttackAbility;
             AttackCooldown.ApplyTo(attack.Cooldown);

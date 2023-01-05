@@ -5,7 +5,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// <summary>
     /// A struct containing various player info related methods.
     /// </summary>
-    public readonly struct PlayerInfoObtainer {
+    public readonly struct PlayerInfoObtainer : IIsValid {
 
         private static uint _id;
 

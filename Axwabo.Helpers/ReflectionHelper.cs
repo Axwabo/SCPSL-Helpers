@@ -341,6 +341,21 @@ namespace Axwabo.Helpers {
             return count is not 0;
         }
 
+        /// <summary>
+        /// Adds the elements of the specified collection to the <see cref="HashSet{T}" />.
+        /// </summary>
+        /// <param name="set">The set to add the items to.</param>
+        /// <param name="collection">The collection whose elements should be added to the <see cref="HashSet{T}" />.</param>
+        public static int AddRange<T>(this HashSet<T> set, IEnumerable<T> collection) {
+            if (set == null || collection == null)
+                return 0;
+            var count = 0;
+            foreach (var item in collection)
+                if (set.Add(item))
+                    count++;
+            return count;
+        }
+
         #endregion
 
         #region Enums

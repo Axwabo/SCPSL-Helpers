@@ -23,6 +23,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         private static readonly PlayerInfoObtainer[] DefaultObtainers = {
             new(Scp049Info.Is049, Scp049Info.Get),
             new(Scp079Info.Is079, Scp079Info.Get),
+            new(Scp096Info.Is096, Scp096Info.Get),
             new(Scp106Info.Is106, Scp106Info.Get),
             new(Scp173Info.Is173, Scp173Info.Get),
             new(Scp939Info.Is939, Scp939Info.Get)

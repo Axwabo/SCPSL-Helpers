@@ -99,12 +99,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             sense.HasTarget = hasTarget;
             if (hasTarget)
                 sense.Target = Target;
-
-            if (DeadTargets != null) {
-                sense.DeadTargets.Clear();
-                foreach (var target in DeadTargets)
-                    sense.DeadTargets.Add(target);
-            }
+            sense.DeadTargets.AddRange(DeadTargets);
 
             var attack = routines.AttackAbility;
             AttackCooldown.ApplyTo(attack.Cooldown);

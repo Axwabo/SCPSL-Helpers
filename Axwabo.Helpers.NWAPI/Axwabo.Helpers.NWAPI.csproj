@@ -138,6 +138,7 @@
         <Compile Include="PlayerInfo\Containers\Scp049SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp079SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\BasicRoleInfo.cs" />
+        <Compile Include="PlayerInfo\Containers\Scp096SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp106SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp173SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\CustomRoleAndInfoWrapper.cs" />
@@ -154,6 +155,7 @@
         <Compile Include="PlayerInfo\StandardPlayerInfo.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp049Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp079Info.cs" />
+        <Compile Include="PlayerInfo\Vanilla\Scp096Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp106Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp173Info.cs" />
         <Compile Include="PlayerInfo\Vanilla\Scp939Info.cs" />
