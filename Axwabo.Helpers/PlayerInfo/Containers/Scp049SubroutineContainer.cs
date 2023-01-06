@@ -10,6 +10,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp049SenseAbility SenseAbility;
         public readonly Scp049AttackAbility AttackAbility;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         public Scp049SubroutineContainer(Scp049CallAbility callAbility, Scp049SenseAbility senseAbility, Scp049AttackAbility attackAbility) {

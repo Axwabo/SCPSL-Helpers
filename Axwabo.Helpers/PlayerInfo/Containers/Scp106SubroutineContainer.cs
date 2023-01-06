@@ -10,6 +10,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp106StalkAbility StalkAbility;
         public readonly Scp106SinkholeController SinkholeController;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         public Scp106SubroutineContainer(Scp106Vigor vigor, Scp106StalkAbility stalkAbility, Scp106SinkholeController sinkholeController) {

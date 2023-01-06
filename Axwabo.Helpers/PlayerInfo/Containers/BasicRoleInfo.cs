@@ -48,10 +48,11 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             GetAhp(player),
             GetStamina(player),
             GetHs(player),
-            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects)
+            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects),
+            InventoryInfo.Get(player)
         );
 
-        public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects) {
+        public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventory) {
             Position = position;
             Rotation = rotation;
             Health = health;
@@ -59,6 +60,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             Stamina = stamina;
             HumeShield = humeShield;
             Effects = effects;
+            Inventory = inventory;
             IsValid = true;
         }
 
@@ -77,7 +79,10 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly float HumeShield;
 
         public readonly List<EffectInfoBase> Effects;
+        
+        public readonly InventoryInfo Inventory;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         #endregion

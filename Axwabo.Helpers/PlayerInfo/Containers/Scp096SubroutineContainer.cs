@@ -11,6 +11,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp096RageManager RageManager;
         public readonly Scp096ChargeAbility Charge;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         public Scp096SubroutineContainer(Scp096StateController state, Scp096TargetsTracker targetsTracker, Scp096RageManager rageManager, Scp096ChargeAbility charge) {

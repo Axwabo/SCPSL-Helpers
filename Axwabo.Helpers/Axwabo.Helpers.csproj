@@ -116,6 +116,7 @@
         <Compile Include="IIsValid.cs" />
         <Compile Include="PlayerInfo\Containers\BasicRoleInfo.cs" />
         <Compile Include="PlayerInfo\Containers\CooldownInfo.cs" />
+        <Compile Include="PlayerInfo\Containers\InventoryInfo.cs" />
         <Compile Include="PlayerInfo\Containers\Scp049SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp079SubroutineContainer.cs" />
         <Compile Include="PlayerInfo\Containers\Scp096SubroutineContainer.cs" />
@@ -128,6 +129,14 @@
         <Compile Include="PlayerInfo\Effect\HypothermiaInfo.cs" />
         <Compile Include="PlayerInfo\Effect\StandardEffectInfo.cs" />
         <Compile Include="PlayerInfo\IPlayerInfoWithRole.cs" />
+        <Compile Include="PlayerInfo\ItemInfoObtainer.cs" />
+        <Compile Include="PlayerInfo\Item\FirearmInfo.cs" />
+        <Compile Include="PlayerInfo\Item\ItemInfoBase.cs" />
+        <Compile Include="PlayerInfo\Item\RadioInfo.cs" />
+        <Compile Include="PlayerInfo\Item\Scp1576Info.cs" />
+        <Compile Include="PlayerInfo\Item\Scp268Info.cs" />
+        <Compile Include="PlayerInfo\Item\Scp330BagInfo.cs" />
+        <Compile Include="PlayerInfo\Item\UsableItemInfo.cs" />
         <Compile Include="PlayerInfo\PlayerInfoBase.cs" />
         <Compile Include="PlayerInfo\PlayerInfoExtensions.cs" />
         <Compile Include="PlayerInfo\PlayerInfoObtainer.cs" />

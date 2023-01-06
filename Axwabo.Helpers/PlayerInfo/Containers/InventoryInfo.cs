@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Item;
-using PluginAPI.Core;
+using Exiled.API.Features;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers {
 
@@ -12,7 +12,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public static InventoryInfo Get(Player p) {
             var inventory = p.ReferenceHub.inventory;
             return new InventoryInfo(
-                ItemInfoBase.ItemsToArray(inventory.UserInventory.Items.Values),
+                ItemInfoBase.ItemsToArray(p.Inventory.UserInventory.Items.Values),
                 inventory.UserInventory.ReserveAmmo.ToDictionary(k => k.Key, v => v.Value),
                 inventory.CurItem.SerialNumber
             );

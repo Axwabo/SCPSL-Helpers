@@ -118,6 +118,11 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <seealso cref="EffectInfoBase"/>
         public ReadOnlyCollection<EffectInfoBase> Effects { get; }
 
+        /// <summary>
+        /// Information about the player's inventory.
+        /// </summary>
+        public InventoryInfo Inventory { get; }
+
         #endregion
 
         /// <summary>
@@ -134,6 +139,7 @@ namespace Axwabo.Helpers.PlayerInfo {
             Stamina = roleInfo.Stamina;
             Ahp = roleInfo.Ahp;
             Effects = roleInfo.Effects?.AsReadOnly();
+            Inventory = roleInfo.Inventory;
         }
 
         /// <summary>
@@ -153,6 +159,7 @@ namespace Axwabo.Helpers.PlayerInfo {
                 stats[BasicRoleInfo.HumeShieldIndex].CurValue = HumeShield;
             foreach (var effect in Effects)
                 effect?.ApplyTo(player);
+            Inventory.ApplyTo(player);
         }
 
     }
