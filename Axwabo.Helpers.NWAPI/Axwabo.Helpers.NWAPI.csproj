@@ -150,7 +150,9 @@
         <Compile Include="PlayerInfo\Effect\StandardEffectInfo.cs" />
         <Compile Include="PlayerInfo\IPlayerInfoWithRole.cs" />
         <Compile Include="PlayerInfo\ItemInfoObtainer.cs" />
+        <Compile Include="PlayerInfo\Item\FirearmInfo.cs" />
         <Compile Include="PlayerInfo\Item\ItemInfoBase.cs" />
+        <Compile Include="PlayerInfo\Item\RadioInfo.cs" />
         <Compile Include="PlayerInfo\PlayerInfoBase.cs" />
         <Compile Include="PlayerInfo\PlayerInfoExtensions.cs" />
         <Compile Include="PlayerInfo\PlayerInfoObtainer.cs" />

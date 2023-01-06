@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Item;
 using InventorySystem.Items;
 using PluginAPI.Core;
@@ -13,7 +14,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             var inventory = p.ReferenceHub.inventory;
             return new InventoryInfo(
                 ItemInfoBase.ItemsToArray(p.Items),
-                inventory.UserInventory.ReserveAmmo,
+                inventory.UserInventory.ReserveAmmo.ToDictionary(k => k.Key, v => v.Value),
                 inventory.CurItem.SerialNumber
             );
         }
@@ -39,16 +40,22 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
                 return;
             var inv = player.ReferenceHub.inventory;
             inv.UserInventory.Items.Clear();
-            ItemBase selected = null;
+            ushort selected = 0;
             foreach (var info in Items) {
+                if (info == null)
+                    continue;
                 var item = info.GiveTo(player);
                 if (item.ItemSerial == CurrentItem)
-                    selected = item;
+                    selected = CurrentItem;
             }
 
-            inv.UserInventory.ReserveAmmo = Ammo;
-            if (selected != null)
-                inv.CurInstance = selected;
+            var reserve = inv.UserInventory.ReserveAmmo;
+            foreach (var pair in Ammo)
+                reserve[pair.Key] = pair.Value;
+
+            inv.ServerSelectItem(selected);
+            inv.SendItemsNextFrame = true;
+            inv.SendAmmoNextFrame = true;
         }
 
     }

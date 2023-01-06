@@ -13,7 +13,10 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
 
         private static readonly List<ItemInfoObtainer> CustomObtainers = new();
 
-        private static readonly ItemInfoObtainer[] DefaultObtainers = { };
+        private static readonly ItemInfoObtainer[] DefaultObtainers = {
+            new(RadioInfo.IsRadio, RadioInfo.Get),
+            new(FirearmInfo.IsFirearm, FirearmInfo.Get)
+        };
 
         /// <summary>
         /// Registers a custom item info obtainer.
@@ -64,9 +67,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
 
         public ushort Serial { get; }
 
-
-        public virtual void ApplyTo(ItemBase item) {
-        }
+        public virtual void ApplyTo(ItemBase item) => item.ItemSerial = Serial;
 
         public virtual ItemBase GiveTo(Player player) {
             var item = player.ReferenceHub.inventory.ServerAddItem(Type, Serial);
