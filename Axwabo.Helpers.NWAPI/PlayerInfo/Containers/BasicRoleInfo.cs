@@ -7,12 +7,20 @@ using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers {
 
+    /// <summary>
+    /// Contains common information about a player.
+    /// </summary>
     public readonly struct BasicRoleInfo : IIsValid {
 
         #region Common Static
 
+        /// <summary>The index of the <see cref="AhpStat"/> in <see cref="PlayerStats.StatModules"/>.</summary>
         public const int AhpIndex = 1;
+
+        /// <summary>The index of the <see cref="StaminaStat"/> in <see cref="PlayerStats.StatModules"/>.</summary>
         public const int StaminaIndex = 2;
+
+        /// <summary>The index of the <see cref="HumeShieldStat"/> in <see cref="PlayerStats.StatModules"/>.</summary>
         public const int HumeShieldIndex = 4;
 
         /// <summary>
@@ -48,10 +56,11 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             GetAhp(player),
             GetStamina(player),
             GetHs(player),
-            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects)
+            EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects),
+            InventoryInfo.Get(player)
         );
 
-        public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects) {
+        public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo) {
             Position = position;
             Rotation = rotation;
             Health = health;
@@ -59,6 +68,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             Stamina = stamina;
             HumeShield = humeShield;
             Effects = effects;
+            Inventory = inventoryInfo;
             IsValid = true;
         }
 
@@ -78,6 +88,9 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
 
         public readonly List<EffectInfoBase> Effects;
 
+        public readonly InventoryInfo Inventory;
+
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         #endregion

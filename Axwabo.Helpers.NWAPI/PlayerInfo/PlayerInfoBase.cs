@@ -55,12 +55,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="player">The player to get the obtainer from.</param>
         /// <returns>The first matching obtainer, or <see cref="PlayerInfoObtainer.Empty"/> if none were found.</returns>
         public static PlayerInfoObtainer GetFirstMatchingObtainer(Player player) {
-            foreach (var obtainer in CustomObtainers.Where(e => e.IsValid))
-                if (obtainer.Check(player))
+            foreach (var obtainer in CustomObtainers)
+                if (obtainer.IsValid && obtainer.Check(player))
                     return obtainer;
-            foreach (var obtainer in DefaultObtainers.Where(e => e.IsValid))
-                if (obtainer.Check(player))
+
+            foreach (var obtainer in DefaultObtainers)
+                if (obtainer.IsValid && obtainer.Check(player))
                     return obtainer;
+
             return PlayerInfoObtainer.Empty;
         }
 
@@ -118,6 +120,11 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <seealso cref="EffectInfoBase"/>
         public ReadOnlyCollection<EffectInfoBase> Effects { get; }
 
+        /// <summary>
+        /// Information about the player's inventory.
+        /// </summary>
+        public InventoryInfo Inventory { get; }
+
         #endregion
 
         /// <summary>
@@ -134,6 +141,7 @@ namespace Axwabo.Helpers.PlayerInfo {
             Stamina = roleInfo.Stamina;
             Ahp = roleInfo.Ahp;
             Effects = roleInfo.Effects?.AsReadOnly();
+            Inventory = roleInfo.Inventory;
         }
 
         /// <summary>
@@ -153,6 +161,7 @@ namespace Axwabo.Helpers.PlayerInfo {
                 stats[BasicRoleInfo.HumeShieldIndex].CurValue = HumeShield;
             foreach (var effect in Effects)
                 effect?.ApplyTo(player);
+            Inventory.ApplyTo(player);
         }
 
     }

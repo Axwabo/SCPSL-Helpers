@@ -19,6 +19,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp079TeslaAbility TeslaAbility;
         public readonly Scp079ToggleMapAbility Map;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         public Scp079SubroutineContainer(Scp079TierManager tierManager, Scp079BlackoutZoneAbility zoneBlackout, Scp079CurrentCameraSync currentCameraSync, Scp079CameraRotationSync cameraRotationSync, Scp079AuxManager auxManager, Scp079LostSignalHandler lostSignalHandler, Scp079RewardManager rewardManager, Scp079TeslaAbility teslaAbility, Scp079ToggleMapAbility map) {

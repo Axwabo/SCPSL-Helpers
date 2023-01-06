@@ -34,9 +34,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         public readonly uint Id;
 
-        /// <summary>
-        /// Returns true if this instance is valid (not empty).
-        /// </summary>
+        /// <inheritdoc />
         public bool IsValid => Id > 0 && Check != null && Get != null;
 
         /// <summary>

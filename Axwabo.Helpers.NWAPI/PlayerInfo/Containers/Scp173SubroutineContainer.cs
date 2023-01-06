@@ -10,6 +10,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp173BreakneckSpeedsAbility BreakneckSpeeds;
         public readonly Scp173TantrumAbility Tantrum;
 
+        /// <inheritdoc />
         public bool IsValid { get; }
 
         public Scp173SubroutineContainer(Scp173BlinkTimer blinkTimer, Scp173BreakneckSpeedsAbility breakneckSpeeds, Scp173TantrumAbility tantrum) {

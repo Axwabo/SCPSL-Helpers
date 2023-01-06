@@ -1,4 +1,6 @@
-﻿using PluginAPI.Core;
+﻿using Axwabo.Helpers.PlayerInfo.Item;
+using InventorySystem.Items;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo {
 
@@ -19,5 +21,9 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// </summary>
     /// <param name="player">The player to set the role of.</param>
     public delegate void PlayerRoleSetter(Player player);
+
+    public delegate bool ItemCheck(ItemBase item);
+
+    public delegate ItemInfoBase ItemInfoGetter(ItemBase item);
 
 }
