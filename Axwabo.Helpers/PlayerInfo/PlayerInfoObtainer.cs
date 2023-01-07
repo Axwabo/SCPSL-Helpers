@@ -9,37 +9,25 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         private static uint _id;
 
-        /// <summary>
-        /// An empty <see cref="PlayerInfoObtainer"/> instance.
-        /// </summary>
+        /// <summary>An empty <see cref="PlayerInfoObtainer"/> instance.</summary>
         public static readonly PlayerInfoObtainer Empty = new();
 
-        /// <summary>
-        /// A method to check if the player is suitable for the player info getter.
-        /// </summary>
+        /// <summary>A method to check if the player is suitable for the player info getter.</summary>
         public readonly PlayerCheck Check;
 
-        /// <summary>
-        /// A method to get the player info.
-        /// </summary>
+        /// <summary>A method to get the player info.</summary>
         public readonly PlayerInfoGetter Get;
 
-        /// <summary>
-        /// A method to set the player's custom role.
-        /// </summary>
+        /// <summary>A method to set the player's custom role.</summary>
         public readonly PlayerRoleSetter SetRole;
 
-        /// <summary>
-        /// The auto-incrementing id of this instance.
-        /// </summary>
+        /// <summary>The auto-incrementing id of this instance.</summary>
         public readonly uint Id;
 
         /// <inheritdoc />
         public bool IsValid => Id > 0 && Check != null && Get != null;
 
-        /// <summary>
-        /// Returns true if the <see cref="SetRole"/> method is not null.
-        /// </summary>
+        /// <summary>Returns true if the <see cref="SetRole"/> method is not null.</summary>
         public bool CanSetRole => SetRole != null;
 
         /// <summary>

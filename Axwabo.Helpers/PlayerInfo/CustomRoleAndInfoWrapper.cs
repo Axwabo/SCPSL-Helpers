@@ -8,9 +8,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// </summary>
     public readonly struct CustomRoleAndInfoWrapper : IPlayerInfoWithRole {
 
-        /// <summary>
-        /// An empty info object.
-        /// </summary>
+        /// <summary>An empty info object.</summary>
         public static readonly CustomRoleAndInfoWrapper Empty = new();
 
         /// <summary>
@@ -32,9 +30,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <seealso cref="Get(Player,Axwabo.Helpers.PlayerInfo.PlayerInfoGetter,Axwabo.Helpers.PlayerInfo.PlayerRoleSetter)"/>
         public static CustomRoleAndInfoWrapper Get(Player player, PlayerInfoObtainer obtainer) => !obtainer.CanSetRole ? Empty : Get(player, obtainer.Get, obtainer.SetRole);
 
-        /// <summary>
-        /// The role of the player.
-        /// </summary>
+        /// <summary>The role of the player.</summary>
         public readonly PlayerRoleSetter SetRole;
 
         /// <inheritdoc/>

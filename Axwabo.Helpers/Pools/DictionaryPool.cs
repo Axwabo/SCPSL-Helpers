@@ -10,22 +10,16 @@ namespace Axwabo.Helpers.Pools {
     /// <typeparam name="TValue">The type of value the pool contains.</typeparam>
     public class DictionaryPool<TKey, TValue> : PoolBase<Dictionary<TKey, TValue>> {
 
-        /// <summary>
-        /// A shared instance of the pool.
-        /// </summary>
+        /// <summary>A shared instance of the pool.</summary>
         public static readonly DictionaryPool<TKey, TValue> Shared = new();
 
         /// <inheritdoc />
         protected override Func<Dictionary<TKey, TValue>> DefaultSupplier { get; }
 
-        /// <summary>
-        /// The default size of dictionaries created by this pool.
-        /// </summary>
+        /// <summary>The default size of dictionaries created by this pool.</summary>
         public int DefaultCapacity { get; set; } = 128;
 
-        /// <summary>
-        /// Creates a pool with no size limit.
-        /// </summary>
+        /// <summary>Creates a pool with no size limit.</summary>
         public DictionaryPool() => DefaultSupplier = () => new Dictionary<TKey, TValue>(DefaultCapacity);
 
         /// <summary>

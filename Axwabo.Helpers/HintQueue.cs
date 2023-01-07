@@ -16,14 +16,10 @@ namespace Axwabo.Helpers {
         /// </summary>
         public readonly struct HintItem {
 
-            /// <summary>
-            /// The hint message.
-            /// </summary>
+            /// <summary>The hint message.</summary>
             public readonly string Message;
 
-            /// <summary>
-            /// The amount of time (in seconds) the hint should be displayed.
-            /// </summary>
+            /// <summary>The amount of time (in seconds) the hint should be displayed.</summary>
             public readonly float Duration;
 
             /// <summary>
@@ -40,14 +36,10 @@ namespace Axwabo.Helpers {
 
         private readonly Queue<HintItem> _queue = new();
 
-        /// <summary>
-        /// The <see cref="Exiled.API.Features.Player"/> this component is attached to.
-        /// </summary>
+        /// <summary>The <see cref="Exiled.API.Features.Player"/> this component is attached to.</summary>
         public Player Player { get; private set; }
 
-        /// <summary>
-        /// The hint currently displayed to the player. Null if no hint is being displayed.
-        /// </summary>
+        /// <summary>The hint currently displayed to the player. Null if no hint is being displayed.</summary>
         public string CurrentHint { get; private set; }
 
         /// <summary>
@@ -57,18 +49,14 @@ namespace Axwabo.Helpers {
         /// <param name="duration">The duration of the hint.</param>
         public void Enqueue(string message, float duration = 5f) => _queue.Enqueue(new HintItem(message, duration));
 
-        /// <summary>
-        /// Clears the queue and current hint.
-        /// </summary>
+        /// <summary>Clears the queue and current hint.</summary>
         public void Clear() {
             _queue.Clear();
             CurrentHint = null;
             Player.ShowHint("");
         }
 
-        /// <summary>
-        /// Clears the queue while keeping the current hint.
-        /// </summary>
+        /// <summary>Clears the queue while keeping the current hint.</summary>
         public void ClearQueue() => _queue.Clear();
 
         private void Awake() => Player = Player.Get(gameObject) ?? throw new InvalidOperationException("HintQueue must be attached to a player.");

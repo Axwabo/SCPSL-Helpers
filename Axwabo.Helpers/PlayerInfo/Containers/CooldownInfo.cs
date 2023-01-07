@@ -8,19 +8,13 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
     /// </summary>
     public readonly struct CooldownInfo : IIsValid {
 
-        /// <summary>
-        /// The network time this struct was created.
-        /// </summary>
+        /// <summary>The network time this struct was created.</summary>
         public readonly double Snapshot;
 
-        /// <summary>
-        /// The initial usage of the ability.
-        /// </summary>
+        /// <summary>The initial usage of the ability.</summary>
         public readonly double InitialUse;
 
-        /// <summary>
-        /// The next possible usage of the ability.
-        /// </summary>
+        /// <summary>The next possible usage of the ability.</summary>
         public readonly double NextUse;
 
         /// <inheritdoc />

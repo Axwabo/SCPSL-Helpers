@@ -9,37 +9,25 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         private static uint _id;
 
-        /// <summary>
-        /// An empty <see cref="ItemInfoObtainer"/> instance.
-        /// </summary>
+        /// <summary>An empty <see cref="ItemInfoObtainer"/> instance.</summary>
         public static readonly ItemInfoObtainer Empty = new();
 
-        /// <summary>
-        /// A method to check if the item is suitable for the item info getter.
-        /// </summary>
+        /// <summary>A method to check if the item is suitable for the item info getter.</summary>
         public readonly ItemCheck Check;
 
-        /// <summary>
-        /// A method to get the item info.
-        /// </summary>
+        /// <summary>A method to get the item info.</summary>
         public readonly ItemInfoGetter Get;
 
-        /// <summary>
-        /// A method to give the item to a player.
-        /// </summary>
+        /// <summary>A method to give the item to a player.</summary>
         public readonly GiveItem Give;
 
-        /// <summary>
-        /// The auto-incrementing id of this instance.
-        /// </summary>
+        /// <summary>The auto-incrementing id of this instance.</summary>
         public readonly uint Id;
 
         /// <inheritdoc />
         public bool IsValid => Id > 0 && Check != null && Get != null;
 
-        /// <summary>
-        /// Returns true if the <see cref="Give"/> method is not null.
-        /// </summary>
+        /// <summary>Returns true if the <see cref="Give"/> method is not null.</summary>
         public bool CanGive => Give != null;
 
         /// <summary>

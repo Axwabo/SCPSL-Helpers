@@ -29,9 +29,7 @@ namespace Axwabo.Helpers.Config {
             }
         }
 
-        /// <summary>
-        /// Gets all <see cref="RoomIdentifier"/>s in the scene.
-        /// </summary>
+        /// <summary>Gets all <see cref="RoomIdentifier"/>s in the scene.</summary>
         public static RoomIdentifier[] Rooms => Object.FindObjectsOfType<RoomIdentifier>();
 
         /// <summary>

@@ -7,30 +7,21 @@ namespace Axwabo.Helpers.Config {
     /// <summary>
     /// A config object representing an offset to a room defined by a room's name.
     /// </summary>
-    /// <seealso cref="ConfigHelper.GetRoomName"/>
     [Serializable]
     public struct MapPointByName : IMapPoint {
 
-        /// <summary>
-        /// An empty config object representing no rooms.
-        /// </summary>
+        /// <summary>An empty config object representing no rooms.</summary>
         public static readonly MapPointByName Empty = new();
 
         #region Info
 
-        /// <summary>
-        /// The name of the room.
-        /// </summary>
+        /// <summary>The name of the room.</summary>
         public string RoomName { get; set; }
 
-        /// <summary>
-        /// World-space position offset to apply to the room.
-        /// </summary>
+        /// <summary>World-space position offset to apply to the room.</summary>
         public SerializedRotation PositionOffset { get; set; }
 
-        /// <summary>
-        /// Rotational offset to the room.
-        /// </summary>
+        /// <summary>Rotational offset to the room.</summary>
         public SerializedRotation RotationOffset { get; set; }
 
         #endregion
@@ -84,27 +75,16 @@ namespace Axwabo.Helpers.Config {
         /// <remarks>This does not check if the room exists, unlike <see cref="MapPointByRoomType.IsValid">MapPointByRoomType</see> does.</remarks>
         public bool IsValid() => !string.IsNullOrEmpty(RoomName);
 
-        /// <summary>
-        /// Gets the room component for the given <see cref="Type">room type</see>.
-        /// </summary>
+        /// <summary>Gets the room component for the given <see cref="Type">room type</see>.</summary>
         public RoomIdentifier RoomObject() => ConfigHelper.GetRoomByRoomName(RoomName);
 
-        /// <summary>
-        /// Gets the transform of the room object.
-        /// </summary>
+        /// <summary>Gets the transform of the room object.</summary>
         public Transform RoomTransform() => RoomObject().SafeGetTransform();
 
-        /// <summary>
-        /// Gets the world-space position and rotation by applying the offset to the room.
-        /// </summary>
+        /// <inheritdoc />
         public Pose WorldPose() => TryGetWorldPose(out var pos, out var rot) ? new Pose(pos, rot) : Pose.identity;
 
-        /// <summary>
-        /// Attempts to get the world-space position and rotation by applying the offset to the room.
-        /// </summary>
-        /// <param name="position">The world-space position to store.</param>
-        /// <param name="rotation">The world-space rotation to store.</param>
-        /// <returns>If the room is not null.</returns>
+        /// <inheritdoc />
         public bool TryGetWorldPose(out Vector3 position, out Quaternion rotation) => RoomTransform().TryTransformOffset(PositionOffset, RotationOffset, out position, out rotation);
 
         #endregion

@@ -18,9 +18,7 @@ namespace Axwabo.Helpers {
         /// <returns>A color object matching the code.</returns>
         public static Color ParseColor(string html) => ColorUtility.TryParseHtmlString(html, out var color) ? color : Color.black;
 
-        /// <summary>
-        /// A map of color codes that can be used in badges and <see cref="Player.CustomInfo">player info</see>.
-        /// </summary>
+        /// <summary>A map of color codes that can be used in badges and <see cref="Player.CustomInfo">player info</see>.</summary>
         public static readonly IDictionary<string, string> NorthwoodApprovedColorCodes = new ReadOnlyDictionary<string, string>(new Dictionary<string, string> {
             {"Pink", "#FF96DE"},
             {"Red", "#C50000"},

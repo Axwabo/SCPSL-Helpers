@@ -10,9 +10,7 @@ namespace Axwabo.Helpers.Config.Translations {
     /// </summary>
     public static class TranslationHelper {
 
-        /// <summary>
-        /// The non-generic type of the registry.
-        /// </summary>
+        /// <summary>The non-generic type of the registry.</summary>
         public static readonly Type TranslationRegistryType = typeof(TranslationHelper).Assembly.GetType("Axwabo.Helpers.Config.Translations.TranslationRegistry`1");
 
         #region Translating

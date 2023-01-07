@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Axwabo.Helpers.Config {
 
-    /// <summary>
-    /// Helper methods for custom config structs.
-    /// </summary>
+    /// <summary>Helper methods for custom config structs.</summary>
     public static class ConfigHelper {
 
         /// <summary>

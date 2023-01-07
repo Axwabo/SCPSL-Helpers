@@ -94,19 +94,13 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
-        /// <summary>
-        /// The current AP of SCP-079.
-        /// </summary>
+        /// <summary>The current AP of SCP-079.</summary>
         public float AuxiliaryPower { get; }
 
-        /// <summary>
-        /// The current EXP of SCP-079.
-        /// </summary>
+        /// <summary>The current EXP of SCP-079.</summary>
         public int Experience { get; }
 
-        /// <summary>
-        /// The camera that SCP-079 is using.
-        /// </summary>
+        /// <summary>The camera that SCP-079 is using.</summary>
         public Scp079Camera CurrentCamera { get; }
 
         public Vector2 CameraRotation { get; }

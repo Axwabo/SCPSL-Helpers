@@ -82,45 +82,29 @@ namespace Axwabo.Helpers.PlayerInfo {
 
         #region Properties
 
-        /// <summary>
-        /// The position of the player.
-        /// </summary>
+        /// <summary>The position of the player.</summary>
         public Vector3 Position { get; }
 
-        /// <summary>
-        /// The rotation of the player.
-        /// </summary>
+        /// <summary>The rotation of the player.</summary>
         public Vector3 Rotation { get; }
 
-        /// <summary>
-        /// The base HP of the player.
-        /// </summary>
+        /// <summary>The base HP of the player.</summary>
         public float Health { get; }
 
-        /// <summary>
-        /// The Hume Shield of the player.
-        /// </summary>
+        /// <summary>The Hume Shield of the player.</summary>
         public float HumeShield { get; }
 
-        /// <summary>
-        /// The stamina of the player.
-        /// </summary>
+        /// <summary>The stamina of the player.</summary>
         public float Stamina { get; }
 
-        /// <summary>
-        /// The additional HP of the player.
-        /// </summary>
+        /// <summary>The additional HP of the player.</summary>
         public float Ahp { get; }
 
-        /// <summary>
-        /// The effects of the player.
-        /// </summary>
+        /// <summary>The effects of the player.</summary>
         /// <seealso cref="EffectInfoBase"/>
         public ReadOnlyCollection<EffectInfoBase> Effects { get; }
 
-        /// <summary>
-        /// Information about the player's inventory.
-        /// </summary>
+        /// <summary>Information about the player's inventory.</summary>
         public InventoryInfo Inventory { get; }
 
         #endregion

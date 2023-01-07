@@ -9,22 +9,16 @@ namespace Axwabo.Helpers.Pools {
     /// <typeparam name="T">The type of list the pool contains.</typeparam>
     public class ListPool<T> : PoolBase<List<T>> {
 
-        /// <summary>
-        /// A shared instance of the pool.
-        /// </summary>
+        /// <summary>A shared instance of the pool.</summary>
         public static readonly ListPool<T> Shared = new();
 
         /// <inheritdoc />
         protected override Func<List<T>> DefaultSupplier { get; }
 
-        /// <summary>
-        /// The default size of lists created by this pool.
-        /// </summary>
+        /// <summary>The default size of lists created by this pool.</summary>
         public int DefaultCapacity { get; set; } = 128;
 
-        /// <summary>
-        /// Creates a pool with no size limit.
-        /// </summary>
+        /// <summary>Creates a pool with no size limit.</summary>
         public ListPool() => DefaultSupplier = () => new List<T>(DefaultCapacity);
 
         /// <summary>

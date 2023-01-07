@@ -9,21 +9,15 @@ namespace Axwabo.Helpers.Config {
     [Serializable]
     public struct StaticMapPoint : IMapPoint {
 
-        /// <summary>
-        /// An empty config object placed at the center of the world without rotation.
-        /// </summary>
+        /// <summary>An empty config object placed at the center of the world without rotation.</summary>
         public static readonly StaticMapPoint Empty = new();
 
         #region Info
 
-        /// <summary>
-        /// The world-space position of the point.
-        /// </summary>
+        /// <summary>The world-space position of the point.</summary>
         public SerializedRotation Position { get; set; }
 
-        /// <summary>
-        /// The world-space rotation of the point.
-        /// </summary>
+        /// <summary>The world-space rotation of the point.</summary>
         public SerializedRotation Rotation { get; set; }
 
         #endregion
@@ -70,9 +64,7 @@ namespace Axwabo.Helpers.Config {
 
         #region Getters
 
-        /// <summary>
-        /// Always returns true since there's no invalid state of a static point.
-        /// </summary>
+        /// <summary>Always returns true since there's no invalid state of a static point.</summary>
         public bool IsValid() => true;
 
         /// <inheritdoc />

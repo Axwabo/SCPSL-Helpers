@@ -9,9 +9,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// <seealso cref="RoleTypeAndInfoWrapper"/>
     public interface IPlayerInfoWithRole {
 
-        /// <summary>
-        /// Gameplay information about the player.
-        /// </summary>
+        /// <summary>Gameplay information about the player.</summary>
         PlayerInfoBase Info { get; }
 
         /// <summary>

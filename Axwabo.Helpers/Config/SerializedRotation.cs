@@ -9,24 +9,16 @@ namespace Axwabo.Helpers.Config {
     [Serializable]
     public struct SerializedRotation {
 
-        /// <summary>
-        /// An empty rotation object.
-        /// </summary>
+        /// <summary>An empty rotation object.</summary>
         public static readonly SerializedRotation Identity = new();
 
-        /// <summary>
-        /// The X axis of rotation.
-        /// </summary>
+        /// <summary>The X axis of rotation.</summary>
         public float X { get; set; }
 
-        /// <summary>
-        /// The Y axis of rotation.
-        /// </summary>
+        /// <summary>The Y axis of rotation.</summary>
         public float Y { get; set; }
 
-        /// <summary>
-        /// The Z axis of rotation.
-        /// </summary>
+        /// <summary>The Z axis of rotation.</summary>
         public float Z { get; set; }
 
         /// <summary>

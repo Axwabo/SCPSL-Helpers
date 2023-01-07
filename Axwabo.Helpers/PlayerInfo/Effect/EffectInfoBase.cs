@@ -25,19 +25,13 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             Intensity = intensity;
         }
 
-        /// <summary>
-        /// Whether the effect is enabled.
-        /// </summary>
+        /// <summary>Whether the effect is enabled.</summary>
         public bool IsEnabled { get; }
 
-        /// <summary>
-        /// The remaining time of the effect.
-        /// </summary>
+        /// <summary>The remaining time of the effect.</summary>
         public float Duration { get; }
 
-        /// <summary>
-        /// The intensity of the effect.
-        /// </summary>
+        /// <summary>The intensity of the effect.</summary>
         public byte Intensity { get; }
 
         /// <summary>

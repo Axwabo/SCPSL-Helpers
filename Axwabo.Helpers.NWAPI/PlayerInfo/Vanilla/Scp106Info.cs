@@ -55,24 +55,16 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
-        /// <summary>
-        /// The remaining attack cooldown.
-        /// </summary>
+        /// <summary>The remaining attack cooldown.</summary>
         public double AttackCooldown { get; }
 
-        /// <summary>
-        /// The current vigor amount.
-        /// </summary>
+        /// <summary>The current vigor amount.</summary>
         public float Vigor { get; }
 
-        /// <summary>
-        /// Whether SCP-106 is currently stalking.
-        /// </summary>
+        /// <summary>Whether SCP-106 is currently stalking.</summary>
         public bool IsStalking { get; }
 
-        /// <summary>
-        /// The remaining sinkhole cooldown.
-        /// </summary>
+        /// <summary>The remaining sinkhole cooldown.</summary>
         public CooldownInfo SinkholeCooldown { get; }
 
         #endregion

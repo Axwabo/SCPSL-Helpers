@@ -6,9 +6,7 @@ using UnityEngine;
 
 namespace Axwabo.Helpers {
 
-    /// <summary>
-    /// Helper methods for <see cref="Color"/> structs.
-    /// </summary>
+    /// <summary>Helper methods for <see cref="Color"/> structs.</summary>
     public static class ColorHelper {
 
         /// <summary>

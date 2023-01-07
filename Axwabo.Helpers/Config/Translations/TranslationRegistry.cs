@@ -76,9 +76,7 @@ namespace Axwabo.Helpers.Config.Translations {
         /// <returns>Whether the translation with the given key was removed.</returns>
         public static bool UnregisterTranslation(T key) => Translations.Remove(key);
 
-        /// <summary>
-        /// Removes all registered translations.
-        /// </summary>
+        /// <summary>Removes all registered translations.</summary>
         public static void Clear() => Translations.Clear();
 
     }

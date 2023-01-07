@@ -3,9 +3,7 @@ using UnityEngine;
 
 namespace Axwabo.Helpers {
 
-    /// <summary>
-    /// Specifies the alignment of text.
-    /// </summary>
+    /// <summary>Specifies the alignment of text.</summary>
     public enum TextAlignment {
 
         /// <summary>The text is aligned to the left.</summary>

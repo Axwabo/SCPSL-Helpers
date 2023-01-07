@@ -8,22 +8,16 @@ namespace Axwabo.Helpers.Pools {
     /// </summary>
     public class StringBuilderPool : PoolBase<StringBuilder> {
 
-        /// <summary>
-        /// A shared instance of the pool.
-        /// </summary>
+        /// <summary>A shared instance of the pool.</summary>
         public static readonly StringBuilderPool Shared = new();
 
         /// <inheritdoc />
         protected override Func<StringBuilder> DefaultSupplier { get; }
 
-        /// <summary>
-        /// The default size of lists created by this pool.
-        /// </summary>
+        /// <summary>The default size of lists created by this pool.</summary>
         public int DefaultCapacity { get; set; } = 128;
 
-        /// <summary>
-        /// Creates a pool with no size limit.
-        /// </summary>
+        /// <summary>Creates a pool with no size limit.</summary>
         public StringBuilderPool() => DefaultSupplier = () => new StringBuilder(DefaultCapacity);
 
         /// <summary>
@@ -32,9 +26,7 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="maxSize">The maximum size of the pool.</param>
         public StringBuilderPool(uint maxSize) : base(maxSize) => DefaultSupplier = () => new StringBuilder(((Func<int>) (() => DefaultCapacity))());
 
-        /// <summary>
-        /// Resets the string builder to its initial state.
-        /// </summary>
+        /// <summary>Resets the string builder to its initial state.</summary>
         protected override void ResetObject(StringBuilder builder) => builder.Clear().Capacity = 0;
 
         /// <summary>

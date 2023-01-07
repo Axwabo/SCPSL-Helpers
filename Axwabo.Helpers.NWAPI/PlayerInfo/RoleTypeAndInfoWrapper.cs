@@ -9,9 +9,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// </summary>
     public readonly struct RoleTypeAndInfoWrapper : IPlayerInfoWithRole {
 
-        /// <summary>
-        /// An empty info object.
-        /// </summary>
+        /// <summary>An empty info object.</summary>
         public static readonly RoleTypeAndInfoWrapper Empty = new();
 
         /// <summary>
@@ -23,9 +21,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         public static RoleTypeAndInfoWrapper Get(Player player, PlayerInfoGetter infoGetter) =>
             player is null ? Empty : new RoleTypeAndInfoWrapper(player.Rm().CurrentRole.RoleTypeId, infoGetter(player));
 
-        /// <summary>
-        /// The role of the player.
-        /// </summary>
+        /// <summary>The role of the player.</summary>
         public readonly RoleTypeId Role;
 
         /// <inheritdoc/>

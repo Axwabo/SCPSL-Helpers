@@ -73,39 +73,25 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
-        /// <summary>
-        /// The cooldown of "The Doctor's Call" ability.
-        /// </summary>
+        /// <summary>The cooldown of "The Doctor's Call" ability.</summary>
         public CooldownInfo CallCooldown { get; }
 
-        /// <summary>
-        /// The remaining time of "The Doctor's Call" ability.
-        /// </summary>
+        /// <summary>The remaining time of "The Doctor's Call" ability.</summary>
         public CooldownInfo CallDuration { get; }
 
-        /// <summary>
-        /// The cooldown of the "Good Sense of the Doctor" ability.
-        /// </summary>
+        /// <summary>The cooldown of the "Good Sense of the Doctor" ability.</summary>
         public CooldownInfo SenseCooldown { get; }
 
-        /// <summary>
-        /// The remaining time of the "Good Sense of the Doctor" ability.
-        /// </summary>
+        /// <summary>The remaining time of the "Good Sense of the Doctor" ability.</summary>
         public CooldownInfo SenseDuration { get; }
 
-        /// <summary>
-        /// The current target of the "Good Sense of the Doctor" ability.
-        /// </summary>
+        /// <summary>The current target of the "Good Sense of the Doctor" ability.</summary>
         public ReferenceHub Target { get; }
 
-        /// <summary>
-        /// The targets killed with the "Good Sense of the Doctor" ability.
-        /// </summary>
+        /// <summary>The targets killed with the "Good Sense of the Doctor" ability.</summary>
         public ReferenceHub[] DeadTargets { get; }
 
-        /// <summary>
-        /// The primary attack cooldown.
-        /// </summary>
+        /// <summary>The primary attack cooldown.</summary>
         public CooldownInfo AttackCooldown { get; }
 
         #endregion

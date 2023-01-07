@@ -34,9 +34,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         /// <param name="intensity">The intensity of the effect.</param>
         public StandardEffectInfo(bool isEnabled, EffectType effectType, float duration, byte intensity) : base(isEnabled, duration, intensity) => EffectType = effectType;
 
-        /// <summary>
-        /// The type of the effect.
-        /// </summary>
+        /// <summary>The type of the effect.</summary>
         public EffectType EffectType { get; }
 
         /// <inheritdoc />

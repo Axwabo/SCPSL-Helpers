@@ -13,33 +13,23 @@ namespace Axwabo.Helpers.Harmony {
 
         #region Basic Instructions
 
-        /// <summary>
-        /// Loads the argument at index 0 (this in non-static context) onto the evaluation stack.
-        /// </summary>
+        /// <summary>Loads the argument at index 0 (this in non-static context) onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Ldarg_0"/>
         public static CodeInstruction This => new(OpCodes.Ldarg_0);
 
-        /// <summary>
-        /// Returns from the current method.
-        /// </summary>
+        /// <summary>Returns from the current method.</summary>
         /// <seealso cref="OpCodes.Ret"/>
         public static CodeInstruction Return => new(OpCodes.Ret);
 
-        /// <summary>
-        /// Copies the current topmost value on the evaluation stack, and then pushes the copy onto the evaluation stack.
-        /// </summary>
+        /// <summary>Copies the current topmost value on the evaluation stack, and then pushes the copy onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Dup"/>
         public static CodeInstruction Duplicate => new(OpCodes.Dup);
 
-        /// <summary>
-        /// Removes the value currently on top of the evaluation stack.
-        /// </summary>
+        /// <summary>Removes the value currently on top of the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Pop"/>
         public static CodeInstruction Pop => new(OpCodes.Pop);
 
-        /// <summary>
-        /// Pushes a null reference (type O) onto the evaluation stack.
-        /// </summary>
+        /// <summary>Pushes a null reference (type O) onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Ldnull"/>
         public static CodeInstruction Null => new(OpCodes.Ldnull);
 
@@ -117,59 +107,35 @@ namespace Axwabo.Helpers.Harmony {
 
         #region Elements and Indexes
 
-        /// <summary>
-        /// Loads an object reference as a type O (object reference) onto the evaluation stack indirectly.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the object reference.</returns>
+        /// <summary>Loads an object reference as a type O (object reference) onto the evaluation stack indirectly.</summary>
         /// <seealso cref="OpCodes.Ldind_Ref"/>
         public static CodeInstruction LdindRef => new(OpCodes.Ldind_Ref);
 
-        /// <summary>
-        /// Stores an object reference value at a supplied address.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the object reference.</returns>
+        /// <summary>Stores an object reference value at a supplied address.</summary>
         /// <seealso cref="OpCodes.Stind_Ref"/>
         public static CodeInstruction StindRef => new(OpCodes.Stind_Ref);
 
-        /// <summary>
-        /// Loads the element containing an object reference at a specified array index onto the top of the evaluation stack as type O (object reference).
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the object reference.</returns>
+        /// <summary>Loads the element containing an object reference at a specified array index onto the top of the evaluation stack as type O (object reference).</summary>
         /// <seealso cref="OpCodes.Ldind_Ref"/>
         public static CodeInstruction LdelemRef => new(OpCodes.Ldelem_Ref);
 
-        /// <summary>
-        /// Replaces the array element at a given index with the object ref value (type O) on the evaluation stack.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that sets the array element.</returns>
+        /// <summary>Replaces the array element at a given index with the object ref value (type O) on the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Ldind_Ref"/>
         public static CodeInstruction StelemRef => new(OpCodes.Stelem_Ref);
 
-        /// <summary>
-        /// Loads the element with type int32 at a specified array index onto the top of the evaluation stack as an int32.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the int32.</returns>
+        /// <summary>Loads the element with type int32 at a specified array index onto the top of the evaluation stack as an int32.</summary>
         /// <seealso cref="OpCodes.Ldelem_I4"/>
         public static CodeInstruction LdelemI4 => new(OpCodes.Ldelem_I4);
 
-        /// <summary>
-        /// Replaces the array element at a given index with the int32 value on the evaluation stack.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that sets the array element.</returns>
+        /// <summary>Replaces the array element at a given index with the int32 value on the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Ldelem_I4"/>
         public static CodeInstruction StelemI4 => new(OpCodes.Stelem_I4);
 
-        /// <summary>
-        /// Loads a value of type int32 as an int32 onto the evaluation stack indirectly.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the int.</returns>
+        /// <summary>Loads a value of type int32 as an int32 onto the evaluation stack indirectly.</summary>
         /// <seealso cref="OpCodes.Ldind_I4"/>
         public static CodeInstruction LdindI4 => new(OpCodes.Ldind_I4);
 
-        /// <summary>
-        /// Stores a value of type int32 at a supplied address.
-        /// </summary>
-        /// <returns>An <see cref="CodeInstruction">instruction</see> that stores the int.</returns>
+        /// <summary>Stores a value of type int32 at a supplied address.</summary>
         /// <seealso cref="OpCodes.Stind_I4"/>
         public static CodeInstruction StindI4 => new(OpCodes.Stind_I4);
 
@@ -297,15 +263,11 @@ namespace Axwabo.Helpers.Harmony {
 
         #region Numbers
 
-        /// <summary>
-        /// Pushes the integer value of 0 onto the evaluation stack as an <see cref="int">int32</see>.
-        /// </summary>
+        /// <summary>Pushes the integer value of 0 onto the evaluation stack as an <see cref="int">int32</see>.</summary>
         /// <seealso cref="OpCodes.Ldc_I4_0"/>
         public static CodeInstruction Int0 => new(OpCodes.Ldc_I4_0);
 
-        /// <summary>
-        /// Pushes the integer value of 1 onto the evaluation stack as an <see cref="Int32">int32</see>.
-        /// </summary>
+        /// <summary>Pushes the integer value of 1 onto the evaluation stack as an <see cref="Int32">int32</see>.</summary>
         /// <seealso cref="OpCodes.Ldarg_0"/>
         public static CodeInstruction Int1 => new(OpCodes.Ldc_I4_1);
 
@@ -328,9 +290,7 @@ namespace Axwabo.Helpers.Harmony {
             _ => new CodeInstruction(OpCodes.Ldc_I4, i)
         };
 
-        /// <summary>
-        /// Pushes 0 of type <see cref="Single">int32</see> onto the evaluation stack as type F (float).
-        /// </summary>
+        /// <summary>Pushes 0 of type <see cref="Single">int32</see> onto the evaluation stack as type F (float).</summary>
         /// <seealso cref="OpCodes.Ldc_R4"/>
         public static CodeInstruction Float0 => new(OpCodes.Ldc_R4, 0f);
 
@@ -355,75 +315,51 @@ namespace Axwabo.Helpers.Harmony {
 
         #region Operators
 
-        /// <summary>
-        /// Adds two values and pushes the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Adds two values and pushes the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Add"/>
         public static CodeInstruction Add => new(OpCodes.Add);
 
-        /// <summary>
-        /// Subtracts one value from another and pushes the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Subtracts one value from another and pushes the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Sub"/>
         public static CodeInstruction Subtract => new(OpCodes.Sub);
 
-        /// <summary>
-        /// Multiplies two values and pushes the result on the evaluation stack.
-        /// </summary>
+        /// <summary>Multiplies two values and pushes the result on the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Mul"/>
         public static CodeInstruction Multiply => new(OpCodes.Mul);
 
-        /// <summary>
-        /// Divides two values and pushes the result as a floating-point (type F) or quotient (type int32) onto the evaluation stack.
-        /// </summary>
+        /// <summary>Divides two values and pushes the result as a floating-point (type F) or quotient (type int32) onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Div"/>
         public static CodeInstruction Divide => new(OpCodes.Div);
 
-        /// <summary>
-        /// Divides two values and pushes the remainder onto the evaluation stack.
-        /// </summary>
+        /// <summary>Divides two values and pushes the remainder onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Rem"/>
         public static CodeInstruction Modulo => new(OpCodes.Rem);
 
-        /// <summary>
-        /// Computes the bitwise complement of the integer value on top of the stack and pushes the result onto the evaluation stack as the same type.
-        /// </summary>
+        /// <summary>Computes the bitwise complement of the integer value on top of the stack and pushes the result onto the evaluation stack as the same type.</summary>
         /// <seealso cref="OpCodes.Not"/>
         public static CodeInstruction BitwiseNot => new(OpCodes.Not);
 
-        /// <summary>
-        /// Computes the bitwise AND of two values and pushes the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Computes the bitwise AND of two values and pushes the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.And"/>
         public static CodeInstruction BitwiseAnd => new(OpCodes.And);
 
-        /// <summary>
-        /// Computes the bitwise complement of the two integer values on top of the stack and pushes the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Computes the bitwise complement of the two integer values on top of the stack and pushes the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Xor"/>
         public static CodeInstruction BitwiseOr => new(OpCodes.Or);
 
-        /// <summary>
-        /// Computes the bitwise XOR of the top two values on the evaluation stack, pushing the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Computes the bitwise XOR of the top two values on the evaluation stack, pushing the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Xor"/>
         public static CodeInstruction BitwiseXor => new(OpCodes.Xor);
 
-        /// <summary>
-        /// Shifts an integer value to the left (in zeroes) by a specified number of bits, pushing the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Shifts an integer value to the left (in zeroes) by a specified number of bits, pushing the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Shl"/>
         public static CodeInstruction ShiftLeft => new(OpCodes.Shl);
 
-        /// <summary>
-        /// Shifts an integer value (in sign) to the right by a specified number of bits, pushing the result onto the evaluation stack.
-        /// </summary>
+        /// <summary>Shifts an integer value (in sign) to the right by a specified number of bits, pushing the result onto the evaluation stack.</summary>
         /// <seealso cref="OpCodes.Shr"/>
         public static CodeInstruction ShiftRight => new(OpCodes.Shr);
 
-        /// <summary>
-        /// Compares two values.
-        /// </summary>
+        /// <summary>Compares two values.</summary>
         /// <seealso cref="OpCodes.Ceq"/>
         public static CodeInstruction Equality => new(OpCodes.Ceq);
 

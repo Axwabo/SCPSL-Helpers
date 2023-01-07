@@ -8,14 +8,10 @@ namespace Axwabo.Helpers.Config.Translations {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public abstract class TranslationAttribute : Attribute {
 
-        /// <summary>
-        /// The key to use for the translation.
-        /// </summary>
+        /// <summary>The key to use for the translation.</summary>
         public readonly Enum Value;
 
-        /// <summary>
-        /// The cached type of the enum.
-        /// </summary>
+        /// <summary>The cached type of the enum.</summary>
         public readonly Type EnumType;
 
         /// <summary>

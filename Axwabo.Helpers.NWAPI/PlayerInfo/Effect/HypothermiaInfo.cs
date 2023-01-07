@@ -69,24 +69,16 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             HumeBlocked = humeBlocked;
         }
 
-        /// <summary>
-        /// The exposure to the fog in <see cref="AttackCooldownSubEffect"/> and <see cref="TemperatureSubEffect"/>.
-        /// </summary>
+        /// <summary>The exposure to the fog in <see cref="AttackCooldownSubEffect"/> and <see cref="TemperatureSubEffect"/>.</summary>
         public float Exposure { get; }
 
-        /// <summary>
-        /// The damage counter used in <see cref="DamageSubEffect"/>.
-        /// </summary>
+        /// <summary>The damage counter used in <see cref="DamageSubEffect"/>.</summary>
         public float DamageCounter { get; }
 
-        /// <summary>
-        /// The Hume Shield decrease timer used in <see cref="HumeShieldSubEffect"/>.
-        /// </summary>
+        /// <summary>The Hume Shield decrease timer used in <see cref="HumeShieldSubEffect"/>.</summary>
         public float DecreaseTimer { get; }
 
-        /// <summary>
-        /// Whether the Hume Shield is currently blocked.
-        /// </summary>
+        /// <summary>Whether the Hume Shield is currently blocked.</summary>
         public bool HumeBlocked { get; }
 
         /// <inheritdoc />

@@ -66,39 +66,25 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
-        /// <summary>
-        /// The current Rage state of SCP-096.
-        /// </summary>
+        /// <summary>The current Rage state of SCP-096.</summary>
         public Scp096RageState RageState { get; }
 
-        /// <summary>
-        /// The time left until SCP-096 is no longer enraged.
-        /// </summary>
+        /// <summary>The time left until SCP-096 is no longer enraged.</summary>
         public float RageTimeLeft { get; }
 
-        /// <summary>
-        /// The total time SCP-096 is enraged.
-        /// </summary>
+        /// <summary>The total time SCP-096 is enraged.</summary>
         public float TotalRageTime { get; }
 
-        /// <summary>
-        /// The current targets of SCP-096.
-        /// </summary>
+        /// <summary>The current targets of SCP-096.</summary>
         public ReferenceHub[] Targets { get; }
 
-        /// <summary>
-        /// The duration of the Charge ability.
-        /// </summary>
+        /// <summary>The duration of the Charge ability.</summary>
         public CooldownInfo ChargeDuration { get; }
 
-        /// <summary>
-        /// The cooldown of the Charge ability.
-        /// </summary>
+        /// <summary>The cooldown of the Charge ability.</summary>
         public CooldownInfo ChargeCooldown { get; }
 
-        /// <summary>
-        /// Time until Rage can be activated.
-        /// </summary>
+        /// <summary>Time until Rage can be activated.</summary>
         public CooldownInfo RageActivationTime { get; }
 
         #endregion

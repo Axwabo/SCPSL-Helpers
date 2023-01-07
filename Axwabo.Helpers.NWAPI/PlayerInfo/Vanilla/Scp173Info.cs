@@ -74,39 +74,25 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
-        /// <summary>
-        /// The total cooldown of the Blink ability.
-        /// </summary>
+        /// <summary>The total cooldown of the Blink ability.</summary>
         public float TotalBlinkCooldown { get; }
 
-        /// <summary>
-        /// The time when players stopped looking at SCP-173.
-        /// </summary>
+        /// <summary>The time when players stopped looking at SCP-173.</summary>
         public double BlinkInitialStop { get; }
 
-        /// <summary>
-        /// The end time of the Blink ability.
-        /// </summary>
+        /// <summary>The end time of the Blink ability.</summary>
         public double BlinkEndSustainTime { get; }
 
-        /// <summary>
-        /// Whether Breakneck Speeds is active.
-        /// </summary>
+        /// <summary>Whether Breakneck Speeds is active.</summary>
         public bool BreakneckSpeedsActive { get; }
 
-        /// <summary>
-        /// The remaining time of Breakneck Speeds.
-        /// </summary>
+        /// <summary>The remaining time of Breakneck Speeds.</summary>
         public float BreakneckSpeedsRemainingTime { get; }
 
-        /// <summary>
-        /// The Breakneck Speeds ability cooldown.
-        /// </summary>
+        /// <summary>The Breakneck Speeds ability cooldown.</summary>
         public CooldownInfo BreakneckSpeedsCooldown { get; }
 
-        /// <summary>
-        /// The Tantrum ability cooldown.
-        /// </summary>
+        /// <summary>The Tantrum ability cooldown.</summary>
         public CooldownInfo TantrumCooldown { get; }
 
         #endregion

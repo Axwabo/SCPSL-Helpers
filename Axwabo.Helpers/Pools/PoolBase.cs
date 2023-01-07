@@ -18,9 +18,7 @@ namespace Axwabo.Helpers.Pools {
 
         private readonly Queue<T> _queue = new();
 
-        /// <summary>
-        /// Creates a pool with no size limit.
-        /// </summary>
+        /// <summary>Creates a pool with no size limit.</summary>
         public PoolBase() => MaxSize = 0;
 
         /// <summary>
@@ -29,9 +27,7 @@ namespace Axwabo.Helpers.Pools {
         /// <param name="maxSize">The maximum size of the pool.</param>
         public PoolBase(uint maxSize) => MaxSize = maxSize;
 
-        /// <summary>
-        /// The maximum amount of elements that can be stored in the pool.
-        /// </summary>
+        /// <summary>The maximum amount of elements that can be stored in the pool.</summary>
         public uint MaxSize { get; }
 
         /// <summary>
