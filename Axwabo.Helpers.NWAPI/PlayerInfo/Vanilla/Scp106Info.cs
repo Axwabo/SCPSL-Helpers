@@ -1,4 +1,5 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
+using Mirror;
 using PlayerRoles.PlayableScps.Scp106;
 using PluginAPI.Core;
 
@@ -22,6 +23,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             if (!routines.IsValid)
                 return null;
             return new Scp106Info(
+                routines.Attack._nextAttack - NetworkTime.time,
                 routines.Vigor._vigor,
                 routines.StalkAbility.IsActive,
                 routines.SinkholeController.Cooldown,
@@ -36,7 +38,8 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <returns>Whether the given player is SCP-106.</returns>
         public static bool Is106(Player p) => p.RoleIs<Scp106Role>();
 
-        public Scp106Info(float vigor, bool isStalking, CooldownInfo sinkholeCooldown, BasicRoleInfo basicRoleInfo) : base(basicRoleInfo) {
+        public Scp106Info(double attackCooldown, float vigor, bool isStalking, CooldownInfo sinkholeCooldown, BasicRoleInfo basicRoleInfo) : base(basicRoleInfo) {
+            AttackCooldown = attackCooldown;
             Vigor = vigor;
             IsStalking = isStalking;
             SinkholeCooldown = sinkholeCooldown;
@@ -44,8 +47,12 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
+        public double AttackCooldown { get; }
+
         public float Vigor { get; }
+
         public bool IsStalking { get; }
+
         public CooldownInfo SinkholeCooldown { get; }
 
         #endregion
@@ -59,10 +66,16 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             if (!routines.IsValid)
                 return;
             routines.Vigor._vigor = Vigor;
+
+            var attack = routines.Attack;
+            attack._nextAttack = NetworkTime.time + AttackCooldown;
+
             routines.StalkAbility.IsActive = IsStalking;
 
             var sinkhole = routines.SinkholeController;
             SinkholeCooldown.ApplyTo(sinkhole.Cooldown);
+
+            attack.Sync();
             sinkhole.Sync();
         }
 

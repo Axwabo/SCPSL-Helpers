@@ -7,16 +7,18 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public static readonly Scp106SubroutineContainer Empty = new();
 
         public readonly Scp106Vigor Vigor;
+        public readonly Scp106Attack Attack;
         public readonly Scp106StalkAbility StalkAbility;
         public readonly Scp106SinkholeController SinkholeController;
 
         /// <inheritdoc />
         public bool IsValid { get; }
 
-        public Scp106SubroutineContainer(Scp106Vigor vigor, Scp106StalkAbility stalkAbility, Scp106SinkholeController sinkholeController) {
+        public Scp106SubroutineContainer(Scp106Vigor vigor, Scp106Attack attack, Scp106StalkAbility stalkAbility, Scp106SinkholeController sinkholeController) {
+            Vigor = vigor;
+            Attack = attack;
             StalkAbility = stalkAbility;
             SinkholeController = sinkholeController;
-            Vigor = vigor;
             IsValid = true;
         }
 
@@ -27,6 +29,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <returns>An <see cref="Scp106SubroutineContainer"/> containing the subroutines.</returns>
         public static Scp106SubroutineContainer Get(Scp106Role role) {
             Scp106Vigor vigor = null;
+            Scp106Attack attack = null;
             Scp106StalkAbility stalkAbility = null;
             Scp106SinkholeController sinkholeController = null;
             if (role == null)
@@ -46,12 +49,17 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
                         sinkholeController = sinkhole;
                         propertiesSet++;
                         break;
+                    case Scp106Attack a:
+                        attack = a;
+                        propertiesSet++;
+                        break;
                 }
 
-            return propertiesSet != 3
+            return propertiesSet != 4
                 ? Empty
                 : new Scp106SubroutineContainer(
                     vigor,
+                    attack,
                     stalkAbility,
                     sinkholeController
                 );

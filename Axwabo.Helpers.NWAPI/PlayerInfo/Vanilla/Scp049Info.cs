@@ -43,6 +43,17 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <returns>Whether the given player is SCP-049.</returns>
         public static bool Is049(Player p) => p.RoleIs<Scp049Role>();
 
+        /// <summary>
+        /// Creates a new <see cref="Scp049Info"/> instance.
+        /// </summary>
+        /// <param name="callCooldown">The cooldown of "The Doctor's Call" ability.</param>
+        /// <param name="callDuration">The remaining time of "The Doctor's Call" ability.</param>
+        /// <param name="senseCooldown">The cooldown of the "Good Sense of the Doctor" ability.</param>
+        /// <param name="senseDuration">The remaining time of the "Good Sense of the Doctor" ability.</param>
+        /// <param name="target">The current target of the "Good Sense of the Doctor" ability.</param>
+        /// <param name="deadTargets">The targets killed with the "Good Sense of the Doctor" ability.</param>
+        /// <param name="attackCooldown">The primary attack cooldown.</param>
+        /// <param name="basicRoleInfo">Basic information about the player.</param>
         public Scp049Info(CooldownInfo callCooldown,
             CooldownInfo callDuration,
             CooldownInfo senseCooldown,
@@ -62,18 +73,39 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
+        /// <summary>
+        /// The cooldown of "The Doctor's Call" ability.
+        /// </summary>
         public CooldownInfo CallCooldown { get; }
 
+        /// <summary>
+        /// The remaining time of "The Doctor's Call" ability.
+        /// </summary>
         public CooldownInfo CallDuration { get; }
 
+        /// <summary>
+        /// The cooldown of the "Good Sense of the Doctor" ability.
+        /// </summary>
         public CooldownInfo SenseCooldown { get; }
 
+        /// <summary>
+        /// The remaining time of the "Good Sense of the Doctor" ability.
+        /// </summary>
         public CooldownInfo SenseDuration { get; }
 
+        /// <summary>
+        /// The current target of the "Good Sense of the Doctor" ability.
+        /// </summary>
         public ReferenceHub Target { get; }
 
+        /// <summary>
+        /// The targets killed with the "Good Sense of the Doctor" ability.
+        /// </summary>
         public ReferenceHub[] DeadTargets { get; }
 
+        /// <summary>
+        /// The primary attack cooldown.
+        /// </summary>
         public CooldownInfo AttackCooldown { get; }
 
         #endregion
