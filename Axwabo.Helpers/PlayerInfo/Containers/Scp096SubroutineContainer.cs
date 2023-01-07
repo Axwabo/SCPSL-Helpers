@@ -10,15 +10,17 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         public readonly Scp096TargetsTracker TargetsTracker;
         public readonly Scp096RageManager RageManager;
         public readonly Scp096ChargeAbility Charge;
+        public readonly Scp096RageCycleAbility RageCycle;
 
         /// <inheritdoc />
         public bool IsValid { get; }
 
-        public Scp096SubroutineContainer(Scp096StateController state, Scp096TargetsTracker targetsTracker, Scp096RageManager rageManager, Scp096ChargeAbility charge) {
+        public Scp096SubroutineContainer(Scp096StateController state, Scp096TargetsTracker targetsTracker, Scp096RageManager rageManager, Scp096ChargeAbility charge, Scp096RageCycleAbility rageCycle) {
             State = state;
             TargetsTracker = targetsTracker;
             RageManager = rageManager;
             Charge = charge;
+            RageCycle = rageCycle;
             IsValid = true;
         }
 
@@ -32,6 +34,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             Scp096TargetsTracker targetsTracker = null;
             Scp096RageManager rageManager = null;
             Scp096ChargeAbility charge = null;
+            Scp096RageCycleAbility rageCycle = null;
             if (role == null)
                 return Empty;
             var propertiesSet = 0;
@@ -53,11 +56,15 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
                         charge = c;
                         propertiesSet++;
                         break;
+                    case Scp096RageCycleAbility rc:
+                        rageCycle = rc;
+                        propertiesSet++;
+                        break;
                 }
 
-            return propertiesSet != 4
+            return propertiesSet != 5
                 ? Empty
-                : new Scp096SubroutineContainer(state, targetsTracker, rageManager, charge);
+                : new Scp096SubroutineContainer(state, targetsTracker, rageManager, charge, rageCycle);
         }
 
     }

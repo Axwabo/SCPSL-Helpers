@@ -44,6 +44,17 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <returns>Whether the given player is SCP-173.</returns>
         public static bool Is173(Player p) => p.RoleIs<Scp173Role>();
 
+        /// <summary>
+        /// Creates a new <see cref="Scp173Info"/> instance.
+        /// </summary>
+        /// <param name="totalBlinkCooldown">The total cooldown of the Blink ability.</param>
+        /// <param name="blinkInitialStop">The time when players stopped looking at SCP-173.</param>
+        /// <param name="blinkEndSustainTime">The end time of the Blink ability.</param>
+        /// <param name="breakneckSpeedsActive">Whether Breakneck Speeds is active.</param>
+        /// <param name="breakneckSpeedsRemainingTime">The remaining time of Breakneck Speeds.</param>
+        /// <param name="breakneckSpeedsCooldown">The Breakneck Speeds ability cooldown.</param>
+        /// <param name="tantrumCooldown">The Tantrum ability cooldown.</param>
+        /// <param name="basicRoleInfo">Basic information about the player.</param>
         public Scp173Info(float totalBlinkCooldown,
             double blinkInitialStop,
             double blinkEndSustainTime,
@@ -63,18 +74,39 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
+        /// <summary>
+        /// The total cooldown of the Blink ability.
+        /// </summary>
         public float TotalBlinkCooldown { get; }
 
+        /// <summary>
+        /// The time when players stopped looking at SCP-173.
+        /// </summary>
         public double BlinkInitialStop { get; }
 
+        /// <summary>
+        /// The end time of the Blink ability.
+        /// </summary>
         public double BlinkEndSustainTime { get; }
 
+        /// <summary>
+        /// Whether Breakneck Speeds is active.
+        /// </summary>
         public bool BreakneckSpeedsActive { get; }
 
+        /// <summary>
+        /// The remaining time of Breakneck Speeds.
+        /// </summary>
         public float BreakneckSpeedsRemainingTime { get; }
 
+        /// <summary>
+        /// The Breakneck Speeds ability cooldown.
+        /// </summary>
         public CooldownInfo BreakneckSpeedsCooldown { get; }
 
+        /// <summary>
+        /// The Tantrum ability cooldown.
+        /// </summary>
         public CooldownInfo TantrumCooldown { get; }
 
         #endregion

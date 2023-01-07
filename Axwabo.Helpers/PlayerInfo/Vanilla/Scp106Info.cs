@@ -38,6 +38,14 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <returns>Whether the given player is SCP-106.</returns>
         public static bool Is106(Player p) => p.RoleIs<Scp106Role>();
 
+        /// <summary>
+        /// Creates a new <see cref="Scp106Info"/> instance.
+        /// </summary>
+        /// <param name="attackCooldown">The remaining attack cooldown.</param>
+        /// <param name="vigor">The current vigor amount.</param>
+        /// <param name="isStalking">Whether SCP-106 is currently stalking.</param>
+        /// <param name="sinkholeCooldown">The remaining sinkhole cooldown.</param>
+        /// <param name="basicRoleInfo">Basic information about the player.</param>
         public Scp106Info(double attackCooldown, float vigor, bool isStalking, CooldownInfo sinkholeCooldown, BasicRoleInfo basicRoleInfo) : base(basicRoleInfo) {
             AttackCooldown = attackCooldown;
             Vigor = vigor;
@@ -47,9 +55,24 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
+        /// <summary>
+        /// The remaining attack cooldown.
+        /// </summary>
         public double AttackCooldown { get; }
+
+        /// <summary>
+        /// The current vigor amount.
+        /// </summary>
         public float Vigor { get; }
+
+        /// <summary>
+        /// Whether SCP-106 is currently stalking.
+        /// </summary>
         public bool IsStalking { get; }
+
+        /// <summary>
+        /// The remaining sinkhole cooldown.
+        /// </summary>
         public CooldownInfo SinkholeCooldown { get; }
 
         #endregion
@@ -63,15 +86,15 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             if (!routines.IsValid)
                 return;
             routines.Vigor._vigor = Vigor;
-            
+
             var attack = routines.Attack;
             attack._nextAttack = NetworkTime.time + AttackCooldown;
-            
+
             routines.StalkAbility.IsActive = IsStalking;
 
             var sinkhole = routines.SinkholeController;
             SinkholeCooldown.ApplyTo(sinkhole.Cooldown);
-            
+
             attack.Sync();
             sinkhole.Sync();
         }

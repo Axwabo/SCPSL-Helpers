@@ -135,6 +135,7 @@
         <Compile Include="PlayerInfo\ItemInfoObtainer.cs" />
         <Compile Include="PlayerInfo\Item\FirearmInfo.cs" />
         <Compile Include="PlayerInfo\Item\ItemInfoBase.cs" />
+        <Compile Include="PlayerInfo\Item\JailbirdInfo.cs" />
         <Compile Include="PlayerInfo\Item\RadioInfo.cs" />
         <Compile Include="PlayerInfo\Item\Scp1576Info.cs" />
         <Compile Include="PlayerInfo\Item\Scp268Info.cs" />

@@ -14,6 +14,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         private static readonly List<ItemInfoObtainer> CustomObtainers = new();
 
         private static readonly ItemInfoObtainer[] DefaultObtainers = {
+            new(JailbirdInfo.IsJailbird, JailbirdInfo.Get),
             new(RadioInfo.IsRadio, RadioInfo.Get),
             new(Scp330BagInfo.Is330, Scp330BagInfo.Get),
             new(Scp268Info.Is268, Scp268Info.Get),
