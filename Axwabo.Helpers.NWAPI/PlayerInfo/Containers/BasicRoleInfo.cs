@@ -10,7 +10,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
     /// <summary>
     /// Contains common information about a player.
     /// </summary>
-    public readonly struct BasicRoleInfo : IIsValid {
+    public readonly struct BasicRoleInfo {
 
         #region Common Static
 
@@ -33,7 +33,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <summary>
         /// Gets the AHP value of the player, or -1 if there are no currently active AHP processes.
         /// </summary>
-        /// <param name="player">The player to get the AHP value of.</param>
+        /// <param name="player">The player to get the AHP value from.</param>
         /// <returns>The AHP value, or -1 if there are no active processes.</returns>
         public static float GetAhp(Player player) {
             var ahp = (AhpStat) player.ReferenceHub.playerStats.StatModules[AhpIndex];
@@ -49,6 +49,11 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
 
         #endregion
 
+        /// <summary>
+        /// Gets the basic information about the given <paramref name="player"/>.
+        /// </summary>
+        /// <param name="player">The player to get the information from.</param>
+        /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
         public static BasicRoleInfo Get(Player player) => new(
             player.Position,
             player.Rotation,
@@ -60,6 +65,17 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             InventoryInfo.Get(player)
         );
 
+        /// <summary>
+        /// Creates a new <see cref="BasicRoleInfo"/> instance.
+        /// </summary>
+        /// <param name="position">The position of the player.</param>
+        /// <param name="rotation">The rotation of the player.</param>
+        /// <param name="health">The base HP of the player.</param>
+        /// <param name="ahp">The additional HP of the player.</param>
+        /// <param name="stamina">The stamina of the player.</param>
+        /// <param name="humeShield">The Hume Shield of the player.</param>
+        /// <param name="effects">The effects on the player.</param>
+        /// <param name="inventoryInfo">Information about the player's inventory.</param>
         public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo) {
             Position = position;
             Rotation = rotation;
@@ -74,24 +90,33 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
 
         #region Members
 
+        /// <summary>The position of the player.</summary>
         public readonly Vector3 Position;
 
+        /// <summary>The rotation of the player.</summary>
         public readonly Vector3 Rotation;
 
+        /// <summary>The base HP of the player.</summary>
         public readonly float Health;
 
+        /// <summary>The additional HP of the player.</summary>
         public readonly float Ahp;
 
+        /// <summary>The stamina of the player.</summary>
         public readonly float Stamina;
 
+        /// <summary>The Hume Shield of the player.</summary>
         public readonly float HumeShield;
 
+        /// <summary>The effects of the player.</summary>
+        /// <seealso cref="EffectInfoBase"/>
         public readonly List<EffectInfoBase> Effects;
 
+        /// <summary>Information about the player's inventory.</summary>
         public readonly InventoryInfo Inventory;
 
-        /// <inheritdoc />
-        public bool IsValid { get; }
+        /// <summary>True if this instance is valid (not empty).</summary>
+        public readonly bool IsValid;
 
         #endregion
 

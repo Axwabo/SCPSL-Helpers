@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
     /// <summary>
     /// A struct containing relative time information about an <see cref="AbilityCooldown"/>.
     /// </summary>
-    public readonly struct CooldownInfo : IIsValid {
+    public readonly struct CooldownInfo {
 
         /// <summary>The network time this struct was created.</summary>
         public readonly double Snapshot;
@@ -17,8 +17,8 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <summary>The next possible usage of the ability.</summary>
         public readonly double NextUse;
 
-        /// <inheritdoc />
-        public bool IsValid { get; }
+        /// <summary>True if this instance is valid (not empty).</summary>
+        public readonly bool IsValid;
 
         /// <summary>
         /// Creates a new <see cref="CooldownInfo"/> instance.

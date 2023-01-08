@@ -12,9 +12,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
 
         public static bool IsFirearm(ItemBase item) => item is Firearm;
 
-        public FirearmInfo(FirearmStatus status, ItemType type, ushort serial) : base(type, serial) {
-            Status = status;
-        }
+        public FirearmInfo(FirearmStatus status, ItemType type, ushort serial) : base(type, serial) => Status = status;
 
         public FirearmStatus Status { get; }
 

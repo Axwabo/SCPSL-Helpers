@@ -1,5 +1,11 @@
-﻿namespace Axwabo.Helpers.Config {
+﻿#pragma warning disable CS1591 
+// disable XML doc warning lol
 
+namespace Axwabo.Helpers.Config {
+
+    /// <summary>
+    /// Temporary enum for storing Room Types until NW decides to add them to the API.
+    /// </summary>
     public enum RoomType {
 
         Unknown,

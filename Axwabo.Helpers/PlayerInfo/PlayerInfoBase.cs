@@ -55,12 +55,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="player">The player to get the obtainer from.</param>
         /// <returns>The first matching obtainer, or <see cref="PlayerInfoObtainer.Empty"/> if none were found.</returns>
         public static PlayerInfoObtainer GetFirstMatchingObtainer(Player player) {
-            foreach (var obtainer in CustomObtainers.Where(e => e.IsValid))
-                if (obtainer.Check(player))
+            foreach (var obtainer in CustomObtainers)
+                if (obtainer.IsValid && obtainer.Check(player))
                     return obtainer;
-            foreach (var obtainer in DefaultObtainers.Where(e => e.IsValid))
-                if (obtainer.Check(player))
+
+            foreach (var obtainer in DefaultObtainers)
+                if (obtainer.IsValid && obtainer.Check(player))
                     return obtainer;
+
             return PlayerInfoObtainer.Empty;
         }
 
@@ -91,14 +93,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>The base HP of the player.</summary>
         public float Health { get; }
 
-        /// <summary>The Hume Shield of the player.</summary>
-        public float HumeShield { get; }
+        /// <summary>The additional HP of the player.</summary>
+        public float Ahp { get; }
 
         /// <summary>The stamina of the player.</summary>
         public float Stamina { get; }
 
-        /// <summary>The additional HP of the player.</summary>
-        public float Ahp { get; }
+        /// <summary>The Hume Shield of the player.</summary>
+        public float HumeShield { get; }
 
         /// <summary>The effects of the player.</summary>
         /// <seealso cref="EffectInfoBase"/>
@@ -119,9 +121,9 @@ namespace Axwabo.Helpers.PlayerInfo {
             Position = roleInfo.Position;
             Rotation = roleInfo.Rotation;
             Health = roleInfo.Health;
-            HumeShield = roleInfo.HumeShield;
-            Stamina = roleInfo.Stamina;
             Ahp = roleInfo.Ahp;
+            Stamina = roleInfo.Stamina;
+            HumeShield = roleInfo.HumeShield;
             Effects = roleInfo.Effects?.AsReadOnly();
             Inventory = roleInfo.Inventory;
         }

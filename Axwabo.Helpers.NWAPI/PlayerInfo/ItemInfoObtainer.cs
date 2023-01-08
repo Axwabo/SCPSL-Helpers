@@ -5,7 +5,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// <summary>
     /// A struct containing various item info related methods.
     /// </summary>
-    public readonly struct ItemInfoObtainer : IIsValid {
+    public readonly struct ItemInfoObtainer {
 
         private static uint _id;
 
@@ -24,10 +24,10 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>The auto-incrementing id of this instance.</summary>
         public readonly uint Id;
 
-        /// <inheritdoc />
+        /// <summary>True if this instance is valid (not empty).</summary>
         public bool IsValid => Id > 0 && Check != null && Get != null;
 
-        /// <summary>Returns true if the <see cref="Give"/> method is not null.</summary>
+        /// <summary>True if the <see cref="Give"/> method is not null.</summary>
         public bool CanGive => Give != null;
 
         /// <summary>

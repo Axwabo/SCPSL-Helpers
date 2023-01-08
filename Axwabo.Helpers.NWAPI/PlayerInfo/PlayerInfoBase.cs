@@ -92,14 +92,14 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <summary>The base HP of the player.</summary>
         public float Health { get; }
 
-        /// <summary>The Hume Shield of the player.</summary>
-        public float HumeShield { get; }
+        /// <summary>The additional HP of the player.</summary>
+        public float Ahp { get; }
 
         /// <summary>The stamina of the player.</summary>
         public float Stamina { get; }
 
-        /// <summary>The additional HP of the player.</summary>
-        public float Ahp { get; }
+        /// <summary>The Hume Shield of the player.</summary>
+        public float HumeShield { get; }
 
         /// <summary>The effects of the player.</summary>
         /// <seealso cref="EffectInfoBase"/>
@@ -120,9 +120,9 @@ namespace Axwabo.Helpers.PlayerInfo {
             Position = roleInfo.Position;
             Rotation = roleInfo.Rotation;
             Health = roleInfo.Health;
-            HumeShield = roleInfo.HumeShield;
-            Stamina = roleInfo.Stamina;
             Ahp = roleInfo.Ahp;
+            Stamina = roleInfo.Stamina;
+            HumeShield = roleInfo.HumeShield;
             Effects = roleInfo.Effects?.AsReadOnly();
             Inventory = roleInfo.Inventory;
         }

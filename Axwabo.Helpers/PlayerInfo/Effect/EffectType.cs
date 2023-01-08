@@ -1,5 +1,11 @@
-﻿namespace Axwabo.Helpers.PlayerInfo.Effect {
+﻿#pragma warning disable CS1591
+namespace Axwabo.Helpers.PlayerInfo.Effect {
 
+    /// <summary>
+    /// All effect types in the game.
+    /// </summary>
+    /// <seealso cref="EffectInfoBase.EffectTypeToSystemType"/>
+    /// <seealso cref="EffectInfoBase.EffectInstanceToEffectType"/>
     public enum EffectType {
 
         None,

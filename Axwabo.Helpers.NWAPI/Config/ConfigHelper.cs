@@ -91,11 +91,22 @@ namespace Axwabo.Helpers.Config {
         /// <returns>The EXILED room type.</returns>
         public static RoomType GetRoomType(string rawName) => NameToValue.TryGetValue(rawName.RemoveParenthesesOnEndOfName(), out var type) ? type : RoomType.Unknown;
 
+        /// <summary>
+        /// Removes the parentheses and everything after it from the string.
+        /// </summary>
+        /// <param name="name">The string to remove the parentheses from.</param>
+        /// <returns>The string without the parentheses.</returns>
         public static string RemoveParenthesesOnEndOfName(this string name) {
             var startIndex = name.IndexOf('(') - 1;
             return startIndex > 0 ? name.Remove(startIndex, name.Length - startIndex) : name;
         }
 
+        /// <summary>
+        /// Gets a room by its type.
+        /// </summary>
+        /// <param name="type">The type of the room.</param>
+        /// <returns>The room, or null if it couldn't be found.</returns>
+        /// <seealso cref="RoomType"/>
         public static RoomIdentifier GetRoomByType(RoomType type) {
             var name = type.GetRoomName();
             return Rooms.FirstOrDefault(e => e.gameObject.name.RemoveParenthesesOnEndOfName() == name);

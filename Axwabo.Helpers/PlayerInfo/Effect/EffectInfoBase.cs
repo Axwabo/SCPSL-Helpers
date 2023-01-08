@@ -10,7 +10,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
     /// <summary>
     /// A base class for storing information about a <see cref="StatusEffectBase"/>.
     /// </summary>
-    /// <seealso cref="StandardPlayerInfo"/>
+    /// <seealso cref="StandardEffectInfo"/>
     public abstract class EffectInfoBase {
 
         /// <summary>
@@ -107,6 +107,12 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             };
         }
 
+        /// <summary>
+        /// Converts the <see cref="EffectType"/> to a <see cref="Type"/>.
+        /// </summary>
+        /// <param name="effectType">The effect type to convert.</param>
+        /// <returns>The type of the effect.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the effect type is unknown.</exception>
         public static Type EffectTypeToSystemType(EffectType effectType) => effectType switch {
             EffectType.None => null,
             EffectType.AmnesiaItems => typeof(AmnesiaItems),
@@ -145,7 +151,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             EffectType.Vitality => typeof(Vitality),
             EffectType.Scp559 => typeof(Scp559Effect),
             EffectType.Scp956Target => typeof(Scp956Target),
-            _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
         };
 
     }

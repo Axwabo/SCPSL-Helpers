@@ -33,6 +33,12 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <returns>Whether the given player is SCP-939.</returns>
         public static bool Is939(Player p) => p.RoleIs<Scp939Role>();
 
+        /// <summary>
+        /// Creates a new <see cref="Scp939Info"/> instance.
+        /// </summary>
+        /// <param name="amnesticCloudCooldown">The cooldown of the Amnestic Cloud ability.</param>
+        /// <param name="amnesticCloudDuration">The duration of the Amnestic Cloud ability.</param>
+        /// <param name="basicRoleInfo">Basic information about the player.</param>
         public Scp939Info(CooldownInfo amnesticCloudCooldown,
             CooldownInfo amnesticCloudDuration,
             BasicRoleInfo basicRoleInfo
@@ -43,8 +49,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         #region Properties
 
+        /// <summary>The cooldown of the Amnestic Cloud ability.</summary>
         public CooldownInfo AmnesticCloudCooldown { get; }
 
+        /// <summary>The duration of the Amnestic Cloud ability.</summary>
         public CooldownInfo AmnesticCloudDuration { get; }
 
         #endregion

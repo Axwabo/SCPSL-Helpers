@@ -5,6 +5,7 @@ using MapGeneration;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
+using PlayerRoles.PlayableScps.Scp079.Rewards;
 using PluginAPI.Core;
 using UnityEngine;
 
@@ -64,13 +65,13 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// </summary>
         /// <param name="experience">The current experience of SCP-079.</param>
         /// <param name="auxiliaryPower">The current auxiliary power of SCP-079.</param>
-        /// <param name="currentCamera"></param>
-        /// <param name="zoneBlackoutCooldown"></param>
-        /// <param name="blackoutZone"></param>
-        /// <param name="teslaAbilityNextUseTime"></param>
-        /// <param name="rewardCooldown"></param>
-        /// <param name="signalLossRecoveryTime"></param>
-        /// <param name="mapOpen"></param>
+        /// <param name="currentCamera">The camera SCP-079 is using.</param>
+        /// <param name="zoneBlackoutCooldown">Cooldown of the "Zone-Wide Blackout" ability.</param>
+        /// <param name="blackoutZone">The currently blacked out zone.</param>
+        /// <param name="teslaAbilityNextUseTime">Next time SCP-079 can overcharge a Tesla Gate.</param>
+        /// <param name="rewardCooldown">Rooms marked by the <see cref="Scp079RewardManager"/>.</param>
+        /// <param name="signalLossRecoveryTime">Time when SCP-079 will regain control of the cameras.</param>
+        /// <param name="mapOpen">If SCP-079 has opened the Facility map.</param>
         public Scp079Info(int experience,
             float auxiliaryPower,
             Scp079Camera currentCamera,
@@ -103,18 +104,26 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <summary>The camera that SCP-079 is using.</summary>
         public Scp079Camera CurrentCamera { get; }
 
+        /// <summary>The rotation of the current camera.</summary>
         public Vector2 CameraRotation { get; }
 
+        
+        /// <summary>The cooldown of the "Zone-Wide Blackout" ability.</summary>
         public CooldownInfo ZoneBlackoutCooldown { get; }
 
+        /// <summary>The currently blacked out zone.</summary>
         public FacilityZone BlackoutZone { get; }
 
+        /// <summary>The next time SCP-079 can overcharge a Tesla Gate.</summary>
         public double TeslaAbilityNextUseTime { get; }
 
+        /// <summary>The rooms marked by the <see cref="Scp079RewardManager"/>.</summary>
         public Dictionary<RoomIdentifier, double> RewardCooldown { get; }
 
+        /// <summary>The time when SCP-079 will regain control of the cameras.</summary>
         public double SignalLossRecoveryTime { get; }
 
+        /// <summary>If SCP-079 has opened the Facility map.</summary>
         public bool MapOpen { get; }
 
         #endregion
@@ -156,10 +165,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
             routines.CameraRotationSync.Sync();
             tesla.Sync();
-            if (BlackoutZone != FacilityZone.None)
-                zoneBlackout.Sync();
             lostSignalHandler.Sync();
             map.Sync();
+            if (BlackoutZone != FacilityZone.None)
+                zoneBlackout.Sync();
         }
 
     }

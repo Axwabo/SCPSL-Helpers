@@ -116,7 +116,6 @@
         <Compile Include="Harmony\InstructionHelper.cs" />
         <Compile Include="ColorHelper.cs" />
         <Compile Include="HintQueue.cs" />
-        <Compile Include="IIsValid.cs" />
         <Compile Include="PlayerInfo\Containers\BasicRoleInfo.cs" />
         <Compile Include="PlayerInfo\Containers\CooldownInfo.cs" />
         <Compile Include="PlayerInfo\Containers\InventoryInfo.cs" />
