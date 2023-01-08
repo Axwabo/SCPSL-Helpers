@@ -14,16 +14,14 @@ Note: this is a dependency, not a plugin.
 
 1. Download the **Axwabo.Helpers.dll** from
    the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/latest/)
-2. Put the DLL into the EXILED dependencies folder (on Windows: **%appdata%/EXILED/plugins/dependencies/**)
+2. Put the DLL into the EXILED dependencies folder (on Windows: **%appdata%/EXILED/Plugins/dependencies/**)
 3. Any plugins using this library should work after a server restart
 
 ## Northwood Plugin API
 
-1. Download the **Axwabo.Helpers-nw.dll** [pre-release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
+1. Download the **Axwabo.Helpers-nw.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
 2. Put the DLL into the PluginAPI dependencies folder (on Windows: **%appdata%/SCP Secret Laboratory/PluginAPI/port/dependencies/**)
 3. Any plugins using this library should work after a server restart
-
-Note: using it as a global dependency may not work, put the DLL into all of your servers' dependency folders.
 
 # Examples
 
@@ -52,7 +50,7 @@ To get a field's value, simply use the `Get` extension method on an object.
 
 Sample code:
 
-```
+```csharp
 Stopwatch stopwatch = Stopwatch.StartNew();
 long rawTicks = stopwatch.Get<long>("elapsed"); // gets the value of the 'elapsed' field
 ```
