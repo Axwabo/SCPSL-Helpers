@@ -101,8 +101,6 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
                 Stained => EffectType.Stained,
                 Traumatized => EffectType.Traumatized,
                 Vitality => EffectType.Vitality,
-                Scp559Effect => EffectType.Scp559,
-                Scp956Target => EffectType.Scp956Target,
                 _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
             };
         }
@@ -149,8 +147,6 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
             EffectType.Stained => typeof(Stained),
             EffectType.Traumatized => typeof(Traumatized),
             EffectType.Vitality => typeof(Vitality),
-            EffectType.Scp559 => typeof(Scp559Effect),
-            EffectType.Scp956Target => typeof(Scp956Target),
             _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
         };
 
