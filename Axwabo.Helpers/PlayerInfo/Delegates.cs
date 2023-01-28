@@ -38,6 +38,7 @@ namespace Axwabo.Helpers.PlayerInfo {
     /// A method to give an item to a player.
     /// </summary>
     /// <param name="player">The player to give the item to.</param>
+    /// <param name="serial">The serial of the item to give.</param>
     public delegate ItemBase GiveItem(Player player, ushort serial);
 
 }

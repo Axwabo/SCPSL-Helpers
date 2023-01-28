@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Axwabo.Helpers.PlayerInfo.Vanilla;

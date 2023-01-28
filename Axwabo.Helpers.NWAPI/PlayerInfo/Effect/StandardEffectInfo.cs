@@ -21,7 +21,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         /// </summary>
         /// <param name="effect">The effect to convert.</param>
         /// <returns>The information about the effect.</returns>
-        /// <seealso cref="op_Explicit"/>
+        /// <remarks>Explicitly casting a <see cref="StatusEffectBase"/> to a <see cref="StandardEffectInfo"/> will invoke this method.</remarks>
         public static StandardEffectInfo Get(StatusEffectBase effect) =>
             effect == null ? null : new StandardEffectInfo(effect.IsEnabled, EffectInstanceToEffectType(effect), effect.Duration, effect.Intensity);
 

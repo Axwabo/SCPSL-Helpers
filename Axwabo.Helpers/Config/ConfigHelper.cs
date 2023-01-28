@@ -42,6 +42,11 @@ namespace Axwabo.Helpers.Config {
         /// <returns>The transform of the object or null.</returns>
         public static Transform SafeGetTransform(this GameObject o) => o == null ? null : o.transform;
 
+        /// <summary>
+        /// Gets a room by its name.
+        /// </summary>
+        /// <param name="roomName">The name of the room.</param>
+        /// <returns>The room if found; otherwise null.</returns>
         public static Room GetRoomByRoomName(string roomName) {
             var lower = roomName.ToLower();
             return Room.List.FirstOrDefault(e => e.name.ToLower().Contains(lower));

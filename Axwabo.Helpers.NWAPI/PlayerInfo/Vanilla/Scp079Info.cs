@@ -107,7 +107,6 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <summary>The rotation of the current camera.</summary>
         public Vector2 CameraRotation { get; }
 
-        
         /// <summary>The cooldown of the "Zone-Wide Blackout" ability.</summary>
         public CooldownInfo ZoneBlackoutCooldown { get; }
 

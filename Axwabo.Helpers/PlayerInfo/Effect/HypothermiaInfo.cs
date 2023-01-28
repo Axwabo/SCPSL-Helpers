@@ -22,7 +22,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         /// </summary>
         /// <param name="hypothermia">The effect to convert.</param>
         /// <returns>The information about the effect.</returns>
-        /// <seealso cref="op_Explicit"/>
+        /// <remarks>Explicitly casting a <see cref="Hypothermia"/> effect to a <see cref="HypothermiaInfo"/> will invoke this method.</remarks>
         public static HypothermiaInfo Get(Hypothermia hypothermia) {
             if (hypothermia == null)
                 return null;

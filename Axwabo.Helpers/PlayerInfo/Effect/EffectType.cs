@@ -42,10 +42,7 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         SpawnProtected,
         Stained,
         Traumatized,
-        Vitality,
-
-        Scp559,
-        Scp956Target
+        Vitality
 
     }
 

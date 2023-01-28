@@ -151,4 +151,5 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         };
 
     }
+
 }
