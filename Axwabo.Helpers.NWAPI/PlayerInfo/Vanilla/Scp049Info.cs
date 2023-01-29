@@ -117,7 +117,11 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             sense.HasTarget = hasTarget;
             if (hasTarget)
                 sense.Target = Target;
-            sense.DeadTargets.AddRange(DeadTargets);
+
+            if (DeadTargets != null) {
+                sense.DeadTargets.Clear();
+                sense.DeadTargets.AddRange(DeadTargets);
+            }
 
             var attack = routines.AttackAbility;
             AttackCooldown.ApplyTo(attack.Cooldown);

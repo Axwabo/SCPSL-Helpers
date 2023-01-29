@@ -107,7 +107,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             state._rageState = RageState;
 
             var targetsTracker = routines.TargetsTracker;
-            targetsTracker.Targets.AddRange(Targets);
+            if (Targets != null) {
+                targetsTracker.Targets.Clear();
+                targetsTracker.Targets.AddRange(Targets);
+            }
 
             var charge = routines.Charge;
             ChargeCooldown.ApplyTo(charge.Cooldown);

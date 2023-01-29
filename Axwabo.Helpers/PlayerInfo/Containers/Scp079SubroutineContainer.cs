@@ -40,6 +40,12 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <summary>SCP-079's Facility Map ability.</summary>
         public readonly Scp079ToggleMapAbility Map;
 
+        /// <summary>SCP-079's Door Lock ability.</summary>
+        public readonly Scp079DoorLockChanger DoorLock;
+
+        /// <summary>SCP-079's Lockdown ability.</summary>
+        public readonly Scp079LockdownRoomAbility LockdownAbility;
+
         /// <summary>Returns true if this instance is valid (not empty).</summary>
         public readonly bool IsValid;
 
@@ -55,7 +61,19 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <param name="rewardManager">SCP-079's EXP reward manager.</param>
         /// <param name="teslaAbility">SCP-079's Tesla Gate overcharge ability.</param>
         /// <param name="map">SCP-079's Facility Map ability.</param>
-        public Scp079SubroutineContainer(Scp079TierManager tierManager, Scp079BlackoutZoneAbility zoneBlackout, Scp079CurrentCameraSync currentCameraSync, Scp079CameraRotationSync cameraRotationSync, Scp079AuxManager auxManager, Scp079LostSignalHandler lostSignalHandler, Scp079RewardManager rewardManager, Scp079TeslaAbility teslaAbility, Scp079ToggleMapAbility map) {
+        /// <param name="doorLock">SCP-079's Door Lock ability.</param>
+        /// <param name="lockdownAbility">SCP-079's Lockdown ability.</param>
+        public Scp079SubroutineContainer(Scp079TierManager tierManager,
+            Scp079BlackoutZoneAbility zoneBlackout,
+            Scp079CurrentCameraSync currentCameraSync,
+            Scp079CameraRotationSync cameraRotationSync,
+            Scp079AuxManager auxManager,
+            Scp079LostSignalHandler lostSignalHandler,
+            Scp079RewardManager rewardManager,
+            Scp079TeslaAbility teslaAbility,
+            Scp079ToggleMapAbility map,
+            Scp079DoorLockChanger doorLock,
+            Scp079LockdownRoomAbility lockdownAbility) {
             TierManager = tierManager;
             ZoneBlackout = zoneBlackout;
             CurrentCameraSync = currentCameraSync;
@@ -65,6 +83,8 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             RewardManager = rewardManager;
             TeslaAbility = teslaAbility;
             Map = map;
+            DoorLock = doorLock;
+            LockdownAbility = lockdownAbility;
             IsValid = true;
         }
 
@@ -86,6 +106,8 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
             Scp079BlackoutZoneAbility zoneBlackout = null;
             Scp079TeslaAbility tesla = null;
             Scp079ToggleMapAbility map = null;
+            Scp079DoorLockChanger doorLock = null;
+            Scp079LockdownRoomAbility lockdownRoom = null;
             var propertiesSet = 0;
             foreach (var sub in role.SubroutineModule.AllSubroutines)
                 switch (sub) {
@@ -125,9 +147,17 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
                         map = m;
                         propertiesSet++;
                         break;
+                    case Scp079DoorLockChanger d:
+                        doorLock = d;
+                        propertiesSet++;
+                        break;
+                    case Scp079LockdownRoomAbility l:
+                        lockdownRoom = l;
+                        propertiesSet++;
+                        break;
                 }
 
-            return propertiesSet != 9
+            return propertiesSet != 11
                 ? Empty
                 : new Scp079SubroutineContainer(
                     tierManager,
@@ -138,7 +168,9 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
                     signalHandler,
                     rewardManager,
                     tesla,
-                    map
+                    map,
+                    doorLock,
+                    lockdownRoom
                 );
         }
 

@@ -356,6 +356,14 @@ namespace Axwabo.Helpers {
             return count;
         }
 
+        /// <summary>
+        /// Returns an empty enumerable if the supplied argument is null.
+        /// </summary>
+        /// <param name="enumerable">The enumerable to check.</param>
+        /// <typeparam name="T">The type of the enumerable.</typeparam>
+        /// <returns>An empty enumerable if the supplied argument is null; otherwise the supplied argument.</returns>
+        public static IEnumerable<T> AsNonNullEnumerable<T>(this IEnumerable<T> enumerable) => enumerable ?? Enumerable.Empty<T>();
+
         #endregion
 
         #region Enums
