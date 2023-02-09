@@ -55,7 +55,8 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <inheritdoc/>
         public void SetClassAndApplyInfo(Player player) {
             SetClass(player);
-            ApplyInfo(player);
+            var info = Info;
+            UnityHelper.CallAfterFrames(() => info.ApplyTo(player), 2);
         }
 
     }

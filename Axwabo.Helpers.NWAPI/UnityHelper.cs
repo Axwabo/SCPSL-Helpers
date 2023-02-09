@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using MEC;
 using Mirror;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -535,6 +536,29 @@ namespace Axwabo.Helpers {
         }
 
         #endregion
+
+        #endregion
+
+        #region Call next frame
+
+        /// <summary>
+        /// Calls the given <see cref="Action"/> on the next frame.
+        /// </summary>
+        /// <param name="action">The action to execute.</param>
+        public static void CallNextFrame(Action action) => Timing.RunCoroutine(ExecuteAfterFrames(action));
+
+        /// <summary>
+        /// Calls the given <see cref="Action"/> after a given amount of frames.
+        /// </summary>
+        /// <param name="action">The action to execute.</param>
+        /// <param name="frameCount">The amount of frames to wait before executing the action.</param>
+        public static void CallAfterFrames(Action action, int frameCount = 1) => Timing.RunCoroutine(ExecuteAfterFrames(action, frameCount));
+
+        private static IEnumerator<float> ExecuteAfterFrames(Action action, int frameCount = 1) {
+            for (var i = 0; i < frameCount; i++)
+                yield return Timing.WaitForOneFrame;
+            action();
+        }
 
         #endregion
 

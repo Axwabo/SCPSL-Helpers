@@ -28,7 +28,8 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <param name="obtainer">A <see cref="PlayerInfoObtainer"/> struct to get the methods from.</param>
         /// <returns>A new <see cref="CustomRoleAndInfoWrapper"/> instance.</returns>
         /// <seealso cref="Get(Player,Axwabo.Helpers.PlayerInfo.PlayerInfoGetter,Axwabo.Helpers.PlayerInfo.PlayerRoleSetter)"/>
-        public static CustomRoleAndInfoWrapper Get(Player player, PlayerInfoObtainer obtainer) => !obtainer.CanSetRole ? Empty : Get(player, obtainer.Get, obtainer.SetRole);
+        public static CustomRoleAndInfoWrapper Get(Player player, PlayerInfoObtainer obtainer) =>
+            !obtainer.CanSetRole ? Empty : Get(player, obtainer.Get, obtainer.SetRole);
 
         /// <summary>The role of the player.</summary>
         public readonly PlayerRoleSetter SetRole;
@@ -55,7 +56,8 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <inheritdoc/>
         public void SetClassAndApplyInfo(Player player) {
             SetClass(player);
-            ApplyInfo(player);
+            var info = Info;
+            UnityHelper.CallAfterFrames(() => info.ApplyTo(player), 2);
         }
 
     }
