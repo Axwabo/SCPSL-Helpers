@@ -20,30 +20,30 @@ namespace Axwabo.Helpers {
 
         /// <summary>A map of color codes that can be used in badges and <see cref="Player.CustomInfo">player info</see>.</summary>
         public static readonly IDictionary<string, string> NorthwoodApprovedColorCodes = new ReadOnlyDictionary<string, string>(new Dictionary<string, string> {
-            {"Pink", "#FF96DE"},
-            {"Red", "#C50000"},
-            {"Brown", "#944710"},
-            {"Silver", "#A0A0A0"},
-            {"LightGreen", "#32CD32"},
-            {"Crimson", "#DC143C"},
-            {"Cyan", "#00B7EB"},
-            {"Aqua", "#00FFFF"},
-            {"DeepPink", "#FF1493"},
-            {"Tomato", "#FF6448"},
-            {"Yellow", "#FAFF86"},
-            {"Magenta", "#FF0090"},
-            {"BlueGreen", "#4DFFB8"},
-            {"Orange", "#FF9966"},
-            {"Lime", "#BFFF00"},
-            {"Green", "#228B22"},
-            {"Emerald", "#50C878"},
-            {"Carmine", "#960018"},
-            {"Nickel", "#727472"},
-            {"Mint", "#98FB98"},
-            {"ArmyGreen", "#4B5320"},
-            {"Pumpkin", "#EE7600"},
-            {"Black", "#000000"},
-            {"White", "#FFFFFF"}
+            {"pink", "#FF96DE"},
+            {"red", "#C50000"},
+            {"white", "#FFFFFF"},
+            {"brown", "#944710"},
+            {"silver", "#A0A0A0"},
+            {"light_green", "#32CD32"},
+            {"crimson", "#DC143C"},
+            {"cyan", "#00B7EB"},
+            {"aqua", "#00FFFF"},
+            {"deep_pink", "#FF1493"},
+            {"tomato", "#FF6448"},
+            {"yellow", "#FAFF86"},
+            {"magenta", "#FF0090"},
+            {"blue_green", "#4DFFB8"},
+            {"orange", "#FF9966"},
+            {"lime", "#BFFF00"},
+            {"green", "#228B22"},
+            {"emerald", "#50C878"},
+            {"carmine", "#960018"},
+            {"nickel", "#727472"},
+            {"mint", "#98FB98"},
+            {"army_green", "#4B5320"},
+            {"pumpkin", "#EE7600"},
+            {"black", "#000000"}
         });
 
         /// <summary>
@@ -66,7 +66,22 @@ namespace Axwabo.Helpers {
         /// </summary>
         /// <param name="color">The color to compare.</param>
         /// <returns>A Northwood approved color code.</returns>
-        public static string GetClosestNorthwoodColor(this Color color) {
+        public static string GetClosestNorthwoodColor(this Color color) =>
+            NorthwoodApprovedColorCodes.TryGetValue(GetClosestNorthwoodColorName(color), out var c) ? c : "#FFFFFF";
+
+        /// <summary>
+        /// Gets name of the closest color approved by Northwood based on HSV values.
+        /// </summary>
+        /// <param name="color">The color code to compare.</param>
+        /// <returns>A Northwood approved color name.</returns>
+        public static string GetClosestNorthwoodColorName(string color) => GetClosestNorthwoodColorName(ParseColor(color));
+
+        /// <summary>
+        /// Gets name of the closest color approved by Northwood based on HSV values.
+        /// </summary>
+        /// <param name="color">The color to compare.</param>
+        /// <returns>A Northwood approved color name.</returns>
+        public static string GetClosestNorthwoodColorName(this Color color) {
             var hsv = color.Hsv();
             var value = hsv[0] * 36000 + hsv[1] * 100 + hsv[2];
             var closest = NorthwoodApprovedColorCodes
@@ -75,7 +90,7 @@ namespace Axwabo.Helpers {
                     var colorHsv = e.Value;
                     return Mathf.Abs(colorHsv[0] * 36000 + colorHsv[1] * 100 + colorHsv[2] - value);
                 }).FirstOrDefault();
-            return NorthwoodApprovedColorCodes.TryGetValue(closest.Key, out var c) ? c : "#FFFFFF";
+            return closest.Key;
         }
 
         /// <summary>

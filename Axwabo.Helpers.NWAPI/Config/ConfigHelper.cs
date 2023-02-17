@@ -29,9 +29,6 @@ namespace Axwabo.Helpers.Config {
             }
         }
 
-        /// <summary>Gets all <see cref="RoomIdentifier"/>s in the scene.</summary>
-        public static RoomIdentifier[] Rooms => Object.FindObjectsOfType<RoomIdentifier>();
-
         /// <summary>
         /// Gets the position and rotation based on an offset and a transform object. 
         /// </summary>
@@ -60,7 +57,7 @@ namespace Axwabo.Helpers.Config {
         /// <returns>The room, or null if it couldn't be found.</returns>
         public static RoomIdentifier GetRoomByRoomName(string name) {
             name = name.ToLowerInvariant();
-            return string.IsNullOrEmpty(name) ? null : Rooms.FirstOrDefault(r => r.gameObject.name.ToLowerInvariant().Contains(name));
+            return string.IsNullOrEmpty(name) ? null : RoomIdentifier.AllRoomIdentifiers.FirstOrDefault(r => r.gameObject.name.ToLowerInvariant().Contains(name));
         }
 
         /// <summary>
@@ -109,7 +106,7 @@ namespace Axwabo.Helpers.Config {
         /// <seealso cref="RoomType"/>
         public static RoomIdentifier GetRoomByType(RoomType type) {
             var name = type.GetRoomName();
-            return Rooms.FirstOrDefault(e => e.gameObject.name.RemoveParenthesesOnEndOfName() == name);
+            return RoomIdentifier.AllRoomIdentifiers.FirstOrDefault(e => e.gameObject.name.RemoveParenthesesOnEndOfName() == name);
         }
 
     }

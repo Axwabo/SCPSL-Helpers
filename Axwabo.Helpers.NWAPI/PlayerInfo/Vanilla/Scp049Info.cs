@@ -27,6 +27,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             return new Scp049Info(
                 call.Cooldown,
                 call.Duration,
+                call._serverTriggered,
                 sense.Cooldown,
                 sense.Duration,
                 sense.Target,
@@ -48,6 +49,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// </summary>
         /// <param name="callCooldown">The cooldown of "The Doctor's Call" ability.</param>
         /// <param name="callDuration">The remaining time of "The Doctor's Call" ability.</param>
+        /// <param name="callActive">Whether "The Doctor's Call" ability is currently active.</param>
         /// <param name="senseCooldown">The cooldown of the "Good Sense of the Doctor" ability.</param>
         /// <param name="senseDuration">The remaining time of the "Good Sense of the Doctor" ability.</param>
         /// <param name="target">The current target of the "Good Sense of the Doctor" ability.</param>
@@ -56,6 +58,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         /// <param name="basicRoleInfo">Basic information about the player.</param>
         public Scp049Info(CooldownInfo callCooldown,
             CooldownInfo callDuration,
+            bool callActive,
             CooldownInfo senseCooldown,
             CooldownInfo senseDuration,
             ReferenceHub target,
@@ -64,6 +67,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             BasicRoleInfo basicRoleInfo) : base(basicRoleInfo) {
             CallCooldown = callCooldown;
             CallDuration = callDuration;
+            CallActive = callActive;
             SenseCooldown = senseCooldown;
             SenseDuration = senseDuration;
             Target = target;
@@ -78,6 +82,9 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
 
         /// <summary>The remaining time of "The Doctor's Call" ability.</summary>
         public CooldownInfo CallDuration { get; }
+
+        /// <summary>Whether "The Doctor's Call" ability is currently active.</summary>
+        public bool CallActive { get; }
 
         /// <summary>The cooldown of the "Good Sense of the Doctor" ability.</summary>
         public CooldownInfo SenseCooldown { get; }
@@ -107,7 +114,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
             var call = routines.CallAbility;
             CallCooldown.ApplyTo(call.Cooldown);
             CallDuration.ApplyTo(call.Duration);
-            call._serverTriggered = false;
+            call._serverTriggered = CallActive;
 
             var sense = routines.SenseAbility;
             SenseCooldown.ApplyTo(sense.Cooldown);

@@ -68,9 +68,6 @@
             <Aliases>MirrorComponents</Aliases>
         </Reference>
         <Reference Include="mscorlib"/>
-        <Reference Include="NwPluginAPI.Analyzers, Version=12.0.0.0, Culture=neutral, processorArchitecture=Amd64">
-            <HintPath>..\packages\Northwood.PluginAPI.Analyzers.12.0.0\lib\netstandard2.0\NwPluginAPI.Analyzers.dll</HintPath>
-        </Reference>
         <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=Amd64">
             <HintPath>..\packages\Northwood.PluginAPI.12.0.0\lib\net48\PluginAPI.dll</HintPath>
         </Reference>

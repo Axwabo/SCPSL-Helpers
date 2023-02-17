@@ -73,9 +73,9 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// </summary>
         /// <param name="hub">The hub to get the info from.</param>
         /// <returns>The player info with the vanilla role.</returns>
-        public static RoleTypeAndInfoWrapper GetInfoWithVanillaRole(this ReferenceHub hub) => 
+        public static RoleTypeAndInfoWrapper GetInfoWithVanillaRole(this ReferenceHub hub) =>
             Player.Get(hub)?.GetInfoWithVanillaRole() ?? RoleTypeAndInfoWrapper.Empty;
-        
+
         /// <summary>
         /// Gets the player info with a custom role type from the given <see cref="ReferenceHub"/>.
         /// </summary>
@@ -83,7 +83,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <returns>The player info with the custom role. If no obtainer was found or the <see cref="ReferenceHub"/> could not be mapped to a <see cref="Player"/>, it will be <see cref="CustomRoleAndInfoWrapper.Empty"/>.</returns>
         public static CustomRoleAndInfoWrapper GetInfoWithCustomRole(this ReferenceHub hub) =>
             Player.Get(hub)?.GetInfoWithCustomRole() ?? CustomRoleAndInfoWrapper.Empty;
-        
+
         /// <summary>
         /// Gets the player info with a custom role type from the given <see cref="ReferenceHub"/> using the given <see cref="PlayerInfoObtainer"/>.
         /// </summary>
@@ -92,7 +92,7 @@ namespace Axwabo.Helpers.PlayerInfo {
         /// <returns>The player info and custom role. If the <see cref="ReferenceHub"/> could not be mapped to a <see cref="Player"/>, it will be <see cref="CustomRoleAndInfoWrapper.Empty"/>.</returns>
         public static CustomRoleAndInfoWrapper GetInfoWithCustomRole(this ReferenceHub hub, PlayerInfoObtainer obtainer) =>
             Player.Get(hub)?.GetInfoWithCustomRole(obtainer) ?? CustomRoleAndInfoWrapper.Empty;
-        
+
         /// <summary>
         /// Gets the player info with a custom role or vanilla role from the given <see cref="ReferenceHub"/>.
         /// </summary>
