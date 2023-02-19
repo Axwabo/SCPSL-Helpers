@@ -26,13 +26,13 @@ namespace Axwabo.Helpers.PlayerInfo.Effect {
         }
 
         /// <summary>Whether the effect is enabled.</summary>
-        public bool IsEnabled { get; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>The remaining time of the effect.</summary>
-        public float Duration { get; }
+        public float Duration { get; set; }
 
         /// <summary>The intensity of the effect.</summary>
-        public byte Intensity { get; }
+        public byte Intensity { get; set; }
 
         /// <summary>
         /// Applies the information to the effect on the given <paramref name="player"/>.

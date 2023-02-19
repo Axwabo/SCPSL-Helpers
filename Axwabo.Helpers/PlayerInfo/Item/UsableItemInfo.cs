@@ -37,7 +37,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         public abstract bool IsPersonal { get; }
 
         /// <summary>The remaining cooldown.</summary>
-        public float RemainingCooldown { get; }
+        public float RemainingCooldown { get; set; }
 
         /// <inheritdoc />
         public override void ApplyTo(ItemBase item) {

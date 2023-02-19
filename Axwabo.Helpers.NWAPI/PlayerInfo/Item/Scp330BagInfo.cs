@@ -32,7 +32,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         public Scp330BagInfo(CandyKindID[] candies, ushort serial) : base(ItemType.SCP330, serial) => Candies = candies;
 
         /// <summary>The candies in the bag.</summary>
-        public CandyKindID[] Candies { get; }
+        public CandyKindID[] Candies { get; set; }
 
         /// <inheritdoc />
         public override void ApplyTo(ItemBase item) {

@@ -3,6 +3,7 @@ using Axwabo.Helpers.PlayerInfo.Effect;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using RelativePositioning;
 using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers {
@@ -47,6 +48,16 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <returns>The stamina amount.</returns>
         public static float GetStamina(Player player) => ((StaminaStat) player.ReferenceHub.playerStats.StatModules[StaminaIndex]).CurValue;
 
+        /// <summary>
+        /// Validates the given position to ensure that it's not inside an elevator.
+        /// </summary>
+        /// <param name="position">The position to validate.</param>
+        /// <returns>The validated position.</returns>
+        public static Vector3 ValidatePosition(Vector3 position)
+            => WaypointBase.TryGetWaypoint(new RelativePosition(position).WaypointId, out var waypoint) && waypoint is ElevatorWaypoint ewp
+                ? ewp._elevator._lastDestination.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
+                : position;
+
         #endregion
 
         /// <summary>
@@ -55,7 +66,7 @@ namespace Axwabo.Helpers.PlayerInfo.Containers {
         /// <param name="player">The player to get the information from.</param>
         /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
         public static BasicRoleInfo Get(Player player) => new(
-            player.Position,
+            ValidatePosition(player.Position),
             player.Rotation,
             player.Health,
             GetAhp(player),

@@ -50,10 +50,10 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         #region Properties
 
         /// <summary>The cooldown of the Amnestic Cloud ability.</summary>
-        public CooldownInfo AmnesticCloudCooldown { get; }
+        public CooldownInfo AmnesticCloudCooldown { get; set; }
 
         /// <summary>The duration of the Amnestic Cloud ability.</summary>
-        public CooldownInfo AmnesticCloudDuration { get; }
+        public CooldownInfo AmnesticCloudDuration { get; set; }
 
         #endregion
 

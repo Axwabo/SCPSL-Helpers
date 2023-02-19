@@ -100,7 +100,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         public ItemType Type { get; }
 
         /// <summary>The serial number of the item.</summary>
-        public ushort Serial { get; }
+        public ushort Serial { get; set; }
 
         /// <summary>
         /// Applies the information to the given item.

@@ -124,49 +124,49 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla {
         #region Properties
 
         /// <summary>The current AP of SCP-079.</summary>
-        public float AuxiliaryPower { get; }
+        public float AuxiliaryPower { get; set; }
 
         /// <summary>The current EXP of SCP-079.</summary>
-        public int Experience { get; }
+        public int Experience { get; set; }
 
         /// <summary>The camera that SCP-079 is using.</summary>
-        public Scp079Camera CurrentCamera { get; }
+        public Scp079Camera CurrentCamera { get; set; }
 
         /// <summary>The rotation of the current camera.</summary>
-        public Vector2 CameraRotation { get; }
+        public Vector2 CameraRotation { get; set; }
 
         /// <summary>The cooldown of the "Zone-Wide Blackout" ability.</summary>
-        public CooldownInfo ZoneBlackoutCooldown { get; }
+        public CooldownInfo ZoneBlackoutCooldown { get; set; }
 
         /// <summary>The currently blacked out zone.</summary>
-        public FacilityZone BlackoutZone { get; }
+        public FacilityZone BlackoutZone { get; set; }
 
         /// <summary>The cooldown until SCP-079 can overcharge a Tesla Gate.</summary>
-        public double TeslaAbilityCooldown { get; }
+        public double TeslaAbilityCooldown { get; set; }
 
         /// <summary>The rooms marked by the <see cref="Scp079RewardManager"/>.</summary>
-        public Dictionary<RoomIdentifier, double> RewardCooldown { get; }
+        public Dictionary<RoomIdentifier, double> RewardCooldown { get; set; }
 
         /// <summary>The time when SCP-079 will regain control of the cameras.</summary>
-        public double SignalLossRecoveryTime { get; }
+        public double SignalLossRecoveryTime { get; set; }
 
         /// <summary>If SCP-079 has opened the Facility map.</summary>
-        public bool MapOpen { get; }
+        public bool MapOpen { get; set; }
 
         /// <summary>The doors currently locked by SCP-079.</summary>
-        public DoorVariant[] LockedDoors { get; }
+        public DoorVariant[] LockedDoors { get; set; }
 
         /// <summary>The cooldown until the specified doors can be locked again.</summary>
-        public Dictionary<DoorVariant, double> ToggleTimes { get; }
+        public Dictionary<DoorVariant, double> ToggleTimes { get; set; }
 
         /// <summary>Whether the Lockdown ability is currently active.</summary>
-        public bool LockdownActive { get; }
+        public bool LockdownActive { get; set; }
 
         /// <summary>The cooldown until SCP-079 can use the Lockdown ability.</summary>
-        public double LockdownCooldown { get; }
+        public double LockdownCooldown { get; set; }
 
         /// <summary>The doors that will be locked by the Lockdown ability.</summary>
-        public DoorVariant[] DoorsToLock { get; }
+        public DoorVariant[] DoorsToLock { get; set; }
 
         #endregion
 

@@ -33,7 +33,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         public FirearmInfo(FirearmStatus status, ItemType type, ushort serial) : base(type, serial) => Status = status;
 
         /// <summary>The status of the firearm.</summary>
-        public FirearmStatus Status { get; }
+        public FirearmStatus Status { get; set; }
 
         /// <inheritdoc />
         public override void ApplyTo(ItemBase item) {

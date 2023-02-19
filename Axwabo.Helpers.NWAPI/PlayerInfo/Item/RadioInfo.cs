@@ -38,13 +38,13 @@ namespace Axwabo.Helpers.PlayerInfo.Item {
         }
 
         /// <summary>Whether the radio is turned on.</summary>
-        public bool Enabled { get; }
+        public bool Enabled { get; set; }
 
         /// <summary>The battery level.</summary>
-        public float Battery { get; }
+        public float Battery { get; set; }
 
         /// <summary>The range setting of the radio.</summary>
-        public byte Range { get; }
+        public byte Range { get; set; }
 
         /// <inheritdoc />
         public override void ApplyTo(ItemBase item) {
