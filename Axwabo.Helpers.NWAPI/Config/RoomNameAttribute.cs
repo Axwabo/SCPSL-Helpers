@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace Axwabo.Helpers.Config {
+namespace Axwabo.Helpers.Config;
 
-    internal sealed class RoomNameAttribute : Attribute {
+internal sealed class RoomNameAttribute : Attribute
+{
 
-        public string Name { get; }
+    public string Name { get; }
 
-        public RoomNameAttribute(string name) => Name = name;
-
-    }
+    public RoomNameAttribute(string name) => Name = name;
 
 }
