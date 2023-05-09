@@ -20,26 +20,36 @@ internal static class AttributeHandler
             case RegisterStaticTranslationsInTypeAttribute:
                 return TranslationHelper.RegisterAllStaticTranslations(property.PropertyType);
             case TranslationAttribute translation when property.PropertyType == typeof(string) && translation.EnumType == type:
-                ((T) translation.Value).RegisterTranslation((string) property.GetValue(containingClass));
+                var key = (T) translation.Value;
+                var value = (string) property.GetValue(containingClass);
+                key.RegisterTranslation(value);
+                if (translation is ITranslationRegisteredTrigger trigger)
+                    trigger.OnProcessed(property);
+                TranslationHelper.InvokeOnTranslationRegistered(translation, property, key, value);
                 return 1;
             default:
                 return 0;
         }
     }
 
-    public static int RegisterAttributeField<T>(object attribute, object containingClass, FieldInfo field) where T : Enum
+    public static int RegisterAttributeField<T>(object attribute, object containingObject, FieldInfo field) where T : Enum
     {
-        if (containingClass == null || field == null)
+        if (containingObject == null || field == null)
             return 0;
         var type = typeof(T);
         switch (attribute)
         {
             case RegisterNestedTranslationsAttribute:
-                return TranslationHelper.RegisterAllTranslations<T>(field.GetValue(containingClass));
+                return TranslationHelper.RegisterAllTranslations<T>(field.GetValue(containingObject));
             case RegisterStaticTranslationsInTypeAttribute:
                 return TranslationHelper.RegisterAllStaticTranslations(field.FieldType);
             case TranslationAttribute translation when field.FieldType == typeof(string) && translation.EnumType == type:
-                ((T) translation.Value).RegisterTranslation((string) field.GetValue(containingClass));
+                var key = (T) translation.Value;
+                var value = (string) field.GetValue(containingObject);
+                key.RegisterTranslation(value);
+                if (translation is ITranslationRegisteredTrigger trigger)
+                    trigger.OnProcessed(field);
+                TranslationHelper.InvokeOnTranslationRegistered(translation, field, key, value);
                 return 1;
             default:
                 return 0;
@@ -57,25 +67,33 @@ internal static class AttributeHandler
             case RegisterStaticTranslationsInTypeAttribute:
                 return TranslationHelper.RegisterAllStaticTranslations(property.PropertyType);
             case TranslationAttribute translation when property.PropertyType == typeof(string):
-                TranslationHelper.TranslationRegistryType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, property.GetValue(containingClass));
+                var value = property.GetValue(containingClass);
+                TranslationHelper.TranslationRegistryType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, value);
+                if (translation is ITranslationRegisteredTrigger trigger)
+                    trigger.OnProcessed(property);
+                TranslationHelper.InvokeOnTranslationRegistered(translation, property, translation.Value, (string) value);
                 return 1;
             default:
                 return 0;
         }
     }
 
-    public static int RegisterAttributeField(object attribute, object containingClass, FieldInfo field)
+    public static int RegisterAttributeField(object attribute, object containingObject, FieldInfo field)
     {
-        if (containingClass == null || field == null)
+        if (containingObject == null || field == null)
             return 0;
         switch (attribute)
         {
             case RegisterNestedTranslationsAttribute:
-                return TranslationHelper.RegisterAllTranslations(field.GetValue(containingClass));
+                return TranslationHelper.RegisterAllTranslations(field.GetValue(containingObject));
             case RegisterStaticTranslationsInTypeAttribute:
                 return TranslationHelper.RegisterAllStaticTranslations(field.FieldType);
             case TranslationAttribute translation when field.FieldType == typeof(string):
-                TranslationHelper.TranslationRegistryType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, field.GetValue(containingClass));
+                var value = field.GetValue(containingObject);
+                TranslationHelper.TranslationRegistryType.MakeGenericType(translation.EnumType).StaticCall("RegisterTranslation", translation.Value, value);
+                if (translation is ITranslationRegisteredTrigger trigger)
+                    trigger.OnProcessed(field);
+                TranslationHelper.InvokeOnTranslationRegistered(translation, field, translation.Value, (string) value);
                 return 1;
             default:
                 return 0;

@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using PluginAPI.Core;
 using static Axwabo.Helpers.Config.Translations.AttributeHandler;
 
 namespace Axwabo.Helpers.Config.Translations;
+
+/// <summary>
+/// A delegate for handling the <see cref="TranslationHelper.OnTranslationRegistered"/> event.
+/// </summary>
+public delegate void TranslationRegisteredHandler(TranslationAttribute attribute, MemberInfo member, Enum key, string translation);
 
 /// <summary>
 /// Helper methods for using the <see cref="TranslationRegistry{T}"/>.
@@ -12,7 +18,7 @@ public static class TranslationHelper
 {
 
     /// <summary>The non-generic type of the registry.</summary>
-    public static readonly Type TranslationRegistryType = typeof(TranslationHelper).Assembly.GetType("Axwabo.Helpers.Config.Translations.TranslationRegistry`1");
+    public static readonly Type TranslationRegistryType = typeof(TranslationRegistry<>);
 
     #region Translating
 
@@ -40,13 +46,33 @@ public static class TranslationHelper
     /// <typeparam name="T">The type of the translation key.</typeparam>
     public static string Translate<T>(this T key, params object[] args) where T : Enum => TranslationRegistry<T>.Translate(key, args);
 
-    /// <inheritdoc cref="TranslationRegistry{T}.RegisterTranslation"/>
-    /// <typeparam name="T">The type of the translation key.</typeparam>
+    /// <summary>
+    /// A non-generic method that uses <see cref="string.Format(string,object[])"/> to translate the given enum value using registered translations.
+    /// </summary>
+    /// <param name="key">The key to translate.</param>
+    /// <param name="args">The arguments to pass to <see cref="string.Format(string,object[])"/>.</param>
+    /// <returns>The translated string.</returns>
+    public static string TranslateRaw(this Enum key, params object[] args)
+    {
+        var types = new Type[args.Length + 1];
+        var parameters = new object[args.Length + 1];
+        types[0] = key.GetType();
+        parameters[0] = key;
+        for (var i = 0; i < args.Length; i++)
+        {
+            types[i + 1] = typeof(object);
+            parameters[i + 1] = i;
+        }
+
+        return (string) TranslationRegistryType.MakeGenericType(key.GetType()).GetMethod("Translate", types)!.Invoke(null, parameters);
+    }
 
     #endregion
 
     #region Registering
 
+    /// <inheritdoc cref="TranslationRegistry{T}.RegisterTranslation"/>
+    /// <typeparam name="T">The type of the translation key.</typeparam>
     public static void RegisterTranslation<T>(this T key, string translation) where T : Enum => TranslationRegistry<T>.RegisterTranslation(key, translation);
 
     /// <summary>
@@ -180,6 +206,27 @@ public static class TranslationHelper
             count += UnregisterAttributeFieldStatic(attribute, field);
 
         return count;
+    }
+
+    #endregion
+
+    #region Trigger
+
+    /// <summary>
+    /// Called when a new translation is added to the registry through a <see cref="TranslationAttribute"/>.
+    /// </summary>
+    public static event TranslationRegisteredHandler OnTranslationRegistered;
+
+    internal static void InvokeOnTranslationRegistered(TranslationAttribute attribute, MemberInfo member, Enum key, string translation)
+    {
+        try
+        {
+            OnTranslationRegistered?.Invoke(attribute, member, key, translation);
+        }
+        catch (Exception e)
+        {
+            Log.Error("Failed to invoke OnTranslationRegistered event handler: " + e);
+        }
     }
 
     #endregion

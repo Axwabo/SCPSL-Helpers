@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -9,7 +8,7 @@ namespace Axwabo.Helpers.Harmony;
 /// <summary>
 /// A helper class to assist in creating <see cref="CodeInstruction">CodeInstructions</see>.
 /// </summary>
-public static class InstructionHelper
+public static partial class InstructionHelper
 {
 
     #region Basic Instructions
@@ -89,6 +88,7 @@ public static class InstructionHelper
     /// </summary>
     /// <typeparam name="T">The type to check.</typeparam>
     /// <returns>An <see cref="CodeInstruction">instruction</see> that checks for a particular class.</returns>
+    /// <seealso cref="OpCodes.Isinst"/>
     public static CodeInstruction IsInstance<T>() => IsInstance(typeof(T));
 
     /// <summary>
@@ -107,6 +107,22 @@ public static class InstructionHelper
     /// <seealso cref="OpCodes.Ldtoken"/>
     /// <seealso cref="LoadToken"/>
     public static CodeInstruction LoadTypeToken<T>() => LoadToken(typeof(T));
+
+    /// <summary>
+    /// Copies the value type object pointed to by an address to the top of the evaluation stack.
+    /// </summary>
+    /// <param name="type">The type of value to load.</param>
+    /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the value type.</returns>
+    /// <seealso cref="OpCodes.Ldobj"/>
+    public static CodeInstruction Ldobj(Type type) => new(OpCodes.Ldobj, type);
+
+    /// <summary>
+    /// Copies the value type object pointed to by an address to the top of the evaluation stack.
+    /// </summary>
+    /// <typeparam name="T">The type of value to load.</typeparam>
+    /// <returns>An <see cref="CodeInstruction">instruction</see> that loads the value type.</returns>
+    /// <seealso cref="OpCodes.Ldobj"/>
+    public static CodeInstruction Ldobj<T>() => Ldobj(typeof(T));
 
     #endregion
 
@@ -383,13 +399,19 @@ public static class InstructionHelper
     /// <seealso cref="OpCodes.Xor"/>
     public static CodeInstruction BitwiseXor => new(OpCodes.Xor);
 
-    /// <summary>Shifts an integer value to the left (in zeroes) by a specified number of bits, pushing the result onto the evaluation stack.</summary>
+    /// <summary>
+    /// Shifts an integer value to the left (in zeroes) by a specified number of bits, pushing the result onto the evaluation stack.
+    /// </summary>
+    /// <param name="bits">The number of bits to shift by.</param>
     /// <seealso cref="OpCodes.Shl"/>
-    public static CodeInstruction ShiftLeft => new(OpCodes.Shl);
+    public static CodeInstruction ShiftLeft(int bits) => new(OpCodes.Shl, bits);
 
-    /// <summary>Shifts an integer value (in sign) to the right by a specified number of bits, pushing the result onto the evaluation stack.</summary>
+    /// <summary>
+    /// Shifts an integer value (in sign) to the right by a specified number of bits, pushing the result onto the evaluation stack.
+    /// </summary>
+    /// <param name="bits">The number of bits to shift by.</param>
     /// <seealso cref="OpCodes.Shr"/>
-    public static CodeInstruction ShiftRight => new(OpCodes.Shr);
+    public static CodeInstruction ShiftRight(int bits) => new(OpCodes.Shr, bits);
 
     /// <summary>Compares two values.</summary>
     /// <seealso cref="OpCodes.Ceq"/>
@@ -515,12 +537,18 @@ public static class InstructionHelper
     /// <param name="method">The information about the method.</param>
     /// <returns>An <see cref="CodeInstruction">instruction</see> that calls the method.</returns>
     /// <exception cref="ArgumentNullException">Thrown if the supplied <paramref name="method"/> is null.</exception>
-    public static CodeInstruction Call(MethodInfo method)
-    {
-        if (method == null)
-            throw new ArgumentNullException(nameof(method));
-        return method.IsVirtual ? new CodeInstruction(OpCodes.Callvirt, method) : new CodeInstruction(OpCodes.Call, method);
-    }
+    public static CodeInstruction Call(MethodInfo method) => method == null
+        ? throw new ArgumentNullException(nameof(method))
+        : method.IsVirtual
+            ? new CodeInstruction(OpCodes.Callvirt, method)
+            : new CodeInstruction(OpCodes.Call, method);
+
+    /// <summary>
+    /// Calls the given static method based on a method group.
+    /// </summary>
+    /// <param name="method">The method to call.</param>
+    /// <returns>An <see cref="CodeInstruction">instruction</see> that calls the method.</returns>
+    public static CodeInstruction Call(Delegate method) => Call(method?.Method);
 
     /// <summary>
     /// Calls the (virtual) method indicated by the passed method descriptor.
@@ -531,7 +559,8 @@ public static class InstructionHelper
     /// <param name="generics">The generics used to call the method.</param>
     /// <returns>An <see cref="CodeInstruction">instruction</see> that calls the method.</returns>
     /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
-    public static CodeInstruction Call(Type type, string methodName, Type[] parameters = null, Type[] generics = null) => Call(AccessTools.Method(type, methodName, parameters, generics) ?? throw new ArgumentException($"No method found for type={type.FullName}, name={methodName}, parameters={parameters.Description()}, generics={generics.Description()}"));
+    public static CodeInstruction Call(Type type, string methodName, Type[] parameters = null, Type[] generics = null)
+        => Call(AccessTools.Method(type, methodName, parameters, generics) ?? throw new ArgumentException($"No method found for type={type.FullName}, name={methodName}, parameters={parameters.Description()}, generics={generics.Description()}"));
 
     /// <summary>
     /// Calls the (virtual) method indicated by the passed method descriptor.
@@ -543,7 +572,8 @@ public static class InstructionHelper
     /// <returns>An <see cref="CodeInstruction">instruction</see> that calls the method.</returns>
     /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
     /// <remarks>Can only be used with non-static objects because of the type parameter.</remarks>
-    public static CodeInstruction Call<T>(string methodName, Type[] parameters = null, Type[] generics = null) => Call(typeof(T), methodName, parameters, generics);
+    public static CodeInstruction Call<T>(string methodName, Type[] parameters = null, Type[] generics = null)
+        => Call(typeof(T), methodName, parameters, generics);
 
     /// <summary>
     /// Creates a new object or a new instance of a value type, pushing an object reference (type O) onto the evaluation stack.
@@ -567,7 +597,8 @@ public static class InstructionHelper
     /// <returns>An <see cref="CodeInstruction">instruction</see> that creates a new object.</returns>
     /// <exception cref="ArgumentException">Thrown if the constructor was not found.</exception>
     /// <seealso cref="OpCodes.Newobj"/>
-    public static CodeInstruction New(Type type, Type[] parameters = null) => New(AccessTools.Constructor(type, parameters) ?? throw new ArgumentException($"No constructor found for type={type.FullName}, parameters={parameters.Description()}"));
+    public static CodeInstruction New(Type type, Type[] parameters = null)
+        => New(AccessTools.Constructor(type, parameters) ?? throw new ArgumentException($"No constructor found for type={type.FullName}, parameters={parameters.Description()}"));
 
     /// <summary>
     /// Creates a new object or a new instance of a value type, pushing an object reference (type O) onto the evaluation stack.
@@ -847,96 +878,6 @@ public static class InstructionHelper
     /// <typeparam name="T">The type of the new local variable.</typeparam>
     /// <returns>A LocalBuilder of type <typeparamref name="T"/>.</returns>
     public static LocalBuilder Local<T>(this ILGenerator generator) => generator.DeclareLocal(typeof(T));
-
-    #endregion
-
-    #region Instruction Searching
-
-    /// <summary>
-    /// Finds the index of the instruction in the list which contains the specified label.
-    /// </summary>
-    /// <param name="instructions">The list of instructions to execute the search in.</param>
-    /// <param name="label">The label to find.</param>
-    /// <returns>The index of the instruction.</returns>
-    /// <seealso cref="CodeInstruction"/>
-    public static int IndexOfInstructionWithLabel(this List<CodeInstruction> instructions, Label label) => instructions.FindIndex(i => i.labels.Contains(label));
-
-    /// <summary>
-    /// Finds the index of the instruction which calls the specific method.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="method">The information about the method.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <returns>The index of the instruction.</returns>
-    public static int FindCall(this List<CodeInstruction> list, MethodInfo method, int start = 0) => FindCode(list, method.IsVirtual ? OpCodes.Callvirt : OpCodes.Call, i => i.operand as MethodInfo == method, start);
-
-    /// <summary>
-    /// Finds the index of the instruction which calls the specific method.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="type">The type of the object containing the method.</param>
-    /// <param name="methodName">The name of the method to call.</param>
-    /// <param name="parameters">The type parameters of the method.</param>
-    /// <param name="generics">The generics used to call the method.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <returns>The index of the instruction.</returns>
-    /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
-    public static int FindCall(this List<CodeInstruction> list, Type type, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0) => FindCall(list, AccessTools.Method(type, methodName, parameters, generics) ?? throw new ArgumentException($"No method found for type={type.FullName}, name={methodName}, parameters={parameters.Description()}, generics={generics.Description()}"), start);
-
-    /// <summary>
-    /// Finds the index of the instruction which calls the specific method.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="methodName">The name of the method to call.</param>
-    /// <param name="parameters">The type parameters of the method.</param>
-    /// <param name="generics">The generics used to call the method.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <typeparam name="T">The type of the object containing the method.</typeparam>
-    /// <returns>The index of the instruction.</returns>
-    /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
-    public static int FindCall<T>(this List<CodeInstruction> list, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0) => FindCall(list, typeof(T), methodName, parameters, generics, start);
-
-    /// <summary>
-    /// Finds the index of the instruction which loads the specific field.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="field">The information about the field.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <returns>The index of the instruction.</returns>
-    public static int FindField(this List<CodeInstruction> list, FieldInfo field, int start = 0) => FindCode(list, field.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, i => i.operand as FieldInfo == field, start);
-
-    /// <summary>
-    /// Finds the index of the instruction which loads the specific field.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="type">The type of the object containing the field.</param>
-    /// <param name="fieldName">The name of the field to load.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <returns>The index of the instruction.</returns>
-    /// <exception cref="ArgumentException">Thrown if the field was not found.</exception>
-    public static int FindField(this List<CodeInstruction> list, Type type, string fieldName, int start = 0) => FindField(list, AccessTools.Field(type, fieldName) ?? throw new ArgumentException($"No field found for type={type.FullName}, name={fieldName}"), start);
-
-    /// <summary>
-    /// Finds the index of the instruction which loads the specific field.
-    /// </summary>
-    /// <param name="list">The list of instructions to execute the search in.</param>
-    /// <param name="fieldName">The name of the field to load.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <typeparam name="T">The type of the object containing the field.</typeparam>
-    /// <returns>The index of the instruction.</returns>
-    /// <exception cref="ArgumentException">Thrown if the field was not found.</exception>
-    /// <remarks>Can only be used with non-static objects because of the type parameter.</remarks>
-    public static int FindField<T>(this List<CodeInstruction> list, string fieldName, int start = 0) => FindField(list, typeof(T), fieldName, start);
-
-    /// <summary>
-    /// Finds the index of the instruction with a specific code and an optional check.
-    /// </summary>
-    /// <param name="list">The list of instructions.</param>
-    /// <param name="code">The <see cref="OpCode"/> to find.</param>
-    /// <param name="predicate">An additional check.</param>
-    /// <param name="start">The starting index of the search.</param>
-    /// <returns>The index of the instruction.</returns>
-    public static int FindCode(this List<CodeInstruction> list, OpCode code, Predicate<CodeInstruction> predicate = null, int start = 0) => list.FindIndex(start, i => i.opcode == code && (predicate?.Invoke(i) ?? true));
 
     #endregion
 

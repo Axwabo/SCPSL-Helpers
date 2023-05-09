@@ -76,7 +76,6 @@ public static class EnumeratorWrapping
     /// <seealso cref="ToEnumerable"/>
     public static IEnumerable WrapEnumerable(this IEnumerable enumerable) => ToEnumerable(enumerable.GetEnumerator());
 
-
     /// <summary>
     /// Further encapsulates the given <see cref="IEnumerable{T}"/> by wrapping the <see cref="IEnumerator{T}"/> returned by it into a <see cref="GenericEnumeratorWrapper{T}"/>.
     /// </summary>

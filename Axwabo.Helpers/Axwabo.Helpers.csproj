@@ -15,7 +15,6 @@
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>10</LangVersion>
-        <NoWarn>MSB3277</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>x64</PlatformTarget>
@@ -45,13 +44,13 @@
             <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net472\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\..\..\Steam\SCPSL\pluginz\assemblies\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core">
-            <HintPath>..\..\..\Steam\SCPSL\pluginz\assemblies\CommandSystem.Core.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Exiled.API, Version=6.0.0.0, Culture=neutral, processorArchitecture=Amd64">
             <HintPath>..\packages\EXILED.6.0.0-beta.26\lib\net48\Exiled.API.dll</HintPath>
@@ -77,8 +76,11 @@
         <Reference Include="Exiled.Updater, Version=3.1.1.0, Culture=neutral, processorArchitecture=Amd64">
             <HintPath>..\packages\EXILED.6.0.0-beta.26\lib\net48\Exiled.Updater.dll</HintPath>
         </Reference>
+        <Reference Include="Mirror">
+            <HintPath>$(EXILED-ASSEMBLIES)\Mirror.dll</HintPath>
+        </Reference>
         <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\Mirror.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\Mirror.dll</HintPath>
         </Reference>
         <Reference Include="NorthwoodLib, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
             <HintPath>..\packages\EXILED.6.0.0-beta.26\lib\net48\NorthwoodLib.dll</HintPath>
@@ -88,13 +90,13 @@
         </Reference>
         <Reference Include="System"/>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\UnityEngine.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\assemblies\UnityEngine.PhysicsModule.dll</HintPath>
+            <HintPath>$(EXILED-ASSEMBLIES)\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -105,19 +107,22 @@
         <Compile Include="Config\SerializedRotation.cs"/>
         <Compile Include="Config\StaticMapPoint.cs"/>
         <Compile Include="Config\Translations\AttributeHandler.cs"/>
+        <Compile Include="Config\Translations\ITranslationRegisteredTrigger.cs"/>
         <Compile Include="Config\Translations\RegisterNestedTranslationsAttribute.cs"/>
         <Compile Include="Config\Translations\RegisterStaticTranslationsInTypeAttribute.cs"/>
         <Compile Include="Config\Translations\TranslationAttribute.cs"/>
         <Compile Include="Config\Translations\TranslationHelper.cs"/>
         <Compile Include="Config\Translations\TranslationRegistry.cs"/>
+        <Compile Include="EmptyConnection.cs"/>
         <Compile Include="EnumeratorWrapping.cs"/>
         <Compile Include="ExiledPlayerExtensions.cs"/>
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs"/>
         <Compile Include="Harmony\Attributes\NestedClassPatch.cs"/>
         <Compile Include="Harmony\Attributes\NonPublicPatch.cs"/>
         <Compile Include="Harmony\HarmonyHelper.cs"/>
-        <Compile Include="Harmony\InstructionHelper.cs"/>
         <Compile Include="ColorHelper.cs"/>
+        <Compile Include="Harmony\InstructionHelper.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Find.cs"/>
         <Compile Include="HintQueue.cs"/>
         <Compile Include="Parse.cs"/>
         <Compile Include="PlayerInfo\Containers\BasicRoleInfo.cs"/>

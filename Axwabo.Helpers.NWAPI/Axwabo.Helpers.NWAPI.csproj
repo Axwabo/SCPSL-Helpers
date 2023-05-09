@@ -3,9 +3,6 @@
     <Import Project="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props')"/>
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <PropertyGroup>
-        <NoWarn>0659,0660,0661</NoWarn>
-    </PropertyGroup>
-    <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{DDA40975-59C4-4038-B04F-570A5519A773}</ProjectGuid>
@@ -118,12 +115,15 @@
         <Compile Include="Config\SerializedRotation.cs"/>
         <Compile Include="Config\StaticMapPoint.cs"/>
         <Compile Include="Config\Translations\AttributeHandler.cs"/>
+        <Compile Include="Config\Translations\ITranslationRegisteredTrigger.cs"/>
         <Compile Include="Config\Translations\RegisterNestedTranslationsAttribute.cs"/>
         <Compile Include="Config\Translations\RegisterStaticTranslationsInTypeAttribute.cs"/>
         <Compile Include="Config\Translations\TranslationAttribute.cs"/>
         <Compile Include="Config\Translations\TranslationHelper.cs"/>
         <Compile Include="Config\Translations\TranslationRegistry.cs"/>
+        <Compile Include="EmptyConnection.cs"/>
         <Compile Include="EnumeratorWrapping.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Find.cs"/>
         <Compile Include="Parse.cs"/>
         <Compile Include="PlayerExtensions.cs"/>
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs"/>
