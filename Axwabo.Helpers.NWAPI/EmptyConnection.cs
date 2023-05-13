@@ -13,7 +13,7 @@ public sealed class EmptyConnection : NetworkConnectionToClient
     /// Creates a new instance of the <see cref="EmptyConnection"/> class.
     /// </summary>
     /// <param name="networkConnectionId">The network connection ID.</param>
-    public EmptyConnection(int networkConnectionId) : base(networkConnectionId, false, 0)
+    public EmptyConnection(int networkConnectionId) : base(networkConnectionId)
     {
     }
 

@@ -43,13 +43,13 @@
             <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net35\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\assemblies-nw\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>..\assemblies-nw\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core">
-            <HintPath>..\assemblies-nw\CommandSystem.Core.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Microsoft.CodeAnalysis, Version=3.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
             <HintPath>..\packages\Microsoft.CodeAnalysis.Common.3.3.1\lib\netstandard2.0\Microsoft.CodeAnalysis.dll</HintPath>
@@ -58,15 +58,18 @@
             <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.3.3.1\lib\netstandard2.0\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Mirror">
-            <HintPath>..\assemblies-nw\Mirror.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\Mirror.dll</HintPath>
         </Reference>
         <Reference Include="Mirror.Components">
-            <HintPath>..\assemblies-nw\Mirror.Components.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\Mirror.Components.dll</HintPath>
             <Aliases>MirrorComponents</Aliases>
         </Reference>
         <Reference Include="mscorlib"/>
         <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=Amd64">
             <HintPath>..\packages\Northwood.PluginAPI.12.0.0\lib\net48\PluginAPI.dll</HintPath>
+        </Reference>
+        <Reference Include="Pooling">
+            <HintPath>$(NW-ASSEMBLIES)\Pooling.dll</HintPath>
         </Reference>
         <Reference Include="System"/>
         <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -95,10 +98,10 @@
             <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\assemblies-nw\UnityEngine.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\assemblies-nw\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(NW-ASSEMBLIES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
             <HintPath>..\packages\YamlDotNet.11.0.1\lib\net45\YamlDotNet.dll</HintPath>

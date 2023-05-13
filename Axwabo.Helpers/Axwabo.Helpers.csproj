@@ -45,6 +45,7 @@
         </Reference>
         <Reference Include="Assembly-CSharp">
             <HintPath>$(EXILED-ASSEMBLIES)\Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
             <HintPath>$(EXILED-ASSEMBLIES)\Assembly-CSharp-firstpass.dll</HintPath>
@@ -87,6 +88,9 @@
         </Reference>
         <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=Amd64">
             <HintPath>..\packages\EXILED.6.0.0-beta.26\lib\net48\PluginAPI.dll</HintPath>
+        </Reference>
+        <Reference Include="Pooling">
+            <HintPath>$(EXILED-ASSEMBLIES)\Pooling.dll</HintPath>
         </Reference>
         <Reference Include="System"/>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">

@@ -18,7 +18,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 /// <seealso cref="StandardPlayerInfo"/>
 /// <seealso cref="PlayerInfoBase"/>
 /// <seealso cref="Scp079Role"/>
-public sealed class Scp079Info : PlayerInfoBase
+public class Scp079Info : PlayerInfoBase
 {
 
     private const float Health079 = 100000f;
@@ -48,7 +48,6 @@ public sealed class Scp079Info : PlayerInfoBase
             routines.TeslaAbility._nextUseTime - time,
             GetMarkedRoomsDelta(routines.RewardManager._markedRooms),
             routines.LostSignalHandler._recoveryTime - time,
-            routines.Map._state,
             doorLock._lockedDoors.ToArray(),
             GetToggleDelta(doorLock._toggleTimes),
             lockdown._lockdownInEffect,
@@ -86,7 +85,6 @@ public sealed class Scp079Info : PlayerInfoBase
     /// <param name="teslaAbilityCooldown">The cooldown until SCP-079 can overcharge a Tesla Gate.</param>
     /// <param name="rewardCooldown">Rooms marked by the <see cref="Scp079RewardManager"/>.</param>
     /// <param name="signalLossRecoveryTime">Time when SCP-079 will regain control of the cameras.</param>
-    /// <param name="mapOpen">If SCP-079 has opened the Facility map.</param>
     /// <param name="lockedDoors">The doors currently locked by SCP-079.</param>
     /// <param name="toggleTimes">The cooldown until the specified doors can be locked again.</param>
     /// <param name="lockdownActive">Whether the Lockdown ability is currently active.</param>
@@ -100,7 +98,6 @@ public sealed class Scp079Info : PlayerInfoBase
         double teslaAbilityCooldown,
         Dictionary<RoomIdentifier, double> rewardCooldown,
         double signalLossRecoveryTime,
-        bool mapOpen,
         DoorVariant[] lockedDoors,
         Dictionary<DoorVariant, double> toggleTimes,
         bool lockdownActive,
@@ -115,7 +112,6 @@ public sealed class Scp079Info : PlayerInfoBase
         TeslaAbilityCooldown = teslaAbilityCooldown;
         RewardCooldown = rewardCooldown;
         SignalLossRecoveryTime = signalLossRecoveryTime;
-        MapOpen = mapOpen;
         LockedDoors = lockedDoors;
         ToggleTimes = toggleTimes;
         LockdownActive = lockdownActive;
@@ -145,9 +141,6 @@ public sealed class Scp079Info : PlayerInfoBase
 
     /// <summary>The time when SCP-079 will regain control of the cameras.</summary>
     public double SignalLossRecoveryTime { get; set; }
-
-    /// <summary>If SCP-079 has opened the Facility map.</summary>
-    public bool MapOpen { get; set; }
 
     /// <summary>The doors currently locked by SCP-079.</summary>
     public DoorVariant[] LockedDoors { get; set; }
@@ -194,16 +187,12 @@ public sealed class Scp079Info : PlayerInfoBase
         var lostSignalHandler = routines.LostSignalHandler;
         lostSignalHandler._recoveryTime = SignalLossRecoveryTime + time;
 
-        var map = routines.Map;
-        map._state = MapOpen;
-
         var doorLock = routines.DoorLock;
         var lockdown = routines.LockdownAbility;
         SetLocks(doorLock, lockdown, time);
 
         tesla.Sync();
         lostSignalHandler.Sync();
-        map.Sync();
         zoneBlackout.Sync();
         doorLock.Sync();
         lockdown.Sync();

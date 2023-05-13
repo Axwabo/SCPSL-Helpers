@@ -1,6 +1,5 @@
 ﻿using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
-using PlayerRoles.PlayableScps.Scp079.Map;
 using PlayerRoles.PlayableScps.Scp079.Rewards;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers;
@@ -35,9 +34,6 @@ public readonly struct Scp079SubroutineContainer
     /// <summary>SCP-079's Tesla Gate overcharge ability.</summary>
     public readonly Scp079TeslaAbility TeslaAbility;
 
-    /// <summary>SCP-079's Facility Map ability.</summary>
-    public readonly Scp079ToggleMapAbility Map;
-
     /// <summary>SCP-079's Door Lock ability.</summary>
     public readonly Scp079DoorLockChanger DoorLock;
 
@@ -57,7 +53,6 @@ public readonly struct Scp079SubroutineContainer
     /// <param name="lostSignalHandler">SCP-079's "Signal Lost" handler.</param>
     /// <param name="rewardManager">SCP-079's EXP reward manager.</param>
     /// <param name="teslaAbility">SCP-079's Tesla Gate overcharge ability.</param>
-    /// <param name="map">SCP-079's Facility Map ability.</param>
     /// <param name="doorLock">SCP-079's Door Lock ability.</param>
     /// <param name="lockdownAbility">SCP-079's Lockdown ability.</param>
     public Scp079SubroutineContainer(
@@ -68,7 +63,6 @@ public readonly struct Scp079SubroutineContainer
         Scp079LostSignalHandler lostSignalHandler,
         Scp079RewardManager rewardManager,
         Scp079TeslaAbility teslaAbility,
-        Scp079ToggleMapAbility map,
         Scp079DoorLockChanger doorLock,
         Scp079LockdownRoomAbility lockdownAbility
     )
@@ -80,7 +74,6 @@ public readonly struct Scp079SubroutineContainer
         LostSignalHandler = lostSignalHandler;
         RewardManager = rewardManager;
         TeslaAbility = teslaAbility;
-        Map = map;
         DoorLock = doorLock;
         LockdownAbility = lockdownAbility;
         IsValid = true;
@@ -103,7 +96,6 @@ public readonly struct Scp079SubroutineContainer
         Scp079RewardManager rewardManager = null;
         Scp079BlackoutZoneAbility zoneBlackout = null;
         Scp079TeslaAbility tesla = null;
-        Scp079ToggleMapAbility map = null;
         Scp079DoorLockChanger doorLock = null;
         Scp079LockdownRoomAbility lockdownRoom = null;
         var propertiesSet = 0;
@@ -138,10 +130,6 @@ public readonly struct Scp079SubroutineContainer
                     tesla = t;
                     propertiesSet++;
                     break;
-                case Scp079ToggleMapAbility m:
-                    map = m;
-                    propertiesSet++;
-                    break;
                 case Scp079DoorLockChanger d:
                     doorLock = d;
                     propertiesSet++;
@@ -152,7 +140,7 @@ public readonly struct Scp079SubroutineContainer
                     break;
             }
 
-        return propertiesSet != 10
+        return propertiesSet != 9
             ? Empty
             : new Scp079SubroutineContainer(
                 tierManager,
@@ -162,7 +150,6 @@ public readonly struct Scp079SubroutineContainer
                 signalHandler,
                 rewardManager,
                 tesla,
-                map,
                 doorLock,
                 lockdownRoom
             );

@@ -11,7 +11,7 @@ namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 /// <seealso cref="StandardPlayerInfo"/>
 /// <seealso cref="PlayerInfoBase"/>
 /// <seealso cref="Scp106Role"/>
-public sealed class Scp106Info : PlayerInfoBase
+public class Scp106Info : PlayerInfoBase
 {
 
     /// <summary>

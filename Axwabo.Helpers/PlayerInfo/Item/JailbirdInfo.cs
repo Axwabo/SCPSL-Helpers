@@ -51,7 +51,7 @@ public sealed class JailbirdInfo : ItemInfoBase
             return;
         jb._hitreg.TotalMeleeDamageDealt = MeleeDamage;
         jb.TotalChargesPerformed = Charges;
-        jb.ServerRecheckUsage();
+        jb._deterioration.RecheckUsage();
     }
 
 }
