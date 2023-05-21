@@ -143,9 +143,6 @@ public class Scp079Info : PlayerInfoBase
     /// <summary>The time when SCP-079 will regain control of the cameras.</summary>
     public double SignalLossRecoveryTime { get; set; }
 
-    /// <summary>If SCP-079 has opened the Facility map.</summary>
-    public bool MapOpen { get; set; }
-
     /// <summary>The doors currently locked by SCP-079.</summary>
     public DoorVariant[] LockedDoors { get; set; }
 

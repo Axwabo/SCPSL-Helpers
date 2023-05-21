@@ -66,11 +66,9 @@ public abstract class EffectInfoBase
     /// <param name="effect">The effect to get the type of.</param>
     /// <returns>The type of the effect.</returns>
     /// <exception cref="InvalidOperationException">Thrown when the effect type is unknown.</exception>
-    public static EffectType EffectInstanceToEffectType(StatusEffectBase effect)
-    {
-        if (effect == null)
-            return EffectType.None;
-        return effect switch
+    public static EffectType EffectInstanceToEffectType(StatusEffectBase effect) => effect == null
+        ? EffectType.None
+        : effect switch
         {
             AmnesiaItems => EffectType.AmnesiaItems,
             AmnesiaVision => EffectType.AmnesiaVision,
@@ -110,7 +108,6 @@ public abstract class EffectInfoBase
             Vitality => EffectType.Vitality,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
-    }
 
     /// <summary>
     /// Converts the <see cref="EffectType"/> to a <see cref="Type"/>.

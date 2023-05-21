@@ -40,6 +40,9 @@ public readonly struct Scp079SubroutineContainer
     /// <summary>SCP-079's Lockdown ability.</summary>
     public readonly Scp079LockdownRoomAbility LockdownAbility;
 
+    /// <summary>SCP-079's Breach Scanner ability.</summary>
+    public readonly Scp079ScannerTracker BreachScanner;
+
     /// <summary>Returns true if this instance is valid (not empty).</summary>
     public readonly bool IsValid;
 
@@ -55,6 +58,7 @@ public readonly struct Scp079SubroutineContainer
     /// <param name="teslaAbility">SCP-079's Tesla Gate overcharge ability.</param>
     /// <param name="doorLock">SCP-079's Door Lock ability.</param>
     /// <param name="lockdownAbility">SCP-079's Lockdown ability.</param>
+    /// <param name="breachScanner">SCP-079's Breach Scanner ability.</param>
     public Scp079SubroutineContainer(
         Scp079TierManager tierManager,
         Scp079BlackoutZoneAbility zoneBlackout,
@@ -64,7 +68,8 @@ public readonly struct Scp079SubroutineContainer
         Scp079RewardManager rewardManager,
         Scp079TeslaAbility teslaAbility,
         Scp079DoorLockChanger doorLock,
-        Scp079LockdownRoomAbility lockdownAbility
+        Scp079LockdownRoomAbility lockdownAbility,
+        Scp079ScannerTracker breachScanner
     )
     {
         TierManager = tierManager;
@@ -76,6 +81,7 @@ public readonly struct Scp079SubroutineContainer
         TeslaAbility = teslaAbility;
         DoorLock = doorLock;
         LockdownAbility = lockdownAbility;
+        BreachScanner = breachScanner;
         IsValid = true;
     }
 
@@ -98,6 +104,7 @@ public readonly struct Scp079SubroutineContainer
         Scp079TeslaAbility tesla = null;
         Scp079DoorLockChanger doorLock = null;
         Scp079LockdownRoomAbility lockdownRoom = null;
+        Scp079ScannerTracker breachScanner = null;
         var propertiesSet = 0;
         foreach (var sub in role.SubroutineModule.AllSubroutines)
             switch (sub)
@@ -138,9 +145,13 @@ public readonly struct Scp079SubroutineContainer
                     lockdownRoom = l;
                     propertiesSet++;
                     break;
+                case Scp079ScannerTracker s:
+                    breachScanner = s;
+                    propertiesSet++;
+                    break;
             }
 
-        return propertiesSet != 9
+        return propertiesSet != 10
             ? Empty
             : new Scp079SubroutineContainer(
                 tierManager,
@@ -151,7 +162,8 @@ public readonly struct Scp079SubroutineContainer
                 rewardManager,
                 tesla,
                 doorLock,
-                lockdownRoom
+                lockdownRoom,
+                breachScanner
             );
     }
 

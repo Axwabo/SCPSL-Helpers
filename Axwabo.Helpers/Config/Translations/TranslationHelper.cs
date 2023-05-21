@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using PluginAPI.Core;
+using Exiled.API.Features;
 using static Axwabo.Helpers.Config.Translations.AttributeHandler;
 
 namespace Axwabo.Helpers.Config.Translations;
