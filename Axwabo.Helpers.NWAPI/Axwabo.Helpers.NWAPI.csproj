@@ -43,7 +43,7 @@
             <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net35\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-            <HintPath>$(NW-ASSEMBLIES)\Assembly-CSharp.dll</HintPath>
+            <HintPath>..\..\..\Steam\SCPSL\plugins\assemblies\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
             <HintPath>$(NW-ASSEMBLIES)\Assembly-CSharp-firstpass.dll</HintPath>

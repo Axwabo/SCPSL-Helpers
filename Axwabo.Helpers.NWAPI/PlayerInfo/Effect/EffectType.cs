@@ -45,6 +45,7 @@ public enum EffectType
     SpawnProtected,
     Stained,
     Traumatized,
-    Vitality
+    Vitality,
+    PocketCorroding
 
 }

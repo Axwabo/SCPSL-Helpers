@@ -153,7 +153,7 @@ public static class RichTextHelper
     /// <param name="text">The text to align.</param>
     /// <param name="alignment">The alignment to use.</param>
     /// <returns>The aligned text.</returns>
-    public static string Align(this string text, TextAlignment alignment) => text.WrapWithTag(alignment.ToString().ToLower());
+    public static string Align(this string text, TextAlignment alignment) => text.WrapWithTag("align", alignment.ToString().ToLower());
 
     /// <summary>
     /// Adds an overlay to the text.
@@ -362,6 +362,14 @@ public static class RichTextHelper
     /// <returns>The text with the max width.</returns>
     public static string MaxWidth(this string text, string width) => $"<width={width}>{text}";
 
+    /// <summary>
+    /// Rotates the given text.
+    /// </summary>
+    /// <param name="text">The text to rotate.</param>
+    /// <param name="angle">The angle to rotate the text by.</param>
+    /// <returns>The rotated text.</returns>
+    public static string Rotate(this string text, float angle) => text.WrapWithTag("rotate", $"{angle}");
+
     #region Individual Tags
 
     /// <summary>
@@ -395,5 +403,21 @@ public static class RichTextHelper
     public static string Space(string amount) => $"<space={amount}>";
 
     #endregion
+
+    /// <summary>
+    /// Adds a size 0 dot and a space tag of set size on both sides of the text.
+    /// </summary>
+    /// <param name="text">The text to surround.</param>
+    /// <param name="size">The size of the space tag.</param>
+    /// <returns>The text with the "margin".</returns>
+    public static string AddBlankMargin(this string text, int size = 5) => text.AddBlankMargin($"{size}px");
+
+    /// <summary>
+    /// Adds a size 0 dot and a space tag of set size on both sides of the text.
+    /// </summary>
+    /// <param name="text">The text to surround.</param>
+    /// <param name="size">The size of the space tag.</param>
+    /// <returns>The text with the "margin".</returns>
+    public static string AddBlankMargin(this string text, string size) => $"{".".Size("0")}{Space(size)}{text}{Space(size)}{".".Size("0")}";
 
 }

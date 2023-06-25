@@ -106,6 +106,7 @@ public abstract class EffectInfoBase
             Stained => EffectType.Stained,
             Traumatized => EffectType.Traumatized,
             Vitality => EffectType.Vitality,
+            PocketCorroding => EffectType.PocketCorroding,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -154,6 +155,7 @@ public abstract class EffectInfoBase
         EffectType.Stained => typeof(Stained),
         EffectType.Traumatized => typeof(Traumatized),
         EffectType.Vitality => typeof(Vitality),
+        EffectType.PocketCorroding => typeof(PocketCorroding),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

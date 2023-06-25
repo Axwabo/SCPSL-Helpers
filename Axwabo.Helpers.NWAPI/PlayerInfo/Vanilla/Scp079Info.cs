@@ -30,7 +30,6 @@ public class Scp079Info : PlayerInfoBase
     /// </summary>
     /// <param name="player">The player to get the information from.</param>
     /// <returns>The information about SCP-079.</returns>
-    // TODO: breach scanner
     public static Scp079Info Get(Player player)
     {
         var routines = Scp079SubroutineContainer.Get(player.RoleAs<Scp079Role>());
@@ -49,8 +48,8 @@ public class Scp079Info : PlayerInfoBase
             routines.TeslaAbility._nextUseTime - time,
             GetMarkedRoomsDelta(routines.RewardManager._markedRooms),
             routines.LostSignalHandler._recoveryTime - time,
-            doorLock._lockedDoors.ToArray(),
-            GetToggleDelta(doorLock._toggleTimes),
+            doorLock.LockedDoor,
+            doorLock._cooldown,
             lockdown._lockdownInEffect,
             lockdown._nextUseTime - time,
             lockdown._doorsToLockDown.ToArray()
@@ -70,12 +69,6 @@ public class Scp079Info : PlayerInfoBase
         return marked.ToDictionary(k => k.Key, v => time - v.Value);
     }
 
-    private static Dictionary<DoorVariant, double> GetToggleDelta(Dictionary<DoorVariant, double> toggleTimes)
-    {
-        var time = NetworkTime.time;
-        return toggleTimes.ToDictionary(k => k.Key, v => time - v.Value);
-    }
-
     /// <summary>
     /// Creates an <see cref="Scp079Info"/> instance.
     /// </summary>
@@ -86,8 +79,8 @@ public class Scp079Info : PlayerInfoBase
     /// <param name="teslaAbilityCooldown">The cooldown until SCP-079 can overcharge a Tesla Gate.</param>
     /// <param name="rewardCooldown">Rooms marked by the <see cref="Scp079RewardManager"/>.</param>
     /// <param name="signalLossRecoveryTime">Time when SCP-079 will regain control of the cameras.</param>
-    /// <param name="lockedDoors">The doors currently locked by SCP-079.</param>
-    /// <param name="toggleTimes">The cooldown until the specified doors can be locked again.</param>
+    /// <param name="lockedDoor">The doors currently locked by SCP-079.</param>
+    /// <param name="doorLockCooldown">The cooldown until the specified doors can be locked again.</param>
     /// <param name="lockdownActive">Whether the Lockdown ability is currently active.</param>
     /// <param name="lockdownCooldown">The cooldown until SCP-079 can use the Lockdown ability.</param>
     /// <param name="doorsToLock">The doors that will be locked by the Lockdown ability.</param>
@@ -99,8 +92,8 @@ public class Scp079Info : PlayerInfoBase
         double teslaAbilityCooldown,
         Dictionary<RoomIdentifier, double> rewardCooldown,
         double signalLossRecoveryTime,
-        DoorVariant[] lockedDoors,
-        Dictionary<DoorVariant, double> toggleTimes,
+        DoorVariant lockedDoor,
+        CooldownInfo doorLockCooldown,
         bool lockdownActive,
         double lockdownCooldown,
         DoorVariant[] doorsToLock
@@ -113,8 +106,8 @@ public class Scp079Info : PlayerInfoBase
         TeslaAbilityCooldown = teslaAbilityCooldown;
         RewardCooldown = rewardCooldown;
         SignalLossRecoveryTime = signalLossRecoveryTime;
-        LockedDoors = lockedDoors;
-        ToggleTimes = toggleTimes;
+        LockedDoor = lockedDoor;
+        DoorLockCooldown = doorLockCooldown;
         LockdownActive = lockdownActive;
         LockdownCooldown = lockdownCooldown;
         DoorsToLock = doorsToLock;
@@ -144,10 +137,10 @@ public class Scp079Info : PlayerInfoBase
     public double SignalLossRecoveryTime { get; set; }
 
     /// <summary>The doors currently locked by SCP-079.</summary>
-    public DoorVariant[] LockedDoors { get; set; }
+    public DoorVariant LockedDoor { get; set; }
 
     /// <summary>The cooldown until the specified doors can be locked again.</summary>
-    public Dictionary<DoorVariant, double> ToggleTimes { get; set; }
+    public CooldownInfo DoorLockCooldown { get; set; }
 
     /// <summary>Whether the Lockdown ability is currently active.</summary>
     public bool LockdownActive { get; set; }
@@ -208,10 +201,14 @@ public class Scp079Info : PlayerInfoBase
 
     private void SetLocks(Scp079DoorLockChanger doorLock, Scp079LockdownRoomAbility lockdown, double time)
     {
-        SetCurrentlyLockedDoors(doorLock._lockedDoors, LockedDoors, DoorLockReason.Regular079);
-        var toggleTimes = doorLock._toggleTimes;
-        foreach (var pair in ToggleTimes.AsNonNullEnumerable())
-            toggleTimes[pair.Key] = pair.Value + time;
+        DoorLockCooldown.ApplyTo(doorLock._cooldown);
+        if (doorLock.LockedDoor)
+            doorLock.LockedDoor.ServerChangeLock(DoorLockReason.Regular079, false);
+        if (LockedDoor != null)
+        {
+            doorLock.LockedDoor = LockedDoor;
+            LockedDoor.ServerChangeLock(DoorLockReason.Regular079, true);
+        }
 
         lockdown._lockdownInEffect = LockdownActive;
         lockdown._nextUseTime = LockdownCooldown + time;
