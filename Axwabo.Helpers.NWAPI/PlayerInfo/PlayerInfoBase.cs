@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Axwabo.Helpers.PlayerInfo.Vanilla;
 using PlayerRoles.FirstPersonControl;
+using PlayerStatsSystem;
 using PluginAPI.Core;
 using UnityEngine;
 
@@ -123,6 +125,8 @@ public abstract class PlayerInfoBase
     /// <seealso cref="StandardPlayerInfo"/>
     protected PlayerInfoBase(BasicRoleInfo roleInfo)
     {
+        if (!roleInfo.IsValid)
+            return;
         Position = roleInfo.Position;
         Rotation = roleInfo.Rotation;
         Health = roleInfo.Health;
@@ -143,13 +147,13 @@ public abstract class PlayerInfoBase
             return;
         player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation);
         player.Health = Health;
-        var stats = player.ReferenceHub.playerStats.StatModules;
+        var stats = player.ReferenceHub.playerStats;
         if (Ahp >= 0)
-            stats[BasicRoleInfo.AhpIndex].CurValue = Ahp;
-        stats[BasicRoleInfo.StaminaIndex].CurValue = Stamina;
+            stats.GetModule<AhpStat>().CurValue = Ahp;
+        stats.GetModule<StaminaStat>().CurValue = Stamina;
         if (HumeShield >= 0)
-            stats[BasicRoleInfo.HumeShieldIndex].CurValue = HumeShield;
-        foreach (var effect in Effects)
+            stats.GetModule<HumeShieldStat>().CurValue = HumeShield;
+        foreach (var effect in Effects ?? Enumerable.Empty<EffectInfoBase>())
             effect?.ApplyTo(player);
         Inventory.ApplyTo(player);
     }
