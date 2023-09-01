@@ -39,7 +39,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The AHP value, or -1 if there are no active processes.</returns>
     public static float GetAhp(Player player)
     {
-        var ahp = (AhpStat) player.ReferenceHub.playerStats.StatModules[AhpIndex];
+        var ahp = player.ReferenceHub.playerStats.GetModule<AhpStat>();
         return ahp._activeProcesses.Count is 0 ? -1 : ahp.CurValue;
     }
 
@@ -48,7 +48,7 @@ public readonly struct BasicRoleInfo
     /// </summary>
     /// <param name="player">The player to get the stamina of.</param>
     /// <returns>The stamina amount.</returns>
-    public static float GetStamina(Player player) => ((StaminaStat) player.ReferenceHub.playerStats.StatModules[StaminaIndex]).CurValue;
+    public static float GetStamina(Player player) => player.ReferenceHub.playerStats.GetModule<StaminaStat>().CurValue;
 
     /// <summary>
     /// Validates the given position to ensure that it's not inside an elevator.
