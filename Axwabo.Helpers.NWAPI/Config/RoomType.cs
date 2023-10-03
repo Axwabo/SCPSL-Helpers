@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS1591
+﻿using System;
+
+#pragma warning disable CS1591
 // disable XML doc warning lol
 
 namespace Axwabo.Helpers.Config;
@@ -24,7 +26,7 @@ public enum RoomType
     LczToilets,
 
     [RoomName("EZ_PCs_small")]
-    EzPcsSmall,
+    EzOfficeSmall,
 
     [RoomName("HCZ_Curve")]
     HczCurve,
@@ -42,7 +44,7 @@ public enum RoomType
     LczCrossing,
 
     [RoomName("HCZ_Room3ar")]
-    HczRoom3Ar,
+    HczArmory,
 
     [RoomName("LCZ_173")]
     Lcz173,
@@ -54,7 +56,7 @@ public enum RoomType
     EzCafeteria,
 
     [RoomName("EZ_PCs")]
-    EzPcs,
+    EzOfficeLarge,
 
     [RoomName("EZ_Smallrooms2")]
     EzSmallrooms2,
@@ -69,7 +71,7 @@ public enum RoomType
     Hcz079,
 
     [RoomName("LCZ_372")]
-    Lcz372,
+    LczGlassroom,
 
     [RoomName("HCZ_Testroom")]
     HczTestroom,
@@ -84,10 +86,10 @@ public enum RoomType
     EzCurve,
 
     [RoomName("HCZ_Nuke")]
-    HczNuke,
+    HczWarhead,
 
     [RoomName("LCZ_ChkpA")]
-    LczChkpA,
+    LczCheckpointA,
 
     [RoomName("HCZ_Straight")]
     HczStraight,
@@ -96,22 +98,22 @@ public enum RoomType
     LczStraight,
 
     [RoomName("EZ Part")]
-    EzPart,
+    HczCheckpointToEntranceZone,
 
     [RoomName("LCZ_Plants")]
-    LczPlants,
+    LczGreenhouse,
 
     [RoomName("EZ_Shelter")]
-    EzShelter,
+    EzEvacShelter,
 
     [RoomName("EZ_upstairs")]
-    EzUpstairs,
+    EzOfficeStoried,
 
     [RoomName("HCZ_106")]
     Hcz106,
 
     [RoomName("EZ_Endoof")]
-    EzEndoof,
+    EzRedroom,
 
     [RoomName("HCZ Part")]
     HczPart,
@@ -129,7 +131,7 @@ public enum RoomType
     Lcz914,
 
     [RoomName("HCZ_ChkpB")]
-    HczChkpB,
+    HczCheckpointB,
 
     [RoomName("HCZ_049")]
     Hcz049,
@@ -144,10 +146,10 @@ public enum RoomType
     HczTesla,
 
     [RoomName("HCZ_457")]
-    Hcz457,
+    Hcz096,
 
     [RoomName("LCZ_ChkpB")]
-    LczChkpB,
+    LczCheckpointB,
 
     [RoomName("HCZ_Servers")]
     HczServers,
@@ -156,6 +158,65 @@ public enum RoomType
     HczCrossing,
 
     [RoomName("EZ_ThreeWay")]
-    EzThreeWay
+    EzThreeWay,
+
+    [Obsolete($"Use {nameof(EzOfficeSmall)} instead")]
+    [RoomName("EZ_PCs_small")]
+    EzPcsSmall,
+
+    [Obsolete($"Use {nameof(HczArmory)} instead")]
+    [RoomName("HCZ_Room3ar")]
+    HczRoom3Ar,
+
+    [Obsolete($"Use {nameof(EzOfficeLarge)} instead")]
+    [RoomName("EZ_PCs")]
+    EzPcs,
+
+    [Obsolete($"Use {nameof(LczGlassroom)} instead")]
+    [RoomName("LCZ_372")]
+    Lcz372,
+
+    [Obsolete($"Use {nameof(HczWarhead)} instead")]
+    [RoomName("HCZ_Nuke")]
+    HczNuke,
+
+    [Obsolete($"Use {nameof(LczCheckpointA)} instead")]
+    [RoomName("LCZ_ChkpA")]
+    LczChkpA,
+
+    [RoomName("HCZ_ChkpA")]
+    HczCheckpointA,
+
+    [Obsolete($"Use {nameof(LczCheckpointB)} instead")]
+    [RoomName("LCZ_ChkpB")]
+    LczChkpB,
+
+    [Obsolete($"Use {nameof(HczCheckpointB)} instead")]
+    [RoomName("HCZ_ChkpB")]
+    HczChkpB,
+
+    [Obsolete($"Use {nameof(HczCheckpointToEntranceZone)} instead")]
+    [RoomName("EZ Part")]
+    EzPart,
+
+    [Obsolete($"Use {nameof(LczGreenhouse)} instead")]
+    [RoomName("LCZ_Plants")]
+    LczPlants,
+
+    [Obsolete($"Use {nameof(EzEvacShelter)} instead")]
+    [RoomName("EZ_Shelter")]
+    EzShelter,
+
+    [Obsolete($"Use {nameof(EzOfficeStoried)} instead")]
+    [RoomName("EZ_upstairs")]
+    EzUpstairs,
+
+    [Obsolete($"Use {nameof(EzRedroom)} instead")]
+    [RoomName("EZ_Endoof")]
+    EzEndoof,
+
+    [Obsolete($"Use {nameof(Hcz096)} instead")]
+    [RoomName("HCZ_457")]
+    Hcz457
 
 }

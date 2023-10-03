@@ -65,8 +65,8 @@
             <Aliases>MirrorComponents</Aliases>
         </Reference>
         <Reference Include="mscorlib"/>
-        <Reference Include="PluginAPI, Version=13.1.0.0, Culture=neutral, processorArchitecture=Amd64">
-            <HintPath>..\packages\Northwood.PluginAPI.13.1.0\lib\net48\PluginAPI.dll</HintPath>
+        <Reference Include="PluginAPI, Version=13.1.1.0, Culture=neutral, processorArchitecture=Amd64">
+            <HintPath>..\packages\Northwood.PluginAPI.13.1.1\lib\net48\PluginAPI.dll</HintPath>
         </Reference>
         <Reference Include="Pooling">
             <HintPath>$(NW-ASSEMBLIES)\Pooling.dll</HintPath>
