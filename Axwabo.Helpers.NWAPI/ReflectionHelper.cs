@@ -390,7 +390,7 @@ public static class ReflectionHelper
     /// <param name="type">The type to get the enums from.</param>
     /// <typeparam name="T">The type of the enums.</typeparam>
     /// <returns>An enumerable of the enums.</returns>
-    public static IEnumerable<T> Enums<T>(this Type type) => Enum.GetValues(type).ToArray<T>();
+    public static IEnumerable<T> Enums<T>(this Type type) => (T[]) Enum.GetValues(type);
 
     /// <summary>
     /// Gets the defined enums in the specified type.
@@ -399,7 +399,7 @@ public static class ReflectionHelper
     /// <typeparam name="T">The type of the enums.</typeparam>
     /// <returns>An enumerable of the enums.</returns>
     /// <remarks>Can be used like <see cref="Enums{T}(System.Type)"/>, but instead of passing in the type, it needs an enum value.</remarks>
-    public static IEnumerable<T> Enums<T>(this T enumType) where T : Enum => Enum.GetValues(enumType.GetType()).ToArray<T>();
+    public static IEnumerable<T> Enums<T>(this T enumType) where T : Enum => (T[]) Enum.GetValues(enumType.GetType());
 
     /// <summary>
     /// Gets the defined enums in the specified type except the given enum.
