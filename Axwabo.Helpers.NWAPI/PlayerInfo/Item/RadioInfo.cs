@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 /// <summary>
 /// Contains gameplay information about a radio.
 /// </summary>
-public sealed class RadioInfo : ItemInfoBase
+public class RadioInfo : ItemInfoBase
 {
 
     /// <summary>

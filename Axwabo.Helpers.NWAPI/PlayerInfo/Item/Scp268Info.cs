@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 /// <summary>
 /// Contains gameplay information about an SCP-268 instance.
 /// </summary>
-public sealed class Scp268Info : UsableItemInfo
+public class Scp268Info : UsableItemInfo
 {
 
     /// <summary>

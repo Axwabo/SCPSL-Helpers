@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 /// <summary>
 /// Contains gameplay information about a Jailbird.
 /// </summary>
-public sealed class JailbirdInfo : ItemInfoBase
+public class JailbirdInfo : ItemInfoBase
 {
 
     /// <summary>

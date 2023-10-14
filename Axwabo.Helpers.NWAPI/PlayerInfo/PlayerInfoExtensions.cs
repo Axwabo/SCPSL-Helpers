@@ -1,4 +1,6 @@
-﻿using PlayerRoles;
+﻿using System.Linq;
+using InventorySystem;
+using PlayerRoles;
 using PlayerRoles.PlayableScps.Subroutines;
 using PluginAPI.Core;
 using Utils.Networking;
@@ -123,5 +125,36 @@ public static class PlayerInfoExtensions
     /// </summary>
     /// <param name="routine">The routine to sync.</param>
     public static void Sync(this ScpSubroutineBase routine) => new SubroutineMessage(routine, true).SendToAuthenticated();
+
+    /// <summary>
+    /// Removes all items from the player's inventory.
+    /// </summary>
+    /// <param name="inventory">The inventory to clear.</param>
+    public static void RemoveAllItems(this Inventory inventory)
+    {
+        foreach (var serial in inventory.UserInventory.Items.Keys.ToArray())
+            inventory.ServerRemoveItem(serial, null);
+    }
+
+    /// <summary>
+    /// Clears the player's ammo.
+    /// </summary>
+    /// <param name="inventory">The inventory to clear.</param>
+    public static void ClearAmmo(this Inventory inventory)
+    {
+        foreach (var type in inventory.UserInventory.ReserveAmmo.Keys.ToArray())
+            inventory.UserInventory.ReserveAmmo[type] = 0;
+        inventory.SendAmmoNextFrame = true;
+    }
+
+    /// <summary>
+    /// Removes all items and clears the ammo from the player's inventory.
+    /// </summary>
+    /// <param name="inventory">The inventory to clear.</param>
+    public static void ClearEverything(this Inventory inventory)
+    {
+        inventory.RemoveAllItems();
+        inventory.ClearAmmo();
+    }
 
 }

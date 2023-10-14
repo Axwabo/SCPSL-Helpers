@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 /// <summary>
 /// Contains gameplay information about a firearm.
 /// </summary>
-public sealed class FirearmInfo : ItemInfoBase
+public class FirearmInfo : ItemInfoBase
 {
 
     /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Axwabo.Helpers.PlayerInfo.Item;
 using PluginAPI.Core;
 
@@ -63,9 +64,9 @@ public readonly struct InventoryInfo
         if (!IsValid || !player.IsConnected())
             return;
         var inv = player.ReferenceHub.inventory;
-        inv.UserInventory.Items.Clear();
+        inv.RemoveAllItems();
         ushort selected = 0;
-        foreach (var info in Items)
+        foreach (var info in Items ?? Array.Empty<ItemInfoBase>())
         {
             if (info == null)
                 continue;

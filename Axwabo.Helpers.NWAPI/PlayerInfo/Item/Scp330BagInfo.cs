@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 /// <summary>
 /// Contains gameplay information about an SCP-330 bag.
 /// </summary>
-public sealed class Scp330BagInfo : ItemInfoBase
+public class Scp330BagInfo : ItemInfoBase
 {
 
     /// <summary>
