@@ -26,7 +26,7 @@ public class Scp106Info : PlayerInfoBase
             return null;
         return new Scp106Info(
             routines.Attack._nextAttack - NetworkTime.time,
-            player.ReferenceHub.playerStats.GetModule<Scp106Vigor>().CurValue,
+            player.ReferenceHub.playerStats.GetModule<VigorStat>().CurValue,
             routines.StalkAbility.IsActive,
             routines.SinkholeController.Cooldown,
             BasicRoleInfo.Get(player)
@@ -81,7 +81,7 @@ public class Scp106Info : PlayerInfoBase
         var routines = Scp106SubroutineContainer.Get(player.RoleAs<Scp106Role>());
         if (!routines.IsValid)
             return;
-        player.ReferenceHub.playerStats.GetModule<Scp106Vigor>().CurValue = Vigor;
+        player.ReferenceHub.playerStats.GetModule<VigorStat>().CurValue = Vigor;
 
         var attack = routines.Attack;
         attack._nextAttack = NetworkTime.time + AttackCooldown;
