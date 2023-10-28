@@ -100,6 +100,9 @@ public abstract class PlayerInfoBase
     /// <summary>The base HP of the player.</summary>
     public float Health { get; set; }
 
+    /// <summary>The additional max HP of the player (applies to humans only).</summary>
+    public float AdditionalMaxHealth { get; set; }
+
     /// <summary>The additional HP of the player.</summary>
     public float Ahp { get; set; }
 
@@ -131,6 +134,7 @@ public abstract class PlayerInfoBase
         Position = roleInfo.Position;
         Rotation = roleInfo.Rotation;
         Health = roleInfo.Health;
+        AdditionalMaxHealth = roleInfo.AdditionalMaxHealth;
         Ahp = roleInfo.Ahp;
         Stamina = roleInfo.Stamina;
         HumeShield = roleInfo.HumeShield;
@@ -154,6 +158,7 @@ public abstract class PlayerInfoBase
         stats.GetModule<StaminaStat>().CurValue = Stamina;
         if (HumeShield >= 0)
             stats.GetModule<HumeShieldStat>().CurValue = HumeShield;
+        stats.GetModule<MaxHealthStat>().CurValue = AdditionalMaxHealth;
         foreach (var effect in Effects ?? Enumerable.Empty<EffectInfoBase>())
             effect?.ApplyTo(player);
         Inventory.ApplyTo(player);

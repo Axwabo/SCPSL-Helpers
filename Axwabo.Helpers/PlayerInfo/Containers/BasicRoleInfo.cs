@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Exiled.API.Features;
 using PlayerRoles.PlayableScps.HumeShield;
@@ -70,7 +71,8 @@ public readonly struct BasicRoleInfo
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
         player.Rotation.eulerAngles,
-        player.Health,
+        player.ReferenceHub.playerStats.GetModule<HealthStat>().CurValue,
+        player.ReferenceHub.playerStats.GetModule<MaxHealthStat>().CurValue,
         GetAhp(player),
         GetStamina(player),
         GetHs(player),
@@ -84,22 +86,42 @@ public readonly struct BasicRoleInfo
     /// <param name="position">The position of the player.</param>
     /// <param name="rotation">The rotation of the player.</param>
     /// <param name="health">The base HP of the player.</param>
+    /// <param name="additionalMaxHealth">The additional max HP of the player (applies to humans only).</param>
     /// <param name="ahp">The additional HP of the player.</param>
     /// <param name="stamina">The stamina of the player.</param>
     /// <param name="humeShield">The Hume Shield of the player.</param>
     /// <param name="effects">The effects on the player.</param>
     /// <param name="inventoryInfo">Information about the player's inventory.</param>
-    public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
+    public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float additionalMaxHealth, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
     {
         Position = position;
         Rotation = rotation;
         Health = health;
+        AdditionalMaxHealth = additionalMaxHealth;
         Ahp = ahp;
         Stamina = stamina;
         HumeShield = humeShield;
         Effects = effects;
         Inventory = inventoryInfo;
         IsValid = true;
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="BasicRoleInfo"/> instance.<br/>
+    /// <b>Obsolete: Use the constructor with additionalMaxHealth instead.</b>
+    /// </summary>
+    /// <param name="position">The position of the player.</param>
+    /// <param name="rotation">The rotation of the player.</param>
+    /// <param name="health">The base HP of the player.</param>
+    /// <param name="ahp">The additional HP of the player.</param>
+    /// <param name="stamina">The stamina of the player.</param>
+    /// <param name="humeShield">The Hume Shield of the player.</param>
+    /// <param name="effects">The effects on the player.</param>
+    /// <param name="inventoryInfo">Information about the player's inventory.</param>
+    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
+    public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
+        : this(position, rotation, health, 0, ahp, stamina, humeShield, effects, inventoryInfo)
+    {
     }
 
     #region Members
@@ -112,6 +134,9 @@ public readonly struct BasicRoleInfo
 
     /// <summary>The base HP of the player.</summary>
     public readonly float Health;
+
+    /// <summary>The additional max HP of the player (applies to humans only).</summary>
+    public readonly float AdditionalMaxHealth;
 
     /// <summary>The additional HP of the player.</summary>
     public readonly float Ahp;
