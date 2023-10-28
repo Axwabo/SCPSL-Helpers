@@ -101,21 +101,11 @@ public static class PlayerExtensions
     /// <param name="message">The message to send.</param>
     /// <param name="success">If the command has executed successfully.</param>
     /// <param name="display">The prefix (command name) for <see cref="CommandSender">command senders</see>.</param>
-    /// <seealso cref="ICommandSender.Respond"/>
     /// <seealso cref="CommandSender.RaReply"/>
     public static void Reply(this ICommandSender sender, string message, bool success = true, string display = "")
     {
-        switch (sender)
-        {
-            case null:
-                return;
-            case CommandSender cs:
-                cs.RaReply(message, success, false, display);
-                return;
-            default:
-                sender.Respond(message, success);
-                return;
-        }
+        if (sender is CommandSender cs)
+            cs.RaReply(message, success, false, display);
     }
 
     /// <summary>
