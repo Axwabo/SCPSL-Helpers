@@ -46,6 +46,19 @@ public enum EffectType
     Stained,
     Traumatized,
     Vitality,
-    PocketCorroding
+    PocketCorroding,
+    Ghostly,
+    MarshmallowEffect,
+    Metal,
+    OrangeCandy,
+    OrangeWitness,
+    Strangled,
+    SugarCrave,
+    SugarRush,
+    TraumatizedByEvil,
+    Prismatic,
+    SlowMetabolism,
+    Spicy,
+    SugarHigh
 
 }

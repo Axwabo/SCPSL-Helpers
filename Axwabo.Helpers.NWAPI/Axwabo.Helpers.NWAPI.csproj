@@ -133,6 +133,7 @@
         <Compile Include="PlayerInfo\Vanilla\Scp096Info.cs"/>
         <Compile Include="PlayerInfo\Vanilla\Scp106Info.cs"/>
         <Compile Include="PlayerInfo\Vanilla\Scp173Info.cs"/>
+        <Compile Include="PlayerInfo\Vanilla\Scp3114Info.cs"/>
         <Compile Include="PlayerInfo\Vanilla\Scp939Info.cs"/>
         <Compile Include="Pools\BasicPool.cs"/>
         <Compile Include="Pools\DictionaryPool.cs"/>

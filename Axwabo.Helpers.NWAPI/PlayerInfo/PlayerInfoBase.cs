@@ -29,7 +29,8 @@ public abstract class PlayerInfoBase
         new(Scp096Info.Is096, Scp096Info.Get),
         new(Scp106Info.Is106, Scp106Info.Get),
         new(Scp173Info.Is173, Scp173Info.Get),
-        new(Scp939Info.Is939, Scp939Info.Get)
+        new(Scp939Info.Is939, Scp939Info.Get),
+        new(Scp3114Info.Is3114, Scp3114Info.Get)
     };
 
     /// <summary>
