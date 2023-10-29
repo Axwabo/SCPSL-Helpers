@@ -25,7 +25,8 @@ public static partial class InstructionHelper
     /// <param name="method">The information about the method.</param>
     /// <param name="start">The starting index of the search.</param>
     /// <returns>The index of the instruction.</returns>
-    public static int FindCall(this List<CodeInstruction> list, MethodInfo method, int start = 0) => FindCode(list, method.IsVirtual ? OpCodes.Callvirt : OpCodes.Call, i => i.operand as MethodInfo == method, start);
+    public static int FindCall(this List<CodeInstruction> list, MethodInfo method, int start = 0)
+        => list.FindIndex(start, i => i.operand as MethodInfo == method);
 
     /// <summary>
     /// Finds the index of the instruction which calls the specific method.
@@ -38,7 +39,8 @@ public static partial class InstructionHelper
     /// <param name="start">The starting index of the search.</param>
     /// <returns>The index of the instruction.</returns>
     /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
-    public static int FindCall(this List<CodeInstruction> list, Type type, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0) => FindCall(list, AccessTools.Method(type, methodName, parameters, generics) ?? throw new ArgumentException($"No method found for type={type.FullName}, name={methodName}, parameters={parameters.Description()}, generics={generics.Description()}"), start);
+    public static int FindCall(this List<CodeInstruction> list, Type type, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0)
+        => FindCall(list, AccessTools.Method(type, methodName, parameters, generics) ?? throw new ArgumentException($"No method found for type={type.FullName}, name={methodName}, parameters={parameters.Description()}, generics={generics.Description()}"), start);
 
     /// <summary>
     /// Finds the index of the instruction which calls the specific method.
@@ -51,27 +53,41 @@ public static partial class InstructionHelper
     /// <typeparam name="T">The type of the object containing the method.</typeparam>
     /// <returns>The index of the instruction.</returns>
     /// <exception cref="ArgumentException">Thrown if the method was not found.</exception>
-    public static int FindCall<T>(this List<CodeInstruction> list, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0) => FindCall(list, typeof(T), methodName, parameters, generics, start);
+    public static int FindCall<T>(this List<CodeInstruction> list, string methodName, Type[] parameters = null, Type[] generics = null, int start = 0)
+        => FindCall(list, typeof(T), methodName, parameters, generics, start);
 
     /// <summary>
-    /// Finds the index of the instruction which loads the specific field.
+    /// Finds the index of the instruction which calls the specific method.
+    /// </summary>
+    /// <param name="list">The list of instructions to execute the search in.</param>
+    /// <param name="methodName">The name of the method to call.</param>
+    /// <param name="start">The starting index of the search.</param>
+    /// <param name="ignoreCase">Whether to ignore the case of the method name. Defaults to true.</param>
+    /// <returns>The index of the instruction.</returns>
+    public static int FindCall(this List<CodeInstruction> list, string methodName, int start = 0, bool ignoreCase = true)
+        => list.FindIndex(start, i => i.operand is MethodInfo m && m.Name.Equals(methodName, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal));
+
+    /// <summary>
+    /// Finds the index of the instruction which loads or stores the specific field.
     /// </summary>
     /// <param name="list">The list of instructions to execute the search in.</param>
     /// <param name="field">The information about the field.</param>
     /// <param name="start">The starting index of the search.</param>
     /// <returns>The index of the instruction.</returns>
-    public static int FindField(this List<CodeInstruction> list, FieldInfo field, int start = 0) => FindCode(list, field.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, i => i.operand as FieldInfo == field, start);
+    public static int FindField(this List<CodeInstruction> list, FieldInfo field, int start = 0)
+        => list.FindIndex(start, i => i.operand as FieldInfo == field);
 
     /// <summary>
-    /// Finds the index of the instruction which loads the specific field.
+    /// Finds the index of the instruction which loads or stores the specific field.
     /// </summary>
     /// <param name="list">The list of instructions to execute the search in.</param>
     /// <param name="type">The type of the object containing the field.</param>
-    /// <param name="fieldName">The name of the field to load.</param>
+    /// <param name="fieldName">The name of the field to load or store.</param>
     /// <param name="start">The starting index of the search.</param>
     /// <returns>The index of the instruction.</returns>
     /// <exception cref="ArgumentException">Thrown if the field was not found.</exception>
-    public static int FindField(this List<CodeInstruction> list, Type type, string fieldName, int start = 0) => FindField(list, AccessTools.Field(type, fieldName) ?? throw new ArgumentException($"No field found for type={type.FullName}, name={fieldName}"), start);
+    public static int FindField(this List<CodeInstruction> list, Type type, string fieldName, int start = 0)
+        => FindField(list, AccessTools.Field(type, fieldName) ?? throw new ArgumentException($"No field found for type={type.FullName}, name={fieldName}"), start);
 
     /// <summary>
     /// Finds the index of the instruction which loads the specific field.
@@ -86,6 +102,17 @@ public static partial class InstructionHelper
     public static int FindField<T>(this List<CodeInstruction> list, string fieldName, int start = 0) => FindField(list, typeof(T), fieldName, start);
 
     /// <summary>
+    /// Finds the index of the instruction which loads or stores the specific field.
+    /// </summary>
+    /// <param name="list">The list of instructions to execute the search in.</param>
+    /// <param name="fieldName">The name of the field to load or store.</param>
+    /// <param name="start">The starting index of the search.</param>
+    /// <param name="ignoreCase">Whether to ignore the case of the field name. Defaults to true.</param>
+    /// <returns>The index of the instruction.</returns>
+    public static int FindField(this List<CodeInstruction> list, string fieldName, int start = 0, bool ignoreCase = true)
+        => list.FindIndex(start, i => i.operand is FieldInfo f && f.Name.Equals(fieldName, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal));
+
+    /// <summary>
     /// Finds the index of the instruction with a specific code and an optional check.
     /// </summary>
     /// <param name="list">The list of instructions.</param>
@@ -93,6 +120,7 @@ public static partial class InstructionHelper
     /// <param name="predicate">An additional check.</param>
     /// <param name="start">The starting index of the search.</param>
     /// <returns>The index of the instruction.</returns>
-    public static int FindCode(this List<CodeInstruction> list, OpCode code, Predicate<CodeInstruction> predicate = null, int start = 0) => list.FindIndex(start, i => i.opcode == code && (predicate?.Invoke(i) ?? true));
+    public static int FindCode(this List<CodeInstruction> list, OpCode code, Predicate<CodeInstruction> predicate = null, int start = 0)
+        => list.FindIndex(start, i => i.opcode == code && (predicate?.Invoke(i) ?? true));
 
 }

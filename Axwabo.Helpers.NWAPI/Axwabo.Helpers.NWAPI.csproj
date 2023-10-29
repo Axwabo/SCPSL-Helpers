@@ -12,7 +12,7 @@
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>10</LangVersion>
-        <NoWarn>MSB3277</NoWarn>
+        <NoWarn>MSB3277,CS0660,CS0661,CS0659</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>x64</PlatformTarget>
@@ -90,7 +90,17 @@
         <Compile Include="Config\Translations\TranslationRegistry.cs"/>
         <Compile Include="EmptyConnection.cs"/>
         <Compile Include="EnumeratorWrapping.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Arguments.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Calls.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Elements.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Extensions.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Fields.cs"/>
         <Compile Include="Harmony\InstructionHelper.Find.cs"/>
+        <Compile Include="Harmony\InstructionHelper.GetSet.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Locals.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Numbers.cs"/>
+        <Compile Include="Harmony\InstructionHelper.Operators.cs"/>
+        <Compile Include="Parse.ArraySegment.cs"/>
         <Compile Include="Parse.cs"/>
         <Compile Include="PlayerExtensions.cs"/>
         <Compile Include="Harmony\Attributes\ConstructorPatch.cs"/>
