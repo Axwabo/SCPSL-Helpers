@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS1591
+﻿using System;
+
+#pragma warning disable CS1591
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 
 /// <summary>
@@ -49,16 +51,37 @@ public enum EffectType
     PocketCorroding,
     Ghostly,
     MarshmallowEffect,
+
+    [Obsolete("No longer part of the game.")]
     Metal,
+
+    [Obsolete("No longer part of the game.")]
     OrangeCandy,
+
+    [Obsolete("No longer part of the game.")]
     OrangeWitness,
+
     Strangled,
+
+    [Obsolete("No longer part of the game.")]
     SugarCrave,
+
+    [Obsolete("No longer part of the game.")]
     SugarRush,
+
+    [Obsolete("No longer part of the game.")]
     TraumatizedByEvil,
+
+    [Obsolete("No longer part of the game.")]
     Prismatic,
+
+    [Obsolete("No longer part of the game.")]
     SlowMetabolism,
+
+    [Obsolete("No longer part of the game.")]
     Spicy,
+
+    [Obsolete("No longer part of the game.")]
     SugarHigh
 
 }

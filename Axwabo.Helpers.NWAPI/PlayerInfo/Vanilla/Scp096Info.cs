@@ -133,7 +133,7 @@ public class Scp096Info : PlayerInfoBase
 
     private void SetHumeShield(Scp096RageManager rageManager)
     {
-        if (rageManager.ScpRole.StateController._rageState == RageState)
+        if (rageManager.CastRole.StateController._rageState == RageState)
             return;
         if (RageState == Scp096RageState.Enraged)
         {

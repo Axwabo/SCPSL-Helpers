@@ -40,7 +40,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The AHP value, or -1 if there are no active processes.</returns>
     public static float GetAhp(Player player)
     {
-        var ahp = player.GetStatModule<AhpStat>();
+        var ahp = player.ReferenceHub.playerStats.GetModule<AhpStat>();
         return ahp._activeProcesses.Count is 0 ? -1 : ahp.CurValue;
     }
 
@@ -49,7 +49,7 @@ public readonly struct BasicRoleInfo
     /// </summary>
     /// <param name="player">The player to get the stamina of.</param>
     /// <returns>The stamina amount.</returns>
-    public static float GetStamina(Player player) => player.GetStatModule<StaminaStat>().CurValue;
+    public static float GetStamina(Player player) => player.ReferenceHub.playerStats.GetModule<StaminaStat>().CurValue;
 
     /// <summary>
     /// Validates the given position to ensure that it's not inside an elevator.
@@ -72,7 +72,6 @@ public readonly struct BasicRoleInfo
         ValidatePosition(player.Position),
         player.Rotation,
         player.GetStatModule<HealthStat>().CurValue,
-        player.GetStatModule<MaxHealthStat>().CurValue,
         GetAhp(player),
         GetStamina(player),
         GetHs(player),
@@ -82,6 +81,7 @@ public readonly struct BasicRoleInfo
 
     /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.
+    /// <b>Obsolete: Use the constructor without additionalMaxHealth instead.</b>
     /// </summary>
     /// <param name="position">The position of the player.</param>
     /// <param name="rotation">The rotation of the player.</param>
@@ -92,23 +92,14 @@ public readonly struct BasicRoleInfo
     /// <param name="humeShield">The Hume Shield of the player.</param>
     /// <param name="effects">The effects on the player.</param>
     /// <param name="inventoryInfo">Information about the player's inventory.</param>
+    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
     public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float additionalMaxHealth, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
+        : this(position, rotation, health, ahp, stamina, humeShield, effects, inventoryInfo)
     {
-        Position = position;
-        Rotation = rotation;
-        Health = health;
-        AdditionalMaxHealth = additionalMaxHealth;
-        Ahp = ahp;
-        Stamina = stamina;
-        HumeShield = humeShield;
-        Effects = effects;
-        Inventory = inventoryInfo;
-        IsValid = true;
     }
 
     /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.<br/>
-    /// <b>Obsolete: Use the constructor with additionalMaxHealth instead.</b>
     /// </summary>
     /// <param name="position">The position of the player.</param>
     /// <param name="rotation">The rotation of the player.</param>
@@ -118,10 +109,18 @@ public readonly struct BasicRoleInfo
     /// <param name="humeShield">The Hume Shield of the player.</param>
     /// <param name="effects">The effects on the player.</param>
     /// <param name="inventoryInfo">Information about the player's inventory.</param>
-    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
     public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
-        : this(position, rotation, health, 0, ahp, stamina, humeShield, effects, inventoryInfo)
     {
+        Position = position;
+        Rotation = rotation;
+        Health = health;
+        Ahp = ahp;
+        Stamina = stamina;
+        HumeShield = humeShield;
+        Effects = effects;
+        Inventory = inventoryInfo;
+        IsValid = true;
+        AdditionalMaxHealth = 0;
     }
 
     #region Members
@@ -136,6 +135,7 @@ public readonly struct BasicRoleInfo
     public readonly float Health;
 
     /// <summary>The additional max HP of the player (applies to humans only).</summary>
+    [Obsolete("No longer part of the game.")]
     public readonly float AdditionalMaxHealth;
 
     /// <summary>The additional HP of the player.</summary>

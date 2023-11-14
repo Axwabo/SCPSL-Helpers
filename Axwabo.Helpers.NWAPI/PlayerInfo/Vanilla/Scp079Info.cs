@@ -23,7 +23,7 @@ public class Scp079Info : PlayerInfoBase
 
     private const float Health079 = 100000f;
 
-    private static readonly BasicRoleInfo BasicScp079Info = new(Vector3.zero, Vector3.zero, Health079, 0, -1, -1, -1, null, InventoryInfo.Empty);
+    private static readonly BasicRoleInfo BasicScp079Info = new(Vector3.zero, Vector3.zero, Health079, -1, -1, -1, null, InventoryInfo.Empty);
 
     /// <summary>
     /// Creates an <see cref="Scp079Info"/> instance using the given <paramref name="player"/>.

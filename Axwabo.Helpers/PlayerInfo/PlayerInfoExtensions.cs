@@ -2,7 +2,7 @@
 using Exiled.API.Features;
 using InventorySystem;
 using PlayerRoles;
-using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using Utils.Networking;
 
 namespace Axwabo.Helpers.PlayerInfo;
@@ -124,7 +124,7 @@ public static class PlayerInfoExtensions
     /// Sends a subroutine sync message to all authenticated players.
     /// </summary>
     /// <param name="routine">The routine to sync.</param>
-    public static void Sync(this ScpSubroutineBase routine) => new SubroutineMessage(routine, true).SendToAuthenticated();
+    public static void Sync(this SubroutineBase routine) => new SubroutineMessage(routine, true).SendToAuthenticated();
 
     /// <summary>
     /// Removes all items from the player's inventory.

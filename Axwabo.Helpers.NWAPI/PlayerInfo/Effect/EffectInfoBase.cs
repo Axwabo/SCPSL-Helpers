@@ -110,17 +110,7 @@ public abstract class EffectInfoBase
             PocketCorroding => EffectType.PocketCorroding,
             Ghostly => EffectType.Ghostly,
             MarshmallowEffect => EffectType.MarshmallowEffect,
-            Metal => EffectType.Metal,
-            OrangeCandy => EffectType.OrangeCandy,
-            OrangeWitness => EffectType.OrangeWitness,
             Strangled => EffectType.Strangled,
-            SugarCrave => EffectType.SugarCrave,
-            SugarRush => EffectType.SugarRush,
-            TraumatizedByEvil => EffectType.TraumatizedByEvil,
-            Prismatic => EffectType.Prismatic,
-            SlowMetabolism => EffectType.SlowMetabolism,
-            Spicy => EffectType.Spicy,
-            SugarHigh => EffectType.SugarHigh,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -172,17 +162,7 @@ public abstract class EffectInfoBase
         EffectType.PocketCorroding => typeof(PocketCorroding),
         EffectType.Ghostly => typeof(Ghostly),
         EffectType.MarshmallowEffect => typeof(MarshmallowEffect),
-        EffectType.Metal => typeof(Metal),
-        EffectType.OrangeCandy => typeof(OrangeCandy),
-        EffectType.OrangeWitness => typeof(OrangeWitness),
         EffectType.Strangled => typeof(Strangled),
-        EffectType.SugarCrave => typeof(SugarCrave),
-        EffectType.SugarRush => typeof(SugarRush),
-        EffectType.TraumatizedByEvil => typeof(TraumatizedByEvil),
-        EffectType.Prismatic => typeof(Prismatic),
-        EffectType.SlowMetabolism => typeof(SlowMetabolism),
-        EffectType.Spicy => typeof(Spicy),
-        EffectType.SugarHigh => typeof(SugarHigh),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

@@ -71,8 +71,7 @@ public readonly struct BasicRoleInfo
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
         player.Rotation.eulerAngles,
-        player.ReferenceHub.playerStats.GetModule<HealthStat>().CurValue,
-        player.ReferenceHub.playerStats.GetModule<MaxHealthStat>().CurValue,
+        player.Health,
         GetAhp(player),
         GetStamina(player),
         GetHs(player),
@@ -82,6 +81,7 @@ public readonly struct BasicRoleInfo
 
     /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.
+    /// <b>Obsolete: Use the constructor without additionalMaxHealth instead.</b>
     /// </summary>
     /// <param name="position">The position of the player.</param>
     /// <param name="rotation">The rotation of the player.</param>
@@ -92,23 +92,14 @@ public readonly struct BasicRoleInfo
     /// <param name="humeShield">The Hume Shield of the player.</param>
     /// <param name="effects">The effects on the player.</param>
     /// <param name="inventoryInfo">Information about the player's inventory.</param>
+    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
     public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float additionalMaxHealth, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
+        : this(position, rotation, health, ahp, stamina, humeShield, effects, inventoryInfo)
     {
-        Position = position;
-        Rotation = rotation;
-        Health = health;
-        AdditionalMaxHealth = additionalMaxHealth;
-        Ahp = ahp;
-        Stamina = stamina;
-        HumeShield = humeShield;
-        Effects = effects;
-        Inventory = inventoryInfo;
-        IsValid = true;
     }
 
     /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.<br/>
-    /// <b>Obsolete: Use the constructor with additionalMaxHealth instead.</b>
     /// </summary>
     /// <param name="position">The position of the player.</param>
     /// <param name="rotation">The rotation of the player.</param>
@@ -118,10 +109,18 @@ public readonly struct BasicRoleInfo
     /// <param name="humeShield">The Hume Shield of the player.</param>
     /// <param name="effects">The effects on the player.</param>
     /// <param name="inventoryInfo">Information about the player's inventory.</param>
-    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
     public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
-        : this(position, rotation, health, 0, ahp, stamina, humeShield, effects, inventoryInfo)
     {
+        Position = position;
+        Rotation = rotation;
+        Health = health;
+        Ahp = ahp;
+        Stamina = stamina;
+        HumeShield = humeShield;
+        Effects = effects;
+        Inventory = inventoryInfo;
+        IsValid = true;
+        AdditionalMaxHealth = 0;
     }
 
     #region Members
@@ -136,6 +135,7 @@ public readonly struct BasicRoleInfo
     public readonly float Health;
 
     /// <summary>The additional max HP of the player (applies to humans only).</summary>
+    [Obsolete("No longer part of the game.")]
     public readonly float AdditionalMaxHealth;
 
     /// <summary>The additional HP of the player.</summary>
