@@ -82,6 +82,8 @@ public enum EffectType
     Spicy,
 
     [Obsolete("No longer part of the game.")]
-    SugarHigh
+    SugarHigh,
+
+    SilentWalk
 
 }
