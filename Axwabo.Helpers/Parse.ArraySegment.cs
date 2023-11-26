@@ -71,7 +71,9 @@ public static partial class Parse
     /// <typeparam name="T">The enum type.</typeparam>
     /// <param name="index">The index of the string to parse in the ArraySegment.</param>
     /// <returns>Whether the string was parsed successfully.</returns>
-    public static bool EnumIgnoreCase<T>(this ArraySegment<string> segment, out T result, int index = 0) where T : struct => EnumIgnoreCase(segment.At(index), out result);
+    [Obsolete("Use ParseEnumIgnoreCase instead.")]
+    public static bool EnumIgnoreCase<T>(this ArraySegment<string> segment, out T result, int index = 0) where T : struct
+        => ParseEnumIgnoreCase(segment, out result, index);
 
     /// <summary>
     /// Attempts to parse the given string as an enum value, ignoring case, and checks if it is within the given range.
@@ -82,7 +84,30 @@ public static partial class Parse
     /// <typeparam name="T">The enum type.</typeparam>
     /// <param name="index">The index of the string to parse in the ArraySegment.</param>
     /// <returns>Whether the string was parsed successfully and is within the given range.</returns>
+    [Obsolete("Use ParseEnumIgnoreCase instead.")]
     public static bool EnumIgnoreCase<T>(this ArraySegment<string> segment, ValueRange<T> range, out T result, int index = 0) where T : struct, IComparable
+        => ParseEnumIgnoreCase(segment, range, out result, index);
+
+    /// <summary>
+    /// Attempts to parse the given string as an enum value, ignoring case.
+    /// </summary>
+    /// <param name="segment">The ArraySegment containing the string.</param>
+    /// <param name="result">The result.</param>
+    /// <typeparam name="T">The enum type.</typeparam>
+    /// <param name="index">The index of the string to parse in the ArraySegment.</param>
+    /// <returns>Whether the string was parsed successfully.</returns>
+    public static bool ParseEnumIgnoreCase<T>(this ArraySegment<string> segment, out T result, int index = 0) where T : struct => EnumIgnoreCase(segment.At(index), out result);
+
+    /// <summary>
+    /// Attempts to parse the given string as an enum value, ignoring case, and checks if it is within the given range.
+    /// </summary>
+    /// <param name="segment">The ArraySegment containing the string.</param>
+    /// <param name="range">The range to check.</param>
+    /// <param name="result">The result.</param>
+    /// <typeparam name="T">The enum type.</typeparam>
+    /// <param name="index">The index of the string to parse in the ArraySegment.</param>
+    /// <returns>Whether the string was parsed successfully and is within the given range.</returns>
+    public static bool ParseEnumIgnoreCase<T>(this ArraySegment<string> segment, ValueRange<T> range, out T result, int index = 0) where T : struct, IComparable
         => EnumIgnoreCase(segment.At(index), range, out result);
 
     /// <summary>
