@@ -84,6 +84,11 @@ public enum EffectType
     [Obsolete("No longer part of the game.")]
     SugarHigh,
 
-    SilentWalk
+    SilentWalk,
+
+    BecomingFlamingo,
+    Scp559Effect,
+    Scp956Target,
+    Snowed
 
 }

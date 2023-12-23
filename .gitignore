@@ -6,6 +6,6 @@ riderModule.iml
 assemblies/
 assemblies-nw/
 .git/
-Axwabo.Helpers.sln.DotSettings.user
+*.user
 .idea/
 GitHubRelease/
