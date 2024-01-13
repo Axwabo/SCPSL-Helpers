@@ -112,10 +112,6 @@ public abstract class EffectInfoBase
             MarshmallowEffect => EffectType.MarshmallowEffect,
             Strangled => EffectType.Strangled,
             SilentWalk => EffectType.SilentWalk,
-            BecomingFlamingo => EffectType.BecomingFlamingo,
-            Scp559Effect => EffectType.Scp559Effect,
-            Scp956Target => EffectType.Scp956Target,
-            Snowed => EffectType.Snowed,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -169,10 +165,6 @@ public abstract class EffectInfoBase
         EffectType.MarshmallowEffect => typeof(MarshmallowEffect),
         EffectType.Strangled => typeof(Strangled),
         EffectType.SilentWalk => typeof(SilentWalk),
-        EffectType.BecomingFlamingo => typeof(BecomingFlamingo),
-        EffectType.Scp559Effect => typeof(Scp559Effect),
-        EffectType.Scp956Target => typeof(Scp956Target),
-        EffectType.Snowed => typeof(Snowed),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 
