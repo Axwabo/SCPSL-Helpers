@@ -30,7 +30,7 @@ public readonly struct CustomRoleAndInfoWrapper : IPlayerInfoWithRole
     /// <returns>A new <see cref="CustomRoleAndInfoWrapper"/> instance.</returns>
     /// <seealso cref="Get(Player,Axwabo.Helpers.PlayerInfo.PlayerInfoGetter,Axwabo.Helpers.PlayerInfo.PlayerRoleSetter)"/>
     public static CustomRoleAndInfoWrapper Get(Player player, PlayerInfoObtainer obtainer) =>
-        !obtainer.CanSetRole ? Empty : Get(player, obtainer.Get, obtainer.SetRole);
+        Get(player, obtainer.Get, obtainer.SetRole);
 
     /// <summary>The role of the player.</summary>
     public readonly PlayerRoleSetter SetRole;
@@ -45,7 +45,7 @@ public readonly struct CustomRoleAndInfoWrapper : IPlayerInfoWithRole
     /// <param name="info">Gameplay information about the player.</param>
     public CustomRoleAndInfoWrapper(PlayerRoleSetter role, PlayerInfoBase info)
     {
-        SetRole = role ?? throw new ArgumentNullException(nameof(role));
+        SetRole = role;
         Info = info ?? throw new ArgumentNullException(nameof(info));
     }
 
@@ -58,7 +58,8 @@ public readonly struct CustomRoleAndInfoWrapper : IPlayerInfoWithRole
     /// <inheritdoc/>
     public void SetClassAndApplyInfo(Player player)
     {
-        SetClass(player);
+        if (SetRole != null)
+            SetClass(player);
         var info = Info;
         UnityHelper.CallAfterFrames(() => info.ApplyTo(player), 2);
     }
