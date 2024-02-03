@@ -31,6 +31,8 @@ public readonly struct PlayerInfoObtainer
     /// <summary>Returns true if the <see cref="SetRole"/> method is not null.</summary>
     public bool CanSetRole => SetRole != null;
 
+    internal readonly bool IsVanilla;
+
     /// <summary>
     /// Creates a new <see cref="PlayerInfoObtainer"/> instance.
     /// </summary>
@@ -43,6 +45,7 @@ public readonly struct PlayerInfoObtainer
         Check = check ?? throw new ArgumentNullException(nameof(check));
         Get = get ?? throw new ArgumentNullException(nameof(get));
         SetRole = setRole;
+        IsVanilla = get.Method.DeclaringType?.Assembly == typeof(PlayerInfoObtainer).Assembly;
         Id = ++_id;
     }
 

@@ -52,7 +52,7 @@ public static class PlayerInfoExtensions
     /// <param name="obtainer">The obtainer to use.</param>
     /// <returns>The player info and custom role.</returns>
     public static CustomRoleAndInfoWrapper GetInfoWithCustomRole(this Player p, PlayerInfoObtainer obtainer) =>
-        !obtainer.IsValid ? CustomRoleAndInfoWrapper.Empty : CustomRoleAndInfoWrapper.Get(p, obtainer);
+        !obtainer.IsValid || obtainer.IsVanilla ? CustomRoleAndInfoWrapper.Empty : CustomRoleAndInfoWrapper.Get(p, obtainer);
 
     /// <summary>
     /// Gets the player info with a custom role or vanilla role from the player.
