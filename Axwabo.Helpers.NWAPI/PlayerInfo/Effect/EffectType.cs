@@ -96,6 +96,8 @@ public enum EffectType
     Scp956Target,
 
     [Obsolete("No longer part of the game.")]
-    Snowed
+    Snowed,
+
+    FogControl
 
 }
