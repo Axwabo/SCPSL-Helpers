@@ -113,6 +113,7 @@ public abstract class EffectInfoBase
             Strangled => EffectType.Strangled,
             SilentWalk => EffectType.SilentWalk,
             FogControl => EffectType.FogControl,
+            Slowness => EffectType.Slowness,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -167,6 +168,7 @@ public abstract class EffectInfoBase
         EffectType.Strangled => typeof(Strangled),
         EffectType.SilentWalk => typeof(SilentWalk),
         EffectType.FogControl => typeof(FogControl),
+        EffectType.Slowness => typeof(Slowness),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

@@ -98,6 +98,8 @@ public enum EffectType
     [Obsolete("No longer part of the game.")]
     Snowed,
 
-    FogControl
+    FogControl,
+
+    Slowness
 
 }
