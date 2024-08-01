@@ -45,7 +45,7 @@ public readonly struct PlayerInfoObtainer
         Check = check ?? throw new ArgumentNullException(nameof(check));
         Get = get ?? throw new ArgumentNullException(nameof(get));
         SetRole = setRole;
-        IsVanilla = get.Method.DeclaringType?.Assembly == typeof(PlayerInfoObtainer).Assembly;
+        IsVanilla = check.Method.DeclaringType?.Assembly == typeof(PlayerInfoObtainer).Assembly;
         Id = ++_id;
     }
 
