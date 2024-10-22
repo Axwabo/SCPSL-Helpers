@@ -52,36 +52,26 @@ public enum EffectType
     Ghostly,
     MarshmallowEffect,
 
-    [Obsolete("No longer part of the game.")]
     Metal,
 
-    [Obsolete("No longer part of the game.")]
     OrangeCandy,
 
-    [Obsolete("No longer part of the game.")]
     OrangeWitness,
 
     Strangled,
 
-    [Obsolete("No longer part of the game.")]
     SugarCrave,
 
-    [Obsolete("No longer part of the game.")]
     SugarRush,
 
-    [Obsolete("No longer part of the game.")]
     TraumatizedByEvil,
 
-    [Obsolete("No longer part of the game.")]
     Prismatic,
 
-    [Obsolete("No longer part of the game.")]
     SlowMetabolism,
 
-    [Obsolete("No longer part of the game.")]
     Spicy,
 
-    [Obsolete("No longer part of the game.")]
     SugarHigh,
 
     SilentWalk,
@@ -100,6 +90,8 @@ public enum EffectType
 
     FogControl,
 
-    Slowness
+    Slowness,
+
+    TemporaryBypass
 
 }
