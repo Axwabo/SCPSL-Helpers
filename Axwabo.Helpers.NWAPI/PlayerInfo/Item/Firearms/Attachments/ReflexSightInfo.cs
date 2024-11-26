@@ -1,5 +1,4 @@
 ﻿using InventorySystem.Items.Firearms.Attachments.Components;
-using Mirror;
 
 namespace Axwabo.Helpers.PlayerInfo.Item.Firearms.Attachments;
 
@@ -32,12 +31,9 @@ public class ReflexSightInfo : FirearmAttachmentInfo
         if (attachment is not ReflexSightAttachment reflexSight)
             return;
         reflexSight.SetValues(Texture, Color, Size, Brightness);
-        reflexSight.SendCmd(writer =>
-        {
-            var data = new ReflexSightSyncData(reflexSight);
-            writer.WriteBool(true);
-            data.Write(writer);
-        });
+        var data = new ReflexSightSyncData(reflexSight);
+        reflexSight.SetDatabaseEntry(data);
+        reflexSight.ServerSendData(data, false);
     }
 
 }
