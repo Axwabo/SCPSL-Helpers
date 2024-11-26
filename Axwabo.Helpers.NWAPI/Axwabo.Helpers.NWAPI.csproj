@@ -128,6 +128,7 @@
         <Compile Include="PlayerInfo\Item\FirearmInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Attachments\AttachmentInfoExtensions.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Attachments\FirearmAttachmentInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Attachments\ReflexSightInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Modules\FirearmModuleInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Modules\ModuleInfoExtensions.cs"/>
         <Compile Include="PlayerInfo\Item\ItemInfoBase.cs"/>
