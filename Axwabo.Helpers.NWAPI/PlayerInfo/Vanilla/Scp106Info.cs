@@ -27,8 +27,8 @@ public class Scp106Info : PlayerInfoBase
         return new Scp106Info(
             routines.Attack._nextAttack - NetworkTime.time,
             player.ReferenceHub.playerStats.GetModule<VigorStat>().CurValue,
-            routines.StalkAbility.IsActive,
-            routines.SinkholeController.Cooldown,
+            routines.StalkAbility.StalkActive,
+            routines.SinkholeController._submergeCooldown,
             BasicRoleInfo.Get(player)
         );
     }
@@ -86,10 +86,10 @@ public class Scp106Info : PlayerInfoBase
         var attack = routines.Attack;
         attack._nextAttack = NetworkTime.time + AttackCooldown;
 
-        routines.StalkAbility.IsActive = IsStalking;
+        routines.StalkAbility.StalkActive = IsStalking;
 
         var sinkhole = routines.SinkholeController;
-        SinkholeCooldown.ApplyTo(sinkhole.Cooldown);
+        SinkholeCooldown.ApplyTo(sinkhole._submergeCooldown);
 
         attack.Sync();
         sinkhole.Sync();
