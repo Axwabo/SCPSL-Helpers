@@ -129,8 +129,14 @@
         <Compile Include="PlayerInfo\Item\Firearms\Attachments\AttachmentInfoExtensions.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Attachments\FirearmAttachmentInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Attachments\ReflexSightInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\AutomaticActionInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\CylinderAmmoInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\DisruptorModeInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\DoubleActionInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Modules\FirearmModuleInfo.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\MagazineInfo.cs"/>
         <Compile Include="PlayerInfo\Item\Firearms\Modules\ModuleInfoExtensions.cs"/>
+        <Compile Include="PlayerInfo\Item\Firearms\Modules\PumpActionInfo.cs"/>
         <Compile Include="PlayerInfo\Item\ItemInfoBase.cs"/>
         <Compile Include="PlayerInfo\Item\JailbirdInfo.cs"/>
         <Compile Include="PlayerInfo\Item\RadioInfo.cs"/>
