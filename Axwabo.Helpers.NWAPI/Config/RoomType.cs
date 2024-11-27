@@ -43,7 +43,7 @@ public enum RoomType
     [RoomName("LCZ_Crossing")]
     LczCrossing,
 
-    [RoomName("HCZ_Room3ar")]
+    [RoomName("HCZ_TArmory")]
     HczArmory,
 
     [RoomName("LCZ_173")]
@@ -76,8 +76,8 @@ public enum RoomType
     [RoomName("HCZ_Testroom")]
     HczTestroom,
 
-    [RoomName("HCZ_Room3")]
-    HczRoom3,
+    [RoomName("HCZ_Intersection")]
+    HczThreeWayIntersection,
 
     [RoomName("PocketWorld")]
     PocketWorld,
@@ -97,7 +97,7 @@ public enum RoomType
     [RoomName("LCZ_Straight")]
     LczStraight,
 
-    [RoomName("EZ Part")]
+    [RoomName("HCZ_EZ_Checkpoint Part")]
     HczCheckpointToEntranceZone,
 
     [RoomName("LCZ_Plants")]
@@ -109,13 +109,14 @@ public enum RoomType
     [RoomName("EZ_upstairs")]
     EzOfficeStoried,
 
-    [RoomName("HCZ_106")]
+    [RoomName("HCZ_106_Rework")]
     Hcz106,
 
     [RoomName("EZ_Endoof")]
     EzRedroom,
 
-    [RoomName("HCZ Part")]
+    [Obsolete($"Use {nameof(HczCheckpointToEntranceZone)} instead")]
+    [RoomName("HCZ_EZ_Checkpoint Part")]
     HczPart,
 
     [RoomName("HCZ_939")]
@@ -136,16 +137,16 @@ public enum RoomType
     [RoomName("HCZ_049")]
     Hcz049,
 
-    [RoomName("HCZ_Hid")]
-    HczHid,
+    [RoomName("HCZ_MicroHID_New")]
+    HczMicroHid,
 
     [RoomName("Outside")]
     Outside,
 
-    [RoomName("HCZ_Tesla")]
+    [RoomName("HCZ_Tesla_Rework")]
     HczTesla,
 
-    [RoomName("HCZ_457")]
+    [RoomName("HCZ_096")]
     Hcz096,
 
     [RoomName("LCZ_ChkpB")]
@@ -195,8 +196,8 @@ public enum RoomType
     [RoomName("HCZ_ChkpB")]
     HczChkpB,
 
-    [Obsolete($"Use {nameof(HczCheckpointToEntranceZone)} instead")]
-    [RoomName("EZ Part")]
+    [Obsolete($"Use {nameof(EzCheckpointToHeavyContainment)} instead")]
+    [RoomName("EZ_HCZ_Checkpoint Part")]
     EzPart,
 
     [Obsolete($"Use {nameof(LczGreenhouse)} instead")]
@@ -216,7 +217,42 @@ public enum RoomType
     EzEndoof,
 
     [Obsolete($"Use {nameof(Hcz096)} instead")]
-    [RoomName("HCZ_457")]
-    Hcz457
+    [RoomName("HCZ_096")]
+    Hcz457,
+
+    [Obsolete($"Use {nameof(HczMicroHid)} instead")]
+    [RoomName("HCZ_MicroHID_New")]
+    HczHid,
+
+    [Obsolete($"Use {nameof(HczThreeWayIntersection)} instead")]
+    [RoomName("HCZ_Intersection")]
+    HczRoom3,
+
+    [RoomName("EZ_Crossing")]
+    EzCrossing,
+
+    [RoomName("EZ_HCZ_Checkpoint Part")]
+    EzCheckpointToHeavyContainment,
+
+    [RoomName("EZ_Smallrooms1")]
+    EzSmallrooms1,
+
+    [RoomName("HCZ_Corner_Deep")]
+    HczCornerDeep,
+
+    [RoomName("HCZ_Crossroom_Water")]
+    HczAcroamaticAbatement,
+
+    [RoomName("HCZ_Intersection_Junk")]
+    HczThreeWayIntersectionJunk,
+
+    [RoomName("HCZ_Straight_C")]
+    HczStraightC,
+
+    [RoomName("HCZ_Straight_PipeRoom")]
+    HczStraightPipeRoom,
+
+    [RoomName("LCZ_Curve")]
+    LczCurve
 
 }
