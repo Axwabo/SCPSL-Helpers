@@ -8,19 +8,21 @@ Makes using Reflection and patching methods with Harmony simpler.
 
 # Installation
 
-Note: this is a dependency, not a plugin.
+> [!NOTE]
+> This is a dependency, not a plugin.
 
-## EXILED
-
-1. Download the **Axwabo.Helpers.dll** from
-   the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/latest/)
-2. Put the DLL into the EXILED dependencies folder (on Windows: **%appdata%/EXILED/Plugins/dependencies/**)
-3. Any plugins using this library should work after a server restart
+> [!IMPORTANT]
+> **EXILED no longer receives dedicated updates.** 
+> This library is not designed to be specifically compatible with 3rd-party plugin frameworks. Despite this, most if not all functionality should work just fine.
+> 
+> With the upcoming release of LabAPI, the Northwood Plugin API version will only be supported until NWAPI gets deprecated.
 
 ## Northwood Plugin API
 
 1. Download the **Axwabo.Helpers-nw.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
-2. Put the DLL into the PluginAPI dependencies folder (on Windows: **%appdata%/SCP Secret Laboratory/PluginAPI/port/dependencies/**)
+2. Put the DLL into the PluginAPI dependencies folder
+   - Windows: `%appdata%/SCP Secret Laboratory/PluginAPI/port/dependencies`
+   - Linux: `.config/SCP SecretLaboratory/PluginAPI/port/dependencies`
 3. Any plugins using this library should work after a server restart
 
 # Examples

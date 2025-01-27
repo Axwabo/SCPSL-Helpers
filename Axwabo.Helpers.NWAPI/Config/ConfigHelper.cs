@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using MapGeneration;
@@ -12,7 +13,7 @@ namespace Axwabo.Helpers.Config;
 public static class ConfigHelper
 {
 
-    private static readonly Dictionary<string, RoomType> NameToValue = new();
+    private static readonly Dictionary<string, RoomType> NameToValue = new(StringComparer.OrdinalIgnoreCase);
     private static readonly Dictionary<RoomType, string> ValueToName = new();
 
     static ConfigHelper()
@@ -101,8 +102,8 @@ public static class ConfigHelper
     /// <returns>The string without the parentheses.</returns>
     public static string RemoveParenthesesOnEndOfName(this string name)
     {
-        var startIndex = name.IndexOf('(') - 1;
-        return startIndex > 0 ? name.Remove(startIndex, name.Length - startIndex) : name;
+        var startIndex = name.IndexOf('(');
+        return startIndex > 0 ? name.Substring(0, startIndex).TrimEnd() : name;
     }
 
     /// <summary>

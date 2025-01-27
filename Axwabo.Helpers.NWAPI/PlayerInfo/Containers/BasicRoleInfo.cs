@@ -58,7 +58,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The validated position.</returns>
     public static Vector3 ValidatePosition(Vector3 position)
         => WaypointBase.TryGetWaypoint(new RelativePosition(position).WaypointId, out var waypoint) && waypoint is ElevatorWaypoint ewp
-            ? ewp._elevator._lastDestination.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
+            ? ewp._elevator.DestinationDoor.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
             : position;
 
     #endregion

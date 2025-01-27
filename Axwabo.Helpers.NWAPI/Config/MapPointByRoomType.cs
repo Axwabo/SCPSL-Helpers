@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Axwabo.Helpers.Config;
 
 /// <summary>
-/// A config object representing an offset to a room defined by the given <see cref="ImageGenerator.RoomType"/>.
+/// A config object representing an offset to a room defined by the given <see cref="RoomType"/>.
 /// </summary>
 [Serializable]
 public struct MapPointByRoomType : IMapPoint

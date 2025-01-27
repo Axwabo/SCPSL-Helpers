@@ -121,7 +121,7 @@ public class ItemInfoBase
     /// <returns>The item that was given to the player.</returns>
     public virtual ItemBase GiveTo(Player player)
     {
-        var item = player.ReferenceHub.inventory.ServerAddItem(Type, Serial);
+        var item = player.ReferenceHub.inventory.ServerAddItem(Type, ItemAddReason.Undefined, Serial);
         ApplyTo(item);
         return item;
     }
