@@ -4,7 +4,7 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <FileAlignment>512</FileAlignment>
         <LangVersion>12</LangVersion>
-        <TargetFramework>net481</TargetFramework>
+        <TargetFramework>net48</TargetFramework>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
         <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
