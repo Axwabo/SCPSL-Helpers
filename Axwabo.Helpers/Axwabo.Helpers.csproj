@@ -13,6 +13,10 @@
         <Optimize>true</Optimize>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)' == 'NWAPI'">
+        <AssemblyName>Axwabo.Helpers.NWAPI</AssemblyName>
+    </PropertyGroup>
+
     <ItemGroup>
         <Reference Include="Assembly-CSharp"/>
         <Reference Include="Assembly-CSharp-firstpass"/>
@@ -26,4 +30,6 @@
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
     </ItemGroup>
+
+    <Import Project="Axwabo.Helpers.targets.user" Condition="Exists('Axwabo.Helpers.targets.user')"/>
 </Project>
