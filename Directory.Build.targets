@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+</Project>
