@@ -146,7 +146,8 @@ public abstract class PlayerInfoBase
     {
         if (!player.IsConnected())
             return;
-        player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation);
+        player.ReferenceHub.TryOverridePosition(Position);
+        player.ReferenceHub.TryOverrideRotation(Rotation);
         player.Health = Health;
         var stats = player.ReferenceHub.playerStats;
         if (Ahp >= 0)

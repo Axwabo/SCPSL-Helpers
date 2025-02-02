@@ -34,7 +34,7 @@ public sealed class HintQueue : MonoBehaviour
 
     private readonly Queue<HintItem> _queue = new();
 
-    /// <summary>The <see cref="PluginAPI.Core.Player"/> this component is attached to.</summary>
+    /// <summary>The <see cref="Player"/> this component is attached to.</summary>
     public Player Player { get; private set; }
 
     /// <summary>The hint currently displayed to the player. Null if no hint is being displayed.</summary>
@@ -52,7 +52,7 @@ public sealed class HintQueue : MonoBehaviour
     {
         _queue.Clear();
         CurrentHint = null;
-        Player.ReceiveHint("", 0);
+        Player.SendHint("", 0);
     }
 
     /// <summary>Clears the queue while keeping the current hint.</summary>
@@ -70,7 +70,7 @@ public sealed class HintQueue : MonoBehaviour
         if (!_queue.TryDequeue(out var item))
             return;
         CurrentHint = item.Message;
-        Player.ReceiveHint(item.Message, item.Duration);
+        Player.SendHint(item.Message, item.Duration);
     }
 
 }

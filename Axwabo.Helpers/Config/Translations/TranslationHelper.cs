@@ -1,4 +1,5 @@
 ﻿using static Axwabo.Helpers.Config.Translations.AttributeHandler;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace Axwabo.Helpers.Config.Translations;
 
@@ -212,7 +213,7 @@ public static class TranslationHelper
         }
         catch (Exception e)
         {
-            Log.Error("Failed to invoke OnTranslationRegistered event handler: " + e);
+            Logger.Error("Failed to invoke OnTranslationRegistered event handler: " + e);
         }
     }
 

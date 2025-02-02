@@ -1,4 +1,4 @@
-﻿using InventorySystem.Items.Jailbird;
+﻿using JailbirdItem = InventorySystem.Items.Jailbird.JailbirdItem;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 

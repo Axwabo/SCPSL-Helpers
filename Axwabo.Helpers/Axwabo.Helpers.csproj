@@ -22,7 +22,8 @@
         <Reference Include="Assembly-CSharp-firstpass"/>
         <Reference Include="CommandSystem.Core"/>
         <Reference Include="Mirror"/>
-        <Reference Include="PluginAPI"/>
+        <Reference Include="LabApi" Condition="'$(Configuration)' == 'LabAPI'"/>
+        <Reference Include="PluginAPI" Condition="'$(Configuration)' == 'NWAPI'"/>
         <Reference Include="Pooling"/>
         <Reference Include="UnityEngine.CoreModule"/>
     </ItemGroup>
@@ -38,11 +39,10 @@
         <Using Include="System.Reflection"/>
         <Using Include="System.Reflection.Emit"/>
         <Using Include="HarmonyLib"/>
+        <Using Include="LabApi.Features.Wrappers" Condition="'$(Configuration)' == 'LabAPI'"/>
         <Using Include="InventorySystem.Items"/>
+        <Using Include="PluginAPI.Core" Condition="'$(Configuration)' == 'NWAPI'"/>
         <Using Include="UnityEngine"/>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)' == 'NWAPI'">
-        <Using Include="PluginAPI.Core"/>
-    </ItemGroup>
 </Project>

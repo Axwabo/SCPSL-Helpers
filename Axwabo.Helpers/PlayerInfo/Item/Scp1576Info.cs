@@ -1,4 +1,4 @@
-﻿using InventorySystem.Items.Usables.Scp1576;
+﻿using Scp1576Item = InventorySystem.Items.Usables.Scp1576.Scp1576Item;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 
