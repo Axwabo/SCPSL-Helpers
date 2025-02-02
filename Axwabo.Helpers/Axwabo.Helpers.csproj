@@ -33,27 +33,4 @@
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <Using Include="System"/>
-        <Using Include="System.Collections.Generic"/>
-        <Using Include="System.Linq"/>
-        <Using Include="System.Reflection"/>
-        <Using Include="System.Reflection.Emit"/>
-        <Using Include="HarmonyLib"/>
-        <Using Include="LabApi.Features.Wrappers" Condition="'$(Configuration)' == 'LabApi'"/>
-        <Using Include="InventorySystem.Items"/>
-        <Using Include="PluginAPI.Core" Condition="'$(Configuration)' == 'NWAPI'"/>
-        <Using Include="UnityEngine"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)' == 'LabApi'">
-        <Using Include="LabApi.Features.Wrappers"/>
-        <Using Include="LabApi.Features.Console.Logger" Alias="Logger"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)' == 'NWAPI'">
-        <Using Include="PluginAPI.Core.Log" Alias="Logger"/>
-    </ItemGroup>
-
 </Project>
