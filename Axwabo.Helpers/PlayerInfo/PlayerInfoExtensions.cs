@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Exiled.API.Features;
 using InventorySystem;
 using PlayerRoles;
 using PlayerRoles.Subroutines;
+using PluginAPI.Core;
 using Utils.Networking;
 
 namespace Axwabo.Helpers.PlayerInfo;
@@ -134,7 +134,6 @@ public static class PlayerInfoExtensions
     {
         foreach (var serial in inventory.UserInventory.Items.Keys.ToArray())
             inventory.ServerRemoveItem(serial, null);
-        inventory.SendItemsNextFrame = true;
     }
 
     /// <summary>

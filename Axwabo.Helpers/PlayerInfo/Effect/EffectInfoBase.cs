@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CustomPlayerEffects;
-using Exiled.API.Features;
 using InventorySystem.Items.MarshmallowMan;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 
@@ -76,7 +76,6 @@ public abstract class EffectInfoBase
             AntiScp207 => EffectType.AntiScp207,
             Asphyxiated => EffectType.Asphyxiated,
             Bleeding => EffectType.Bleeding,
-            Blinded => EffectType.Blinded,
             BodyshotReduction => EffectType.BodyshotReduction,
             Burned => EffectType.Burned,
             CardiacArrest => EffectType.CardiacArrest,
@@ -114,6 +113,11 @@ public abstract class EffectInfoBase
             SilentWalk => EffectType.SilentWalk,
             FogControl => EffectType.FogControl,
             Slowness => EffectType.Slowness,
+            Blindness => EffectType.Blindness,
+            Blurred => EffectType.Blurred,
+            PitDeath => EffectType.PitDeath,
+            Scp1344 => EffectType.Scp1344,
+            SeveredEyes => EffectType.SeveredEyes,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -131,7 +135,9 @@ public abstract class EffectInfoBase
         EffectType.AntiScp207 => typeof(AntiScp207),
         EffectType.Asphyxiated => typeof(Asphyxiated),
         EffectType.Bleeding => typeof(Bleeding),
-        EffectType.Blinded => typeof(Blinded),
+#pragma warning disable CS0618
+        EffectType.Blinded => typeof(Blurred),
+#pragma warning restore CS0618
         EffectType.BodyshotReduction => typeof(BodyshotReduction),
         EffectType.Burned => typeof(Burned),
         EffectType.CardiacArrest => typeof(CardiacArrest),
@@ -169,6 +175,11 @@ public abstract class EffectInfoBase
         EffectType.SilentWalk => typeof(SilentWalk),
         EffectType.FogControl => typeof(FogControl),
         EffectType.Slowness => typeof(Slowness),
+        EffectType.Blindness => typeof(Blindness),
+        EffectType.Blurred => typeof(Blurred),
+        EffectType.PitDeath => typeof(PitDeath),
+        EffectType.Scp1344 => typeof(Scp1344),
+        EffectType.SeveredEyes => typeof(SeveredEyes),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

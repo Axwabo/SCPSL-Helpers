@@ -1,6 +1,6 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 using PlayerRoles.PlayableScps.Scp939;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 
@@ -63,7 +63,7 @@ public class Scp939Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         base.ApplyTo(player);
         if (!player.RoleIs<Scp939Role>(out var role) || !role.SubroutineModule.TryGetSubroutine(out Scp939AmnesticCloudAbility amnesticCloud))

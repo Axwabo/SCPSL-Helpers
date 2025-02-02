@@ -1,13 +1,11 @@
 ﻿using System;
-using Exiled.API.Enums;
-using Exiled.API.Features;
 using MapGeneration;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config;
 
 /// <summary>
-/// A config object representing an offset to a room defined by the given <see cref="ImageGenerator.RoomType"/>.
+/// A config object representing an offset to a room defined by the given <see cref="RoomType"/>.
 /// </summary>
 [Serializable]
 public struct MapPointByRoomType : IMapPoint
@@ -80,7 +78,7 @@ public struct MapPointByRoomType : IMapPoint
     public bool IsValid() => Type != RoomType.Unknown;
 
     /// <summary>Gets the room component for the given <see cref="Type">room type</see>.</summary>
-    public Room RoomObject() => Type == RoomType.Unknown ? null : Room.Get(Type);
+    public RoomIdentifier RoomObject() => Type == RoomType.Unknown ? null : ConfigHelper.GetRoomByType(Type);
 
     /// <summary>Gets the transform of the room object.</summary>
     public Transform RoomTransform() => RoomObject().SafeGetTransform();

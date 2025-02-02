@@ -1,5 +1,5 @@
 ﻿using System;
-using Exiled.API.Features;
+using MapGeneration;
 using UnityEngine;
 
 namespace Axwabo.Helpers.Config;
@@ -81,7 +81,7 @@ public struct MapPointByName : IMapPoint
     public bool IsValid() => !string.IsNullOrEmpty(RoomName);
 
     /// <summary>Gets the room component for the given <see cref="Type">room type</see>.</summary>
-    public Room RoomObject() => ConfigHelper.GetRoomByRoomName(RoomName);
+    public RoomIdentifier RoomObject() => ConfigHelper.GetRoomByRoomName(RoomName);
 
     /// <summary>Gets the transform of the room object.</summary>
     public Transform RoomTransform() => RoomObject().SafeGetTransform();

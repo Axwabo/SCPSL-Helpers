@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 using PlayerRoles.PlayableScps.Scp049;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 
@@ -111,7 +111,7 @@ public class Scp049Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         base.ApplyTo(player);
         var routines = Scp049SubroutineContainer.Get(player.RoleAs<Scp049Role>());

@@ -1,4 +1,4 @@
-﻿using Exiled.API.Features;
+﻿using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo;
 

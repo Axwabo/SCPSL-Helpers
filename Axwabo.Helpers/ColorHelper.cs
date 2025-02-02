@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Exiled.API.Features;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers;

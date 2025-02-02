@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Exiled.API.Features;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers;
@@ -39,7 +39,7 @@ public sealed class HintQueue : MonoBehaviour
 
     private readonly Queue<HintItem> _queue = new();
 
-    /// <summary>The <see cref="Exiled.API.Features.Player"/> this component is attached to.</summary>
+    /// <summary>The <see cref="PluginAPI.Core.Player"/> this component is attached to.</summary>
     public Player Player { get; private set; }
 
     /// <summary>The hint currently displayed to the player. Null if no hint is being displayed.</summary>
@@ -57,7 +57,7 @@ public sealed class HintQueue : MonoBehaviour
     {
         _queue.Clear();
         CurrentHint = null;
-        Player.ShowHint("");
+        Player.ReceiveHint("", 0);
     }
 
     /// <summary>Clears the queue while keeping the current hint.</summary>
@@ -67,13 +67,15 @@ public sealed class HintQueue : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Player.HasHint)
             return;
+        */
         CurrentHint = null;
         if (!_queue.TryDequeue(out var item))
             return;
         CurrentHint = item.Message;
-        Player.ShowHint(item.Message, item.Duration);
+        Player.ReceiveHint(item.Message, item.Duration);
     }
 
 }

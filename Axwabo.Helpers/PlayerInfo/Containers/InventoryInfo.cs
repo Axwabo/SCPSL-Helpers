@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Axwabo.Helpers.PlayerInfo.Item;
-using Exiled.API.Features;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers;
 
@@ -61,7 +61,7 @@ public readonly struct InventoryInfo
     /// <param name="player">The player to apply the information to.</param>
     public void ApplyTo(Player player)
     {
-        if (!IsValid || !player.IsConnected)
+        if (!IsValid || !player.IsConnected())
             return;
         var inv = player.ReferenceHub.inventory;
         inv.RemoveAllItems();

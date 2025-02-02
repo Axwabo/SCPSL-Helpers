@@ -17,7 +17,10 @@ public enum EffectType
     AntiScp207,
     Asphyxiated,
     Bleeding,
+
+    [Obsolete("Blinded has been renamed to Blurred. The Blindness effect fully blacks out the screen.")]
     Blinded,
+
     BodyshotReduction,
     Burned,
     CardiacArrest,
@@ -100,6 +103,12 @@ public enum EffectType
 
     FogControl,
 
-    Slowness
+    Slowness,
+
+    Blindness,
+    Blurred,
+    PitDeath,
+    Scp1344,
+    SeveredEyes
 
 }

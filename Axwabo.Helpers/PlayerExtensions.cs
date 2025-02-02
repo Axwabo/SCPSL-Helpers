@@ -4,19 +4,19 @@ using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using CommandSystem;
 using CustomPlayerEffects;
-using Exiled.API.Features;
 using PlayerRoles;
 using PlayerRoles.PlayableScps;
 using PlayerRoles.Spectating;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using Utils;
 
 namespace Axwabo.Helpers;
 
 /// <summary>
-/// Extension methods for the EXILED <see cref="Player"/> API.
+/// Extension methods for the <see cref="Player"/> API.
 /// </summary>
-public static class ExiledPlayerExtensions
+public static class PlayerExtensions
 {
 
     /// <summary>
@@ -154,6 +154,13 @@ public static class ExiledPlayerExtensions
     /// </summary>
     /// <param name="player">The player to clear the hint queue for.</param>
     public static void ClearHints(this Player player) => player.GameObject.GetOrAddComponent<HintQueue>().Clear();
+
+    /// <summary>
+    /// Determines whether the player is still connected to the server by checking its GameObject.
+    /// </summary>
+    /// <param name="player">The player to check.</param>
+    /// <returns>Whether the player is connected.</returns>
+    public static bool IsConnected(this Player player) => player.GameObject != null;
 
     /// <summary>
     /// Gets an effect instance from the player.

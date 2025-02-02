@@ -1,7 +1,7 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp173;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 
@@ -105,7 +105,7 @@ public class Scp173Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         base.ApplyTo(player);
         var routines = Scp173SubroutineContainer.Get(player.RoleAs<Scp173Role>());

@@ -1,10 +1,9 @@
-﻿#pragma warning disable CS0618
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Axwabo.Helpers.PlayerInfo.Effect;
-using Exiled.API.Features;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using RelativePositioning;
 using UnityEngine;
 
@@ -59,7 +58,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The validated position.</returns>
     public static Vector3 ValidatePosition(Vector3 position)
         => WaypointBase.TryGetWaypoint(new RelativePosition(position).WaypointId, out var waypoint) && waypoint is ElevatorWaypoint ewp
-            ? ewp._elevator._lastDestination.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
+            ? ewp._elevator.DestinationDoor.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
             : position;
 
     #endregion
@@ -71,8 +70,8 @@ public readonly struct BasicRoleInfo
     /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
-        player.Rotation.eulerAngles,
-        player.Health,
+        player.Rotation,
+        player.GetStatModule<HealthStat>().CurValue,
         GetAhp(player),
         GetStamina(player),
         GetHs(player),

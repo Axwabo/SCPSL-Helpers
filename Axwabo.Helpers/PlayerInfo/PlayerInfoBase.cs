@@ -5,9 +5,9 @@ using System.Linq;
 using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Axwabo.Helpers.PlayerInfo.Vanilla;
-using Exiled.API.Features;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo;
@@ -149,9 +149,9 @@ public abstract class PlayerInfoBase
     /// <param name="player">The player to apply the data to.</param>
     public virtual void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
-        player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation.eulerAngles);
+        player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation);
         player.Health = Health;
         var stats = player.ReferenceHub.playerStats;
         if (Ahp >= 0)

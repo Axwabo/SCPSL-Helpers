@@ -1,6 +1,6 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 using PlayerRoles.PlayableScps.Scp3114;
+using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 
@@ -64,7 +64,7 @@ public class Scp3114Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         base.ApplyTo(player);
         if (!player.RoleIs<Scp3114Role>(out var role) || !role.SubroutineModule.TryGetSubroutine(out Scp3114Identity identity))
