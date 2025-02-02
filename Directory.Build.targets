@@ -3,4 +3,5 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
+    <Import Project="Directory.Build.targets.user" Condition="Exists('Directory.Build.targets.user')"/>
 </Project>
