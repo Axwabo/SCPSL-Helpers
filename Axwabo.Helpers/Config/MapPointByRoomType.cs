@@ -6,7 +6,7 @@ namespace Axwabo.Helpers.Config;
 /// A config object representing an offset to a room defined by the given <see cref="RoomType"/>.
 /// </summary>
 [Serializable]
-public struct MapPointByRoomType : IMapPoint
+public record struct MapPointByRoomType : IMapPoint
 {
 
     /// <summary>An empty config object representing no rooms.</summary>
@@ -86,36 +86,6 @@ public struct MapPointByRoomType : IMapPoint
 
     /// <inheritdoc />
     public bool TryGetWorldPose(out Vector3 position, out Quaternion rotation) => RoomTransform().TryTransformOffset(PositionOffset, RotationOffset, out position, out rotation);
-
-    #endregion
-
-    #region Operators
-
-    /// <summary>
-    /// Checks if the two points are equal.
-    /// </summary>
-    /// <param name="other">The other point to compare with.</param>
-    /// <returns>Whether the two points are equal.</returns>
-    public bool Equals(MapPointByRoomType other) => PositionOffset == other.PositionOffset && RotationOffset == other.RotationOffset && Type == other.Type;
-
-    /// <inheritdoc />
-    public override bool Equals(object obj) => obj is MapPointByRoomType point && point.Equals(this);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(MapPointByRoomType)"/> method.
-    /// </summary>
-    /// <param name="a">The first point to compare.</param>
-    /// <param name="b">The second point to compare.</param>
-    /// <returns>Whether the two points are equal.</returns>
-    public static bool operator ==(MapPointByRoomType a, MapPointByRoomType b) => a.Equals(b);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(MapPointByRoomType)"/> method.
-    /// </summary>
-    /// <param name="a">The first point to compare.</param>
-    /// <param name="b">The second point to compare.</param>
-    /// <returns>Whether the two points not are equal.</returns>
-    public static bool operator !=(MapPointByRoomType a, MapPointByRoomType b) => !a.Equals(b);
 
     #endregion
 
