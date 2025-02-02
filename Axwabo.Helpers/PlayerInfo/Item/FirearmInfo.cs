@@ -40,8 +40,10 @@ public class FirearmInfo : ItemInfoBase
         Modules = modules;
     }
 
+    /// <summary>The info about attachments on this firearm.</summary>
     public FirearmAttachmentInfo[] Attachments { get; set; }
 
+    /// <summary>The info about modules on this firearm.</summary>
     public FirearmModuleInfo[] Modules { get; set; }
 
     /// <inheritdoc />
