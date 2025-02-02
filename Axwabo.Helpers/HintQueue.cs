@@ -52,7 +52,11 @@ public sealed class HintQueue : MonoBehaviour
     {
         _queue.Clear();
         CurrentHint = null;
+#if NWAPI
+        Player.ReceiveHint("", 0);
+#else
         Player.SendHint("", 0);
+#endif
     }
 
     /// <summary>Clears the queue while keeping the current hint.</summary>
@@ -70,7 +74,11 @@ public sealed class HintQueue : MonoBehaviour
         if (!_queue.TryDequeue(out var item))
             return;
         CurrentHint = item.Message;
+#if NWAPI
+        Player.ReceiveHint(item.Message, item.Duration);
+#else
         Player.SendHint(item.Message, item.Duration);
+#endif
     }
 
 }

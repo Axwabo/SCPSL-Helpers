@@ -1,5 +1,4 @@
 ﻿using static Axwabo.Helpers.Config.Translations.AttributeHandler;
-using Logger = LabApi.Features.Console.Logger;
 
 namespace Axwabo.Helpers.Config.Translations;
 

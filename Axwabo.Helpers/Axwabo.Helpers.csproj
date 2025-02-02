@@ -11,10 +11,12 @@
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Optimize>true</Optimize>
+        <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'NWAPI'">
         <AssemblyName>Axwabo.Helpers.NWAPI</AssemblyName>
+        <DefineConstants>NWAPI</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,6 +45,15 @@
         <Using Include="InventorySystem.Items"/>
         <Using Include="PluginAPI.Core" Condition="'$(Configuration)' == 'NWAPI'"/>
         <Using Include="UnityEngine"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'LabApi'">
+        <Using Include="LabApi.Features.Wrappers"/>
+        <Using Include="LabApi.Features.Console.Logger" Alias="Logger"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'NWAPI'">
+        <Using Include="PluginAPI.Core.Log" Alias="Logger"/>
     </ItemGroup>
 
 </Project>
