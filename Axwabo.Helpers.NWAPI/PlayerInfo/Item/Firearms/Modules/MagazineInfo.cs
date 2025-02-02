@@ -21,6 +21,7 @@ public class MagazineInfo : FirearmModuleInfo
             return;
         magazine.MagazineInserted = Inserted;
         magazine.AmmoStored = Ammo;
+        magazine.ServerResyncData();
     }
 
 }

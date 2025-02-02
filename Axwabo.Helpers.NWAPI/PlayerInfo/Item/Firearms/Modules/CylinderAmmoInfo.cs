@@ -25,6 +25,8 @@ public class CylinderAmmoInfo : FirearmModuleInfo
             var state = Chambers[i];
             chambers[i].ServerSyncState = state;
         }
+
+        cylinder.ServerResync();
     }
 
 }

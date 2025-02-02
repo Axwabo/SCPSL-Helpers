@@ -21,6 +21,7 @@ public class PumpActionInfo : FirearmModuleInfo
             return;
         pump.SyncCocked = CockedAmmo;
         pump.SyncChambered = AmmoInChamber;
+        pump.ServerResync();
     }
 
 }
