@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using PluginAPI.Core;
-using static Axwabo.Helpers.Config.Translations.AttributeHandler;
+﻿using static Axwabo.Helpers.Config.Translations.AttributeHandler;
 
 namespace Axwabo.Helpers.Config.Translations;
 

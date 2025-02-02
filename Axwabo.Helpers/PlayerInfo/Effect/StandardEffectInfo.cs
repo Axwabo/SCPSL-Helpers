@@ -1,5 +1,4 @@
 ﻿using CustomPlayerEffects;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 

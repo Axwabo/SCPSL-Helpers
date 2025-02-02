@@ -1,6 +1,5 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using PlayerRoles.PlayableScps.Scp3114;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 

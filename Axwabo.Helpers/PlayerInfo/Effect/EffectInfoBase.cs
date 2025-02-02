@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CustomPlayerEffects;
+﻿using CustomPlayerEffects;
 using InventorySystem.Items.MarshmallowMan;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 

@@ -1,7 +1,4 @@
-﻿using System;
-using HarmonyLib;
-
-namespace Axwabo.Helpers.Harmony.Attributes;
+﻿namespace Axwabo.Helpers.Harmony.Attributes;
 
 /// <summary>
 /// An attribute to mark patches to be applied on constructors.

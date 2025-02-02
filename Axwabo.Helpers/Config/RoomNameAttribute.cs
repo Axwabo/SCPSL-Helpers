@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Axwabo.Helpers.Config;
+﻿namespace Axwabo.Helpers.Config;
 
 internal sealed class RoomNameAttribute : Attribute
 {

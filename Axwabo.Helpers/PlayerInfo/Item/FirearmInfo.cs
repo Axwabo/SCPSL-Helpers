@@ -1,6 +1,5 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Item.Firearms.Attachments;
 using Axwabo.Helpers.PlayerInfo.Item.Firearms.Modules;
-using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;

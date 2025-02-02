@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using InventorySystem.Items.Firearms;
+﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace Axwabo.Helpers.PlayerInfo.Item.Firearms.Attachments;

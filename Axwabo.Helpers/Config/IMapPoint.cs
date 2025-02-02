@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Axwabo.Helpers.Config;
+﻿namespace Axwabo.Helpers.Config;
 
 /// <summary>
 /// An interface used to implement methods to serialize points on the map.

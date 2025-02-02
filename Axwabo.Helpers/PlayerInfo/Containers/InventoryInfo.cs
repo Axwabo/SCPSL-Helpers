@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Axwabo.Helpers.PlayerInfo.Item;
-using PluginAPI.Core;
+﻿using Axwabo.Helpers.PlayerInfo.Item;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers;
 

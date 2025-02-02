@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Axwabo.Helpers.PlayerInfo.Effect;
+﻿using Axwabo.Helpers.PlayerInfo.Effect;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
-using PluginAPI.Core;
 using RelativePositioning;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers;
 

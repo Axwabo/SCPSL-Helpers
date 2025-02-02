@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Axwabo.Helpers;
+﻿namespace Axwabo.Helpers;
 
 /// <summary>
 /// A range of values with a start and end value.

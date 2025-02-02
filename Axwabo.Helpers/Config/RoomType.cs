@@ -1,6 +1,4 @@
-﻿using System;
-
-#pragma warning disable CS1591
+﻿#pragma warning disable CS1591
 // disable XML doc warning lol
 
 namespace Axwabo.Helpers.Config;

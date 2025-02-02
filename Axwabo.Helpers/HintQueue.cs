@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using PluginAPI.Core;
-using UnityEngine;
-
-namespace Axwabo.Helpers;
+﻿namespace Axwabo.Helpers;
 
 /// <summary>
 /// Sends the hints for the player from a queue.

@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using Axwabo.Helpers.PlayerInfo.Containers;
+﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using PlayerRoles.PlayableScps.Scp096;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 

@@ -1,6 +1,4 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Item;
-using InventorySystem.Items;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo;
 

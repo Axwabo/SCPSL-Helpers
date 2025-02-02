@@ -1,7 +1,6 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp173;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 

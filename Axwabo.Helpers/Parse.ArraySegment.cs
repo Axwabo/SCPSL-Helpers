@@ -1,5 +1,4 @@
-﻿using System;
-using PlayerRoles;
+﻿using PlayerRoles;
 
 namespace Axwabo.Helpers;
 

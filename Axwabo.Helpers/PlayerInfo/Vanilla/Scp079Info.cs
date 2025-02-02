@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Axwabo.Helpers.PlayerInfo.Containers;
+﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PlayerRoles.PlayableScps.Scp079.Rewards;
-using PluginAPI.Core;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 

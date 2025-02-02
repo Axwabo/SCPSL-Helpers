@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using InventorySystem.Items.Firearms;
+﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
 
 namespace Axwabo.Helpers.PlayerInfo.Item.Firearms.Modules;

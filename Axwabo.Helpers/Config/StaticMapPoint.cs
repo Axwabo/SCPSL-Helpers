@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Axwabo.Helpers.Config;
+﻿namespace Axwabo.Helpers.Config;
 
 /// <summary>
 /// A config object representing a static point on the map.

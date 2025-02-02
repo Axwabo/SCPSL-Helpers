@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Axwabo.Helpers.PlayerInfo;
+﻿namespace Axwabo.Helpers.PlayerInfo;
 
 /// <summary>
 /// A struct containing various item info related methods.

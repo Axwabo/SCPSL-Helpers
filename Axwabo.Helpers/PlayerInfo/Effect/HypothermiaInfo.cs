@@ -1,5 +1,4 @@
 ﻿using InventorySystem.Items.Usables.Scp244.Hypothermia;
-using PluginAPI.Core;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 

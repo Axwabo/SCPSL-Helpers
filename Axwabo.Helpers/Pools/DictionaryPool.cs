@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Axwabo.Helpers.Pools;
+﻿namespace Axwabo.Helpers.Pools;
 
 /// <summary>
 /// A pool containing dictionaries of type <typeparamref name="TKey"/> and <typeparamref name="TValue"/>, allowing for renting from and returning objects to it, thus reducing the amount of object instantiation needed.

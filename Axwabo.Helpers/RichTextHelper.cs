@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Axwabo.Helpers;
+﻿namespace Axwabo.Helpers;
 
 #region Enums
 

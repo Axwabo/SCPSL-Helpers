@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Axwabo.Helpers.Pools;
+﻿namespace Axwabo.Helpers.Pools;
 
 /// <summary>
 /// A pool containing objects of type <typeparamref name="T"/>, allowing for renting from and returning objects to it, thus reducing the amount of object instantiation needed.

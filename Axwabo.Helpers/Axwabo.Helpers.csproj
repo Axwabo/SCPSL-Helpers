@@ -30,4 +30,19 @@
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="System"/>
+        <Using Include="System.Collections.Generic"/>
+        <Using Include="System.Linq"/>
+        <Using Include="System.Reflection"/>
+        <Using Include="System.Reflection.Emit"/>
+        <Using Include="HarmonyLib"/>
+        <Using Include="InventorySystem.Items"/>
+        <Using Include="UnityEngine"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'NWAPI'">
+        <Using Include="PluginAPI.Core"/>
+    </ItemGroup>
 </Project>

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using InventorySystem;
-using InventorySystem.Items;
-using PluginAPI.Core;
+﻿using InventorySystem;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 

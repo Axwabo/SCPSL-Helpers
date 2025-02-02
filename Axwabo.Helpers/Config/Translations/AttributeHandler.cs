@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-
-// ReSharper disable SuspiciousTypeConversion.Global
+﻿// ReSharper disable SuspiciousTypeConversion.Global
 
 namespace Axwabo.Helpers.Config.Translations;
 
