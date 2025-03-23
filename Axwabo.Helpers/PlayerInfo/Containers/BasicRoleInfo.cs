@@ -66,7 +66,11 @@ public readonly struct BasicRoleInfo
     /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
-        player.Camera.eulerAngles,
+#if NWAPI
+        player.Rotation,
+#else
+        player.LookRotation,
+#endif
         player.GetStatModule<HealthStat>().CurValue,
         GetAhp(player),
         GetStamina(player),
@@ -116,7 +120,9 @@ public readonly struct BasicRoleInfo
         Effects = effects;
         Inventory = inventoryInfo;
         IsValid = true;
+#pragma warning disable CS0618 // Type or member is obsolete
         AdditionalMaxHealth = 0;
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     #region Members
