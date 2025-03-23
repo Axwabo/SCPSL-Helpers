@@ -146,12 +146,8 @@ public abstract class PlayerInfoBase
     {
         if (!player.IsConnected())
             return;
-#if NWAPI
-        player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation);
-#else
         player.ReferenceHub.TryOverridePosition(Position);
         player.ReferenceHub.TryOverrideRotation(Rotation);
-#endif
 
         player.Health = Health;
         var stats = player.ReferenceHub.playerStats;

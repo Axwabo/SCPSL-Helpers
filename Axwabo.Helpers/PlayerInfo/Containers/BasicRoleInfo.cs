@@ -66,11 +66,7 @@ public readonly struct BasicRoleInfo
     /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
-#if NWAPI
-        player.Rotation,
-#else
         player.LookRotation,
-#endif
         player.GetStatModule<HealthStat>().CurValue,
         GetAhp(player),
         GetStamina(player),

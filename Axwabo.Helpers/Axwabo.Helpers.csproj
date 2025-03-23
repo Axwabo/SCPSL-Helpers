@@ -14,18 +14,12 @@
         <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)' == 'NWAPI'">
-        <AssemblyName>Axwabo.Helpers.NWAPI</AssemblyName>
-        <DefineConstants>NWAPI</DefineConstants>
-    </PropertyGroup>
-
     <ItemGroup>
         <Reference Include="Assembly-CSharp"/>
         <Reference Include="Assembly-CSharp-firstpass"/>
         <Reference Include="CommandSystem.Core"/>
         <Reference Include="Mirror"/>
-        <Reference Include="LabApi" Condition="'$(Configuration)' == 'LabApi'"/>
-        <Reference Include="PluginAPI" Condition="'$(Configuration)' == 'NWAPI'"/>
+        <Reference Include="LabApi"/>
         <Reference Include="Pooling"/>
         <Reference Include="UnityEngine.CoreModule"/>
     </ItemGroup>
