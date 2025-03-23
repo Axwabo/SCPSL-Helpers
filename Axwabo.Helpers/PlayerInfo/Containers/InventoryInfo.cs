@@ -63,7 +63,7 @@ public readonly struct InventoryInfo
         var inv = player.ReferenceHub.inventory;
         inv.RemoveAllItems();
         ushort selected = 0;
-        foreach (var info in Items ?? Array.Empty<ItemInfoBase>())
+        foreach (var info in Items ?? [])
         {
             if (info == null)
                 continue;

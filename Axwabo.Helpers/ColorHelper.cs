@@ -101,7 +101,7 @@ public static class ColorHelper
     public static float[] Hsv(this Color color)
     {
         Color.RGBToHSV(color, out var h, out var s, out var v);
-        return new[] {h, s, v};
+        return [h, s, v];
     }
 
     /// <summary>

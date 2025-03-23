@@ -50,8 +50,8 @@ public static class TranslationHelper
     /// <returns>The translated string.</returns>
     public static string TranslateRaw(this Enum key, params object[] args)
     {
-        var method = TranslationRegistryType.MakeGenericType(key.GetType()).GetMethod("Translate", new[] {key.GetType(), typeof(object[])})!;
-        return (string) method.Invoke(null, new object[] {key, args});
+        var method = TranslationRegistryType.MakeGenericType(key.GetType()).GetMethod("Translate", [key.GetType(), typeof(object[])])!;
+        return (string) method.Invoke(null, [key, args]);
     }
 
     #endregion

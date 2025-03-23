@@ -8,17 +8,17 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 public class ItemInfoBase
 {
 
-    private static readonly List<ItemInfoObtainer> CustomObtainers = new();
+    private static readonly List<ItemInfoObtainer> CustomObtainers = [];
 
     private static readonly ItemInfoObtainer[] DefaultObtainers =
-    {
+    [
         new(JailbirdInfo.IsJailbird, JailbirdInfo.Get),
         new(RadioInfo.IsRadio, RadioInfo.Get),
         new(Scp330BagInfo.Is330, Scp330BagInfo.Get),
         new(Scp268Info.Is268, Scp268Info.Get),
         new(Scp1576Info.Is1576, Scp1576Info.Get),
         new(FirearmInfo.IsFirearm, FirearmInfo.Get)
-    };
+    ];
 
     /// <summary>
     /// Registers a custom item info obtainer.

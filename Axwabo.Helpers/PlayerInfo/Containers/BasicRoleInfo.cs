@@ -76,25 +76,6 @@ public readonly struct BasicRoleInfo
     );
 
     /// <summary>
-    /// Creates a new <see cref="BasicRoleInfo"/> instance.
-    /// <b>Obsolete: Use the constructor without additionalMaxHealth instead.</b>
-    /// </summary>
-    /// <param name="position">The position of the player.</param>
-    /// <param name="rotation">The rotation of the player.</param>
-    /// <param name="health">The base HP of the player.</param>
-    /// <param name="additionalMaxHealth">The additional max HP of the player (applies to humans only).</param>
-    /// <param name="ahp">The additional HP of the player.</param>
-    /// <param name="stamina">The stamina of the player.</param>
-    /// <param name="humeShield">The Hume Shield of the player.</param>
-    /// <param name="effects">The effects on the player.</param>
-    /// <param name="inventoryInfo">Information about the player's inventory.</param>
-    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
-    public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float additionalMaxHealth, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
-        : this(position, rotation, health, ahp, stamina, humeShield, effects, inventoryInfo)
-    {
-    }
-
-    /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.<br/>
     /// </summary>
     /// <param name="position">The position of the player.</param>
@@ -116,9 +97,6 @@ public readonly struct BasicRoleInfo
         Effects = effects;
         Inventory = inventoryInfo;
         IsValid = true;
-#pragma warning disable CS0618 // Type or member is obsolete
-        AdditionalMaxHealth = 0;
-#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     #region Members
@@ -131,10 +109,6 @@ public readonly struct BasicRoleInfo
 
     /// <summary>The base HP of the player.</summary>
     public readonly float Health;
-
-    /// <summary>The additional max HP of the player (applies to humans only).</summary>
-    [Obsolete("No longer part of the game.")]
-    public readonly float AdditionalMaxHealth;
 
     /// <summary>The additional HP of the player.</summary>
     public readonly float Ahp;

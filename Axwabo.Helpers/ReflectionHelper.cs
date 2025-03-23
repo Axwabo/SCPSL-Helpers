@@ -61,7 +61,7 @@ public static class ReflectionHelper
     public static object GetProp(this Type type, object obj, string property)
     {
         var getter = AccessTools.PropertyGetter(type, property);
-        return getter == null ? null : getter.Invoke(obj, Array.Empty<object>());
+        return getter == null ? null : getter.Invoke(obj, []);
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public static class ReflectionHelper
     {
         var setter = AccessTools.PropertySetter(type, property);
         if (setter != null)
-            setter.Invoke(obj, new[] {value});
+            setter.Invoke(obj, [value]);
         return obj;
     }
 
@@ -249,7 +249,7 @@ public static class ReflectionHelper
     public static object StaticGetProp(this Type type, string property)
     {
         var getter = AccessTools.PropertyGetter(type, property);
-        return getter == null ? null : getter.Invoke(null, Array.Empty<object>());
+        return getter == null ? null : getter.Invoke(null, []);
     }
 
     /// <summary>
@@ -272,7 +272,7 @@ public static class ReflectionHelper
     {
         var setter = AccessTools.PropertySetter(type, property);
         if (setter != null)
-            setter.Invoke(null, new[] {value});
+            setter.Invoke(null, [value]);
     }
 
     #endregion
@@ -373,7 +373,7 @@ public static class ReflectionHelper
     /// <param name="enumerable">The enumerable to check.</param>
     /// <typeparam name="T">The type of the enumerable.</typeparam>
     /// <returns>An empty enumerable if the supplied argument is null; otherwise the supplied argument.</returns>
-    public static IEnumerable<T> AsNonNullEnumerable<T>(this IEnumerable<T> enumerable) => enumerable ?? Enumerable.Empty<T>();
+    public static IEnumerable<T> AsNonNullEnumerable<T>(this IEnumerable<T> enumerable) => enumerable ?? [];
 
     #endregion
 
