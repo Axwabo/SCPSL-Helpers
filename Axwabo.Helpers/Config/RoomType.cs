@@ -60,6 +60,7 @@ public enum RoomType
     EzSmallrooms2,
 
     [RoomName("LCZ_Cafe")]
+    [Obsolete($"Use {nameof(LczComputerRoom)} instead.")]
     LczCafe,
 
     [RoomName("LCZ_Armory")]
@@ -150,7 +151,7 @@ public enum RoomType
     [RoomName("LCZ_ChkpB")]
     LczCheckpointB,
 
-    [RoomName("HCZ_Servers")]
+    [RoomName("HCZ_ServerRoom")]
     HczServers,
 
     [RoomName("HCZ_Crossing")]
@@ -251,6 +252,18 @@ public enum RoomType
     HczStraightPipeRoom,
 
     [RoomName("LCZ_Curve")]
-    LczCurve
+    LczCurve,
+
+    [RoomName("LCZ_Cafe")]
+    LczComputerRoom,
+
+    [RoomName("EZ_Chef")]
+    EzChef,
+
+    [RoomName("EZ_StraightColumn")]
+    EzStraightColumn,
+
+    [RoomName("HCZ_127")]
+    Hcz127
 
 }
