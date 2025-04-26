@@ -60,7 +60,7 @@ public class ItemInfoBase
     }
 
     /// <summary>
-    /// Creates an <see cref="ItemInfoBase"/> from a item based on the registered obtainers.
+    /// Creates an <see cref="ItemInfoBase"/> from an item based on the registered obtainers.
     /// </summary>
     /// <param name="item">The item to obtain the info from.</param>
     /// <returns>The item info. If no special obtainers were found, it will be an <see cref="ItemInfoBase"/>.</returns>
@@ -74,7 +74,7 @@ public class ItemInfoBase
     }
 
     /// <summary>
-    /// Gets the basic item info from a item.
+    /// Gets the basic item info from an item.
     /// </summary>
     /// <param name="item">The item to get the info from.</param>
     /// <returns>A simple <see cref="ItemInfoBase"/> instance.</returns>

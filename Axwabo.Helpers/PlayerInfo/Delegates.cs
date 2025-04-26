@@ -3,7 +3,7 @@
 namespace Axwabo.Helpers.PlayerInfo;
 
 /// <summary>
-/// Checks a specific information about a player.
+/// Checks specific information about a player.
 /// </summary>
 /// <param name="player">The player to check.</param>
 public delegate bool PlayerCheck(Player player);
@@ -21,7 +21,7 @@ public delegate PlayerInfoBase PlayerInfoGetter(Player player);
 public delegate void PlayerRoleSetter(Player player);
 
 /// <summary>
-/// Checks a specific information about an item.
+/// Checks specific information about an item.
 /// </summary>
 /// <param name="item">The item to check.</param>
 public delegate bool ItemCheck(ItemBase item);
