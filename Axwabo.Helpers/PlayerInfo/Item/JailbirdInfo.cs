@@ -25,7 +25,7 @@ public class JailbirdInfo : ItemInfoBase
     public static bool IsJailbird(ItemBase item) => item is JailbirdItem;
 
     /// <summary>
-    /// Creates a new <see cref="FirearmInfo"/> instance.
+    /// Creates a new <see cref="JailbirdInfo"/> instance.
     /// </summary>
     /// <param name="meleeDamage">The amount of total melee damage dealt-</param>
     /// <param name="charges">The amount of charges used.</param>
