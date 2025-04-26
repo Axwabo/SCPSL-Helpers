@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
+using InventorySystem.Items.Firearms.Modules.Scp127;
 
 namespace Axwabo.Helpers.PlayerInfo.Item.Firearms.Modules;
 
@@ -22,6 +23,7 @@ public static class ModuleInfoExtensions
         DoubleActionModule doubleActionModule => DoubleActionInfo.Get(doubleActionModule),
         MagazineModule magazineModule => MagazineInfo.Get(magazineModule),
         PumpActionModule pumpActionModule => PumpActionInfo.Get(pumpActionModule),
+        Scp127HumeModule scp127HumeModule => Scp127HumeInfo.Get(scp127HumeModule),
         _ => null
     };
 
