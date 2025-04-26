@@ -11,21 +11,38 @@ Makes using Reflection and patching methods with Harmony simpler.
 > [!NOTE]
 > This is a dependency, not a plugin.
 
-> [!IMPORTANT]
-> **EXILED no longer receives dedicated updates.** 
-> This library is not designed to be specifically compatible with 3rd-party plugin frameworks. Despite this, most if not all functionality should work just fine.
-> 
-> With the upcoming release of LabAPI, the Northwood Plugin API version will only be supported until NWAPI gets deprecated.
-
-## Northwood Plugin API
-
-1. Download the **Axwabo.Helpers-nw.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
-2. Put the DLL into the PluginAPI dependencies folder
-   - Windows: `%appdata%/SCP Secret Laboratory/PluginAPI/port/dependencies`
-   - Linux: `.config/SCP SecretLaboratory/PluginAPI/port/dependencies`
+1. Download the **Axwabo.Helpers.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
+2. Put the DLL into the dependencies folder
+    - Windows: `%appdata%\SCP Secret Laboratory\LabAPI-Beta\<port>\dependencies`
+    - Linux: `.config/SCP SecretLaboratory/PluginAPI/<port>/dependencies`
 3. Any plugins using this library should work after a server restart
 
 # Examples
+
+## Player Info
+
+> [!TIP]
+> Use-cases include (but are not limited to):
+> - storing the state to revert to later
+> - swapping players' roles
+
+Call the `GetInfoWithRole` extension method (from `Axwabo.Helpers.PlayerInfo.PlayerInfoExtensions`) to take a snapshot.
+This includes information about the player's current role, items, ammo and effects.
+
+Invoke `IPlayerInfoWithRole::SetClassAndApplyInfo` to apply the snapshot onto any player.
+
+### Customization
+
+You can extend the player info by registering custom obtainers for roles or items.
+
+Custom info obtainers take priority over built-in ones.
+
+To add a role info obtainer, call `PlayerInfoBase::RegisterCustomObtainer` - if the `roleSetter` is not specified, `SetClass` will throw an exception.
+
+To add an item info obtainer, call `ItemInfoBase::RegisterCustomObtainer` - the `give` delegate isn't currently used because I'm lazy.
+
+> [!IMPORTANT]
+> Obtainer registration methods return an ID. Make sure to unregister them when your plugin is being disabled.
 
 ## Harmony Patch
 
