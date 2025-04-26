@@ -36,7 +36,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The AHP value, or -1 if there are no active processes.</returns>
     public static float GetAhp(Player player)
     {
-        var ahp = player.ReferenceHub.playerStats.GetModule<AhpStat>();
+        var ahp = player.GetStatModule<AhpStat>();
         return ahp._activeProcesses.Count is 0 ? -1 : ahp.CurValue;
     }
 
@@ -67,10 +67,10 @@ public readonly struct BasicRoleInfo
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
         player.LookRotation,
-        player.GetStatModule<HealthStat>().CurValue,
-        GetAhp(player),
-        GetStamina(player),
-        GetHs(player),
+        player.Health,
+        player.ArtificialHealth,
+        player.StaminaRemaining,
+        player.HumeShield,
         EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects),
         InventoryInfo.Get(player)
     );
