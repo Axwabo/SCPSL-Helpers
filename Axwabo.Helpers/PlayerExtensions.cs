@@ -137,21 +137,6 @@ public static class PlayerExtensions
     }
 
     /// <summary>
-    /// Adds a hint to the player's hint queue.
-    /// </summary>
-    /// <param name="player">The player to show then hint for.</param>
-    /// <param name="message">The message to show.</param>
-    /// <param name="duration">The duration of the hint in seconds.</param>
-    public static void QueueHint(this Player player, string message, float duration = 5f) =>
-        player.GameObject.GetOrAddComponent<HintQueue>().Enqueue(message, duration);
-
-    /// <summary>
-    /// Clears the hint queue and current hint of the player.
-    /// </summary>
-    /// <param name="player">The player to clear the hint queue for.</param>
-    public static void ClearHints(this Player player) => player.GameObject.GetOrAddComponent<HintQueue>().Clear();
-
-    /// <summary>
     /// Determines whether the player is still connected to the server by checking its GameObject.
     /// </summary>
     /// <param name="player">The player to check.</param>
