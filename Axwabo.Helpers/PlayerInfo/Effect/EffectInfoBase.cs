@@ -71,6 +71,7 @@ public abstract class EffectInfoBase
             AmnesiaVision => EffectType.AmnesiaVision,
             AntiScp207 => EffectType.AntiScp207,
             Asphyxiated => EffectType.Asphyxiated,
+            BecomingFlamingo => EffectType.BecomingFlamingo,
             Bleeding => EffectType.Bleeding,
             BodyshotReduction => EffectType.BodyshotReduction,
             Burned => EffectType.Burned,
@@ -86,6 +87,9 @@ public abstract class EffectInfoBase
             Flashed => EffectType.Flashed,
             Hemorrhage => EffectType.Hemorrhage,
             Hypothermia => EffectType.Hypothermia,
+            Scp559Effect => EffectType.Scp559Effect,
+            Scp956Target => EffectType.Scp956Target,
+            Snowed => EffectType.Snowed,
             InsufficientLighting => EffectType.InsufficientLighting,
             Invigorated => EffectType.Invigorated,
             Invisible => EffectType.Invisible,
@@ -176,6 +180,11 @@ public abstract class EffectInfoBase
         EffectType.PitDeath => typeof(PitDeath),
         EffectType.Scp1344 => typeof(Scp1344),
         EffectType.SeveredEyes => typeof(SeveredEyes),
+        EffectType.BecomingFlamingo => typeof(BecomingFlamingo),
+        EffectType.Scp559Effect => typeof(Scp559Effect),
+        EffectType.Scp956Target => typeof(Scp956Target),
+        EffectType.Snowed => typeof(Snowed),
+        EffectType.Scp1344Detected => typeof(Scp1344Detected),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

@@ -87,16 +87,12 @@ public enum EffectType
 
     SilentWalk,
 
-    [Obsolete("No longer part of the game.")]
     BecomingFlamingo,
 
-    [Obsolete("No longer part of the game.")]
     Scp559Effect,
 
-    [Obsolete("No longer part of the game.")]
     Scp956Target,
 
-    [Obsolete("No longer part of the game.")]
     Snowed,
 
     FogControl,
@@ -107,6 +103,7 @@ public enum EffectType
     Blurred,
     PitDeath,
     Scp1344,
-    SeveredEyes
+    SeveredEyes,
+    Scp1344Detected
 
 }
