@@ -146,13 +146,13 @@ public static class PlayerInfoExtensions
     }
 
     /// <summary>
-    /// Removes all items and clears the ammo from the player's inventory.
+    /// Clears the ammo and removes all items and from the player's inventory.
     /// </summary>
     /// <param name="inventory">The inventory to clear.</param>
     public static void ClearEverything(this Inventory inventory)
     {
-        inventory.RemoveAllItems();
         inventory.ClearAmmo();
+        inventory.RemoveAllItems();
     }
 
 }

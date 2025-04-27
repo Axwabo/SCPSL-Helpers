@@ -2,7 +2,6 @@
 using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Axwabo.Helpers.PlayerInfo.Vanilla;
-using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 
 namespace Axwabo.Helpers.PlayerInfo;
@@ -142,8 +141,8 @@ public abstract class PlayerInfoBase
     {
         if (!player.IsConnected())
             return;
-        player.ReferenceHub.TryOverridePosition(Position);
-        player.ReferenceHub.TryOverrideRotation(Rotation);
+        player.Position = Position;
+        player.LookRotation = Rotation;
 
         player.Health = Health;
         var stats = player.ReferenceHub.playerStats;
