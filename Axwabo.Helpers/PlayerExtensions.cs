@@ -137,11 +137,11 @@ public static class PlayerExtensions
     }
 
     /// <summary>
-    /// Determines whether the player is still connected to the server by checking its GameObject.
+    /// Determines whether the player is still connected to the server by checking its ReferenceHub.
     /// </summary>
     /// <param name="player">The player to check.</param>
     /// <returns>Whether the player is connected.</returns>
-    public static bool IsConnected(this Player player) => player.GameObject != null;
+    public static bool IsConnected(this Player player) => player.ReferenceHub;
 
     /// <summary>
     /// Gets an effect instance from the player.
