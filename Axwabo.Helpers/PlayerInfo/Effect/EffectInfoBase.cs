@@ -117,6 +117,7 @@ public abstract class EffectInfoBase
             Blurred => EffectType.Blurred,
             PitDeath => EffectType.PitDeath,
             Scp1344 => EffectType.Scp1344,
+            Scp1344Detected => EffectType.Scp1344Detected,
             SeveredEyes => EffectType.SeveredEyes,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
