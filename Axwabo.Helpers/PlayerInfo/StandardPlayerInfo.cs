@@ -1,5 +1,4 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 
 namespace Axwabo.Helpers.PlayerInfo;
 

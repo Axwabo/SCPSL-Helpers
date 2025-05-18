@@ -1,6 +1,5 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Usables;
-using UnityEngine;
+﻿using InventorySystem.Items.Usables;
+using UsableItem = InventorySystem.Items.Usables.UsableItem;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 

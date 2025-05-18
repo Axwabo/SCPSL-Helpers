@@ -1,5 +1,3 @@
-using System;
-
 namespace Axwabo.Helpers.Config.Translations;
 
 /// <summary>

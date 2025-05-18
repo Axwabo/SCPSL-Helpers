@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using Axwabo.Helpers.PlayerInfo.Containers;
 using Axwabo.Helpers.PlayerInfo.Effect;
 using Axwabo.Helpers.PlayerInfo.Vanilla;
-using Exiled.API.Features;
-using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo;
 
@@ -21,10 +15,10 @@ public abstract class PlayerInfoBase
 
     #region Obtainers
 
-    private static readonly List<PlayerInfoObtainer> CustomObtainers = new();
+    private static readonly List<PlayerInfoObtainer> CustomObtainers = [];
 
     private static readonly PlayerInfoObtainer[] DefaultObtainers =
-    {
+    [
         new(Scp049Info.Is049, Scp049Info.Get),
         new(Scp079Info.Is079, Scp079Info.Get),
         new(Scp096Info.Is096, Scp096Info.Get),
@@ -32,7 +26,7 @@ public abstract class PlayerInfoBase
         new(Scp173Info.Is173, Scp173Info.Get),
         new(Scp939Info.Is939, Scp939Info.Get),
         new(Scp3114Info.Is3114, Scp3114Info.Get)
-    };
+    ];
 
     /// <summary>
     /// Registers a custom player info obtainer.
@@ -101,10 +95,6 @@ public abstract class PlayerInfoBase
     /// <summary>The base HP of the player.</summary>
     public float Health { get; set; }
 
-    /// <summary>The additional max HP of the player (applies to humans only).</summary>
-    [Obsolete("No longer part of the game.")]
-    public float AdditionalMaxHealth { get; set; }
-
     /// <summary>The additional HP of the player.</summary>
     public float Ahp { get; set; }
 
@@ -149,9 +139,11 @@ public abstract class PlayerInfoBase
     /// <param name="player">The player to apply the data to.</param>
     public virtual void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
-        player.ReferenceHub.TryOverridePosition(Position, Rotation - player.Rotation.eulerAngles);
+        player.Position = Position;
+        player.LookRotation = Rotation;
+
         player.Health = Health;
         var stats = player.ReferenceHub.playerStats;
         if (Ahp >= 0)
@@ -159,7 +151,7 @@ public abstract class PlayerInfoBase
         stats.GetModule<StaminaStat>().CurValue = Stamina;
         if (HumeShield >= 0)
             stats.GetModule<HumeShieldStat>().CurValue = HumeShield;
-        foreach (var effect in Effects ?? Enumerable.Empty<EffectInfoBase>())
+        foreach (var effect in Effects.AsNonNullEnumerable())
             effect?.ApplyTo(player);
         Inventory.ApplyTo(player);
     }

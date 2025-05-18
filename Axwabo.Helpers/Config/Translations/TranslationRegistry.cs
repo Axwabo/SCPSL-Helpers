@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Axwabo.Helpers.Config.Translations;
+﻿namespace Axwabo.Helpers.Config.Translations;
 
 /// <summary>
 /// A translation provider that uses a dictionary of translations using enums.

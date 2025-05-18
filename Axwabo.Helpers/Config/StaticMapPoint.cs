@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
-
-namespace Axwabo.Helpers.Config;
+﻿namespace Axwabo.Helpers.Config;
 
 /// <summary>
 /// A config object representing a static point on the map.
 /// </summary>
 [Serializable]
-public struct StaticMapPoint : IMapPoint
+public record struct StaticMapPoint : IMapPoint
 {
 
     /// <summary>An empty config object placed at the center of the world without rotation.</summary>
@@ -86,50 +83,6 @@ public struct StaticMapPoint : IMapPoint
         rotation = Rotation;
         return true;
     }
-
-    #endregion
-
-    #region Operators
-
-    /// <summary>
-    /// Checks if the two points are equal.
-    /// </summary>
-    /// <param name="other">The other point to compare with.</param>
-    /// <returns>Whether the two points are equal.</returns>
-    public bool Equals(StaticMapPoint other) => Position == other.Position && Rotation == other.Rotation;
-
-    /// <inheritdoc />
-    public override bool Equals(object obj) => obj is StaticMapPoint point && point.Equals(this);
-
-    /// <summary>
-    /// Calls the <see cref="WorldPose"/> method on a point to convert it to a <see cref="Pose"/>.
-    /// </summary>
-    /// <param name="point">The point to convert.</param>
-    /// <returns>A pose equivalent to the point.</returns>
-    public static implicit operator Pose(StaticMapPoint point) => point.WorldPose();
-
-    /// <summary>
-    /// Converts a Pose to a StaticMapPoint.
-    /// </summary>
-    /// <param name="pose">The pose to convert.</param>
-    /// <returns>A StaticMapPoint equivalent to the pose.</returns>
-    public static implicit operator StaticMapPoint(Pose pose) => new(pose.position, pose.rotation);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(StaticMapPoint)"/> method.
-    /// </summary>
-    /// <param name="a">The first point to compare.</param>
-    /// <param name="b">The second point to compare.</param>
-    /// <returns>Whether the two points are equal.</returns>
-    public static bool operator ==(StaticMapPoint a, StaticMapPoint b) => a.Equals(b);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(StaticMapPoint)"/> method.
-    /// </summary>
-    /// <param name="a">The first point to compare.</param>
-    /// <param name="b">The second point to compare.</param>
-    /// <returns>Whether the two points not are equal.</returns>
-    public static bool operator !=(StaticMapPoint a, StaticMapPoint b) => !a.Equals(b);
 
     #endregion
 

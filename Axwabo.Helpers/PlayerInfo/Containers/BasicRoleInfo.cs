@@ -1,12 +1,7 @@
-﻿#pragma warning disable CS0618
-using System;
-using System.Collections.Generic;
-using Axwabo.Helpers.PlayerInfo.Effect;
-using Exiled.API.Features;
+﻿using Axwabo.Helpers.PlayerInfo.Effect;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using RelativePositioning;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Containers;
 
@@ -41,7 +36,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The AHP value, or -1 if there are no active processes.</returns>
     public static float GetAhp(Player player)
     {
-        var ahp = player.ReferenceHub.playerStats.GetModule<AhpStat>();
+        var ahp = player.GetStatModule<AhpStat>();
         return ahp._activeProcesses.Count is 0 ? -1 : ahp.CurValue;
     }
 
@@ -59,7 +54,7 @@ public readonly struct BasicRoleInfo
     /// <returns>The validated position.</returns>
     public static Vector3 ValidatePosition(Vector3 position)
         => WaypointBase.TryGetWaypoint(new RelativePosition(position).WaypointId, out var waypoint) && waypoint is ElevatorWaypoint ewp
-            ? ewp._elevator._lastDestination.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
+            ? ewp._elevator.DestinationDoor.transform.TransformPoint(Vector3.forward * 0.5f) + Vector3.up
             : position;
 
     #endregion
@@ -71,33 +66,14 @@ public readonly struct BasicRoleInfo
     /// <returns>A <see cref="BasicRoleInfo"/> instance.</returns>
     public static BasicRoleInfo Get(Player player) => new(
         ValidatePosition(player.Position),
-        player.Rotation.eulerAngles,
+        player.LookRotation,
         player.Health,
-        GetAhp(player),
-        GetStamina(player),
-        GetHs(player),
+        player.ArtificialHealth,
+        player.StaminaRemaining,
+        player.HumeShield,
         EffectInfoBase.EffectsToList(player.ReferenceHub.playerEffectsController.AllEffects),
         InventoryInfo.Get(player)
     );
-
-    /// <summary>
-    /// Creates a new <see cref="BasicRoleInfo"/> instance.
-    /// <b>Obsolete: Use the constructor without additionalMaxHealth instead.</b>
-    /// </summary>
-    /// <param name="position">The position of the player.</param>
-    /// <param name="rotation">The rotation of the player.</param>
-    /// <param name="health">The base HP of the player.</param>
-    /// <param name="additionalMaxHealth">The additional max HP of the player (applies to humans only).</param>
-    /// <param name="ahp">The additional HP of the player.</param>
-    /// <param name="stamina">The stamina of the player.</param>
-    /// <param name="humeShield">The Hume Shield of the player.</param>
-    /// <param name="effects">The effects on the player.</param>
-    /// <param name="inventoryInfo">Information about the player's inventory.</param>
-    [Obsolete("Use the constructor with additionalMaxHealth instead.")]
-    public BasicRoleInfo(Vector3 position, Vector3 rotation, float health, float additionalMaxHealth, float ahp, float stamina, float humeShield, List<EffectInfoBase> effects, InventoryInfo inventoryInfo)
-        : this(position, rotation, health, ahp, stamina, humeShield, effects, inventoryInfo)
-    {
-    }
 
     /// <summary>
     /// Creates a new <see cref="BasicRoleInfo"/> instance.<br/>
@@ -121,7 +97,6 @@ public readonly struct BasicRoleInfo
         Effects = effects;
         Inventory = inventoryInfo;
         IsValid = true;
-        AdditionalMaxHealth = 0;
     }
 
     #region Members
@@ -134,10 +109,6 @@ public readonly struct BasicRoleInfo
 
     /// <summary>The base HP of the player.</summary>
     public readonly float Health;
-
-    /// <summary>The additional max HP of the player (applies to humans only).</summary>
-    [Obsolete("No longer part of the game.")]
-    public readonly float AdditionalMaxHealth;
 
     /// <summary>The additional HP of the player.</summary>
     public readonly float Ahp;

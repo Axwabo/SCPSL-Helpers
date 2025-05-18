@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using Exiled.API.Features;
-using static Axwabo.Helpers.Config.Translations.AttributeHandler;
+﻿using static Axwabo.Helpers.Config.Translations.AttributeHandler;
 
 namespace Axwabo.Helpers.Config.Translations;
 
@@ -54,8 +50,8 @@ public static class TranslationHelper
     /// <returns>The translated string.</returns>
     public static string TranslateRaw(this Enum key, params object[] args)
     {
-        var method = TranslationRegistryType.MakeGenericType(key.GetType()).GetMethod("Translate", new[] {key.GetType(), typeof(object[])})!;
-        return (string) method.Invoke(null, new object[] {key, args});
+        var method = TranslationRegistryType.MakeGenericType(key.GetType()).GetMethod("Translate", [key.GetType(), typeof(object[])])!;
+        return (string) method.Invoke(null, [key, args]);
     }
 
     #endregion
@@ -216,7 +212,7 @@ public static class TranslationHelper
         }
         catch (Exception e)
         {
-            Log.Error("Failed to invoke OnTranslationRegistered event handler: " + e);
+            Logger.Error("Failed to invoke OnTranslationRegistered event handler: " + e);
         }
     }
 

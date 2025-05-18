@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Axwabo.Helpers.Config.Translations;
+﻿namespace Axwabo.Helpers.Config.Translations;
 
 /// <summary>
 /// An attribute interface to invoke a method when a new translation is registered.

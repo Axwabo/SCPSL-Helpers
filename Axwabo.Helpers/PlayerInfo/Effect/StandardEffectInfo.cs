@@ -1,5 +1,4 @@
 ﻿using CustomPlayerEffects;
-using Exiled.API.Features;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 

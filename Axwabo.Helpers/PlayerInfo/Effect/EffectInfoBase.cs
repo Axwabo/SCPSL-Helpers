@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CustomPlayerEffects;
-using Exiled.API.Features;
+﻿using CustomPlayerEffects;
 using InventorySystem.Items.MarshmallowMan;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
 
@@ -75,8 +71,8 @@ public abstract class EffectInfoBase
             AmnesiaVision => EffectType.AmnesiaVision,
             AntiScp207 => EffectType.AntiScp207,
             Asphyxiated => EffectType.Asphyxiated,
+            BecomingFlamingo => EffectType.BecomingFlamingo,
             Bleeding => EffectType.Bleeding,
-            Blinded => EffectType.Blinded,
             BodyshotReduction => EffectType.BodyshotReduction,
             Burned => EffectType.Burned,
             CardiacArrest => EffectType.CardiacArrest,
@@ -91,6 +87,9 @@ public abstract class EffectInfoBase
             Flashed => EffectType.Flashed,
             Hemorrhage => EffectType.Hemorrhage,
             Hypothermia => EffectType.Hypothermia,
+            Scp559Effect => EffectType.Scp559Effect,
+            Scp956Target => EffectType.Scp956Target,
+            Snowed => EffectType.Snowed,
             InsufficientLighting => EffectType.InsufficientLighting,
             Invigorated => EffectType.Invigorated,
             Invisible => EffectType.Invisible,
@@ -114,6 +113,12 @@ public abstract class EffectInfoBase
             SilentWalk => EffectType.SilentWalk,
             FogControl => EffectType.FogControl,
             Slowness => EffectType.Slowness,
+            Blindness => EffectType.Blindness,
+            Blurred => EffectType.Blurred,
+            PitDeath => EffectType.PitDeath,
+            Scp1344 => EffectType.Scp1344,
+            Scp1344Detected => EffectType.Scp1344Detected,
+            SeveredEyes => EffectType.SeveredEyes,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
 
@@ -131,7 +136,9 @@ public abstract class EffectInfoBase
         EffectType.AntiScp207 => typeof(AntiScp207),
         EffectType.Asphyxiated => typeof(Asphyxiated),
         EffectType.Bleeding => typeof(Bleeding),
-        EffectType.Blinded => typeof(Blinded),
+#pragma warning disable CS0618
+        EffectType.Blinded => typeof(Blurred),
+#pragma warning restore CS0618
         EffectType.BodyshotReduction => typeof(BodyshotReduction),
         EffectType.Burned => typeof(Burned),
         EffectType.CardiacArrest => typeof(CardiacArrest),
@@ -169,6 +176,16 @@ public abstract class EffectInfoBase
         EffectType.SilentWalk => typeof(SilentWalk),
         EffectType.FogControl => typeof(FogControl),
         EffectType.Slowness => typeof(Slowness),
+        EffectType.Blindness => typeof(Blindness),
+        EffectType.Blurred => typeof(Blurred),
+        EffectType.PitDeath => typeof(PitDeath),
+        EffectType.Scp1344 => typeof(Scp1344),
+        EffectType.SeveredEyes => typeof(SeveredEyes),
+        EffectType.BecomingFlamingo => typeof(BecomingFlamingo),
+        EffectType.Scp559Effect => typeof(Scp559Effect),
+        EffectType.Scp956Target => typeof(Scp956Target),
+        EffectType.Snowed => typeof(Snowed),
+        EffectType.Scp1344Detected => typeof(Scp1344Detected),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 

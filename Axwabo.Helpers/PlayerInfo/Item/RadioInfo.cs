@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Radio;
+﻿using RadioItem = InventorySystem.Items.Radio.RadioItem;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 

@@ -1,5 +1,4 @@
 ﻿using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp106;
 
@@ -27,8 +26,8 @@ public class Scp106Info : PlayerInfoBase
         return new Scp106Info(
             routines.Attack._nextAttack - NetworkTime.time,
             player.ReferenceHub.playerStats.GetModule<VigorStat>().CurValue,
-            routines.StalkAbility.IsActive,
-            routines.SinkholeController.Cooldown,
+            routines.StalkAbility.StalkActive,
+            routines.SinkholeController._submergeCooldown,
             BasicRoleInfo.Get(player)
         );
     }
@@ -75,7 +74,7 @@ public class Scp106Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         base.ApplyTo(player);
         var routines = Scp106SubroutineContainer.Get(player.RoleAs<Scp106Role>());
@@ -86,10 +85,10 @@ public class Scp106Info : PlayerInfoBase
         var attack = routines.Attack;
         attack._nextAttack = NetworkTime.time + AttackCooldown;
 
-        routines.StalkAbility.IsActive = IsStalking;
+        routines.StalkAbility.StalkActive = IsStalking;
 
         var sinkhole = routines.SinkholeController;
-        SinkholeCooldown.ApplyTo(sinkhole.Cooldown);
+        SinkholeCooldown.ApplyTo(sinkhole._submergeCooldown);
 
         attack.Sync();
         sinkhole.Sync();

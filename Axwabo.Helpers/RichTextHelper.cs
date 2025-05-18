@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Axwabo.Helpers;
+﻿namespace Axwabo.Helpers;
 
 #region Enums
 
@@ -178,7 +176,7 @@ public static class RichTextHelper
     /// <param name="color">The color of the overlay.</param>
     /// <param name="alpha">The alpha value of the overlay (255 is fully visible).</param>
     /// <returns></returns>
-    public static string Mark(this string text, Color color, byte alpha) => text.Mark(color.ToHex(true, false) + alpha.ToString("X2"));
+    public static string Mark(this string text, Color color, byte alpha) => text.Mark($"{color.ToHex(true, false)}{alpha:X2}");
 
     /// <summary>
     /// Prevents parsing of some tags.
@@ -312,7 +310,12 @@ public static class RichTextHelper
     /// <param name="alignment">Whether to set both, only the left or only the right margin.</param>
     /// <returns>The text with the margin.</returns>
     public static string Margin(this string text, string margin, TextAlignment alignment = TextAlignment.Center)
-        => $"<margin{(alignment == TextAlignment.Center ? "" : $"-{alignment.ToString().ToLower()}")}>{text}";
+        => $"<margin{alignment switch
+        {
+            TextAlignment.Left => "-left",
+            TextAlignment.Right => "-right",
+            _ => ""
+        }}={margin}>{text}";
 
     /// <summary>
     /// Makes the text monospaced.

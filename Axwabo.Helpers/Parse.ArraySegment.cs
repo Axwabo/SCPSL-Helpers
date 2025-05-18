@@ -1,5 +1,4 @@
-﻿using System;
-using PlayerRoles;
+﻿using PlayerRoles;
 
 namespace Axwabo.Helpers;
 
@@ -96,7 +95,8 @@ public static partial class Parse
     /// <typeparam name="T">The enum type.</typeparam>
     /// <param name="index">The index of the string to parse in the ArraySegment.</param>
     /// <returns>Whether the string was parsed successfully.</returns>
-    public static bool ParseEnumIgnoreCase<T>(this ArraySegment<string> segment, out T result, int index = 0) where T : struct => EnumIgnoreCase(segment.At(index), out result);
+    public static bool ParseEnumIgnoreCase<T>(this ArraySegment<string> segment, out T result, int index = 0) where T : struct
+        => EnumIgnoreCase(segment.At(index), out result);
 
     /// <summary>
     /// Attempts to parse the given string as an enum value, ignoring case, and checks if it is within the given range.

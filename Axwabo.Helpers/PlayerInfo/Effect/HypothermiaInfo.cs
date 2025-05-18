@@ -1,5 +1,4 @@
-﻿using Exiled.API.Features;
-using InventorySystem.Items.Usables.Scp244.Hypothermia;
+﻿using InventorySystem.Items.Usables.Scp244.Hypothermia;
 
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 

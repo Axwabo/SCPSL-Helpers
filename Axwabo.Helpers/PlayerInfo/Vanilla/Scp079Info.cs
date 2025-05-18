@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Axwabo.Helpers.PlayerInfo.Containers;
-using Exiled.API.Features;
+﻿using Axwabo.Helpers.PlayerInfo.Containers;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Mirror;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PlayerRoles.PlayableScps.Scp079.Rewards;
-using UnityEngine;
 
 namespace Axwabo.Helpers.PlayerInfo.Vanilla;
 
@@ -156,7 +152,7 @@ public class Scp079Info : PlayerInfoBase
     /// <inheritdoc />
     public override void ApplyTo(Player player)
     {
-        if (!player.IsConnected)
+        if (!player.IsConnected())
             return;
         var routines = Scp079SubroutineContainer.Get(player.RoleAs<Scp079Role>());
         if (!routines.IsValid)

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Exiled.API.Features;
-using InventorySystem;
-using InventorySystem.Items;
+﻿using InventorySystem;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
 
@@ -12,17 +8,17 @@ namespace Axwabo.Helpers.PlayerInfo.Item;
 public class ItemInfoBase
 {
 
-    private static readonly List<ItemInfoObtainer> CustomObtainers = new();
+    private static readonly List<ItemInfoObtainer> CustomObtainers = [];
 
     private static readonly ItemInfoObtainer[] DefaultObtainers =
-    {
+    [
         new(JailbirdInfo.IsJailbird, JailbirdInfo.Get),
         new(RadioInfo.IsRadio, RadioInfo.Get),
         new(Scp330BagInfo.Is330, Scp330BagInfo.Get),
         new(Scp268Info.Is268, Scp268Info.Get),
         new(Scp1576Info.Is1576, Scp1576Info.Get),
         new(FirearmInfo.IsFirearm, FirearmInfo.Get)
-    };
+    ];
 
     /// <summary>
     /// Registers a custom item info obtainer.
@@ -64,7 +60,7 @@ public class ItemInfoBase
     }
 
     /// <summary>
-    /// Creates an <see cref="ItemInfoBase"/> from a item based on the registered obtainers.
+    /// Creates an <see cref="ItemInfoBase"/> from an item based on the registered obtainers.
     /// </summary>
     /// <param name="item">The item to obtain the info from.</param>
     /// <returns>The item info. If no special obtainers were found, it will be an <see cref="ItemInfoBase"/>.</returns>
@@ -78,7 +74,7 @@ public class ItemInfoBase
     }
 
     /// <summary>
-    /// Gets the basic item info from a item.
+    /// Gets the basic item info from an item.
     /// </summary>
     /// <param name="item">The item to get the info from.</param>
     /// <returns>A simple <see cref="ItemInfoBase"/> instance.</returns>
@@ -121,7 +117,7 @@ public class ItemInfoBase
     /// <returns>The item that was given to the player.</returns>
     public virtual ItemBase GiveTo(Player player)
     {
-        var item = player.ReferenceHub.inventory.ServerAddItem(Type, Serial);
+        var item = player.ReferenceHub.inventory.ServerAddItem(Type, ItemAddReason.Undefined, Serial);
         ApplyTo(item);
         return item;
     }

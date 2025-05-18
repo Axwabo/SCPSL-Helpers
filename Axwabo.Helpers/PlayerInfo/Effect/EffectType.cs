@@ -1,6 +1,4 @@
-﻿using System;
-
-#pragma warning disable CS1591
+﻿#pragma warning disable CS1591
 namespace Axwabo.Helpers.PlayerInfo.Effect;
 
 /// <summary>
@@ -17,7 +15,10 @@ public enum EffectType
     AntiScp207,
     Asphyxiated,
     Bleeding,
+
+    [Obsolete("Blinded has been renamed to Blurred. The Blindness effect fully blacks out the screen.")]
     Blinded,
+
     BodyshotReduction,
     Burned,
     CardiacArrest,
@@ -86,20 +87,23 @@ public enum EffectType
 
     SilentWalk,
 
-    [Obsolete("No longer part of the game.")]
     BecomingFlamingo,
 
-    [Obsolete("No longer part of the game.")]
     Scp559Effect,
 
-    [Obsolete("No longer part of the game.")]
     Scp956Target,
 
-    [Obsolete("No longer part of the game.")]
     Snowed,
 
     FogControl,
 
-    Slowness
+    Slowness,
+
+    Blindness,
+    Blurred,
+    PitDeath,
+    Scp1344,
+    SeveredEyes,
+    Scp1344Detected
 
 }

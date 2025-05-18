@@ -1,6 +1,4 @@
-﻿using Exiled.API.Features;
-
-namespace Axwabo.Helpers.PlayerInfo;
+﻿namespace Axwabo.Helpers.PlayerInfo;
 
 /// <summary>
 /// A base interface for player info and role structs.

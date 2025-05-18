@@ -1,7 +1,4 @@
-﻿using System;
-using Exiled.API.Features;
-
-namespace Axwabo.Helpers.PlayerInfo;
+﻿namespace Axwabo.Helpers.PlayerInfo;
 
 /// <summary>
 /// Wraps a <see cref="PlayerInfoBase"/> object and a <see cref="PlayerRoleSetter"/> into a single <see langword="struct"/>.

@@ -1,4 +1,5 @@
-﻿using InventorySystem.Items;
+﻿using Axwabo.Helpers.PlayerInfo.Item.Firearms.Attachments;
+using Axwabo.Helpers.PlayerInfo.Item.Firearms.Modules;
 using InventorySystem.Items.Firearms;
 
 namespace Axwabo.Helpers.PlayerInfo.Item;
@@ -16,7 +17,7 @@ public class FirearmInfo : ItemInfoBase
     /// <returns>The information about the firearm.</returns>
     public static FirearmInfo Get(ItemBase item) => item is not Firearm f
         ? null
-        : new FirearmInfo(f.Status, item.ItemTypeId, item.ItemSerial);
+        : new FirearmInfo(f.GetAttachmentInfos(), f.GetModuleInfos(), item.ItemTypeId, item.ItemSerial);
 
     /// <summary>
     /// Checks if the given item is a firearm.
@@ -28,20 +29,30 @@ public class FirearmInfo : ItemInfoBase
     /// <summary>
     /// Creates a new <see cref="FirearmInfo"/> instance.
     /// </summary>
-    /// <param name="status">The status of the firearm.</param>
+    /// <param name="attachments">Info about the firearm's attachments.</param>
+    /// <param name="modules">Info about the firearm's modules.</param>
     /// <param name="type">The type of the item.</param>
     /// <param name="serial">The serial of the item.</param>
-    public FirearmInfo(FirearmStatus status, ItemType type, ushort serial) : base(type, serial) => Status = status;
+    public FirearmInfo(FirearmAttachmentInfo[] attachments, FirearmModuleInfo[] modules, ItemType type, ushort serial) : base(type, serial)
+    {
+        Attachments = attachments;
+        Modules = modules;
+    }
 
-    /// <summary>The status of the firearm.</summary>
-    public FirearmStatus Status { get; set; }
+    /// <summary>The info about attachments on this firearm.</summary>
+    public FirearmAttachmentInfo[] Attachments { get; set; }
+
+    /// <summary>The info about modules on this firearm.</summary>
+    public FirearmModuleInfo[] Modules { get; set; }
 
     /// <inheritdoc />
     public override void ApplyTo(ItemBase item)
     {
         base.ApplyTo(item);
-        if (item is Firearm firearm)
-            firearm.Status = Status;
+        if (item is not Firearm firearm)
+            return;
+        Attachments.ApplyTo(firearm);
+        Modules.ApplyTo(firearm);
     }
 
 }

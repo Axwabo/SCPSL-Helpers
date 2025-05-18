@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Exiled.API.Features;
-using InventorySystem;
+﻿using InventorySystem;
 using PlayerRoles;
 using PlayerRoles.Subroutines;
 using Utils.Networking;
@@ -134,7 +132,6 @@ public static class PlayerInfoExtensions
     {
         foreach (var serial in inventory.UserInventory.Items.Keys.ToArray())
             inventory.ServerRemoveItem(serial, null);
-        inventory.SendItemsNextFrame = true;
     }
 
     /// <summary>
@@ -149,13 +146,13 @@ public static class PlayerInfoExtensions
     }
 
     /// <summary>
-    /// Removes all items and clears the ammo from the player's inventory.
+    /// Clears the ammo and removes all items and from the player's inventory.
     /// </summary>
     /// <param name="inventory">The inventory to clear.</param>
     public static void ClearEverything(this Inventory inventory)
     {
-        inventory.RemoveAllItems();
         inventory.ClearAmmo();
+        inventory.RemoveAllItems();
     }
 
 }

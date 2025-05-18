@@ -1,13 +1,10 @@
-using System;
-using UnityEngine;
-
 namespace Axwabo.Helpers.Config;
 
 /// <summary>
 /// A serializable <see cref="Vector3"/> representing 3 axis of rotation. Can be converted into a <see cref="Quaternion"/>.
 /// </summary>
 [Serializable]
-public struct SerializedRotation
+public record struct SerializedRotation
 {
 
     /// <summary>An empty rotation object.</summary>
@@ -31,32 +28,6 @@ public struct SerializedRotation
         Y = y;
         Z = z;
     }
-
-    /// <summary>
-    /// Checks if the two rotations are equal.
-    /// </summary>
-    /// <param name="other">The other rotation to compare with.</param>
-    /// <returns>Whether the two rotations are equal.</returns>
-    public bool Equals(SerializedRotation other) => X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
-
-    /// <inheritdoc />
-    public override bool Equals(object obj) => obj is SerializedRotation other && Equals(other);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(SerializedRotation)"/> method.
-    /// </summary>
-    /// <param name="a">The first rotation to compare.</param>
-    /// <param name="b">The second rotation to compare.</param>
-    /// <returns>Whether the two rotations are equal.</returns>
-    public static bool operator ==(SerializedRotation a, SerializedRotation b) => a.Equals(b);
-
-    /// <summary>
-    /// Calls the <see cref="Equals(SerializedRotation)"/> method.
-    /// </summary>
-    /// <param name="a">The first rotation to compare.</param>
-    /// <param name="b">The second rotation to compare.</param>
-    /// <returns>Whether the two rotations are not equal.</returns>
-    public static bool operator !=(SerializedRotation a, SerializedRotation b) => !a.Equals(b);
 
     /// <summary>
     /// Adds two rotations.

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Reflection.Emit;
-using HarmonyLib;
-
-namespace Axwabo.Helpers.Harmony;
+﻿namespace Axwabo.Helpers.Harmony;
 
 /// <summary>
 /// A helper class to assist in creating <see cref="CodeInstruction">CodeInstructions</see>.

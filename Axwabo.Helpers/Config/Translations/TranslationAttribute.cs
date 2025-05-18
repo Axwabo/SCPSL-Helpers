@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Axwabo.Helpers.Config.Translations;
+﻿namespace Axwabo.Helpers.Config.Translations;
 
 /// <summary>
 /// An attribute to mark fields and properties as a translation value. Must be inherited with a specific enum type to use.

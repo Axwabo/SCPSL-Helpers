@@ -1,7 +1,4 @@
-﻿using System;
-using HarmonyLib;
-
-namespace Axwabo.Helpers.Harmony.Attributes;
+﻿namespace Axwabo.Helpers.Harmony.Attributes;
 
 /// <summary>
 /// An attribute to mark patches that need to modify nested classes that are inaccessible from the assembly.

@@ -2,21 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axwabo.Helpers", "Axwabo.Helpers\Axwabo.Helpers.csproj", "{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axwabo.Helpers.NWAPI", "Axwabo.Helpers.NWAPI\Axwabo.Helpers.NWAPI.csproj", "{DDA40975-59C4-4038-B04F-570A5519A773}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		LabApi|Any CPU = LabApi|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDA40975-59C4-4038-B04F-570A5519A773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDA40975-59C4-4038-B04F-570A5519A773}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDA40975-59C4-4038-B04F-570A5519A773}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDA40975-59C4-4038-B04F-570A5519A773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.LabApi|Any CPU.ActiveCfg = LabApi|Any CPU
+		{872E0494-FD3E-44FE-A8E3-AD49569A1DE3}.LabApi|Any CPU.Build.0 = LabApi|Any CPU
 	EndGlobalSection
 EndGlobal
