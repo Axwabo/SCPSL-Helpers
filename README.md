@@ -13,7 +13,7 @@ Makes using Reflection and patching methods with Harmony simpler.
 
 1. Download the **Axwabo.Helpers.dll** from the [latest release](https://github.com/Axwabo/SCPSL-Helpers/releases/)
 2. Put the DLL into the dependencies folder
-    - Windows: `%appdata%\SCP Secret Laboratory\LabAPI-Beta\<port>\dependencies`
+    - Windows: `%appdata%\SCP Secret Laboratory\LabAPI\<port>\dependencies`
     - Linux: `.config/SCP SecretLaboratory/PluginAPI/<port>/dependencies`
 3. Any plugins using this library should work after a server restart
 
