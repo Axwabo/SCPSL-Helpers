@@ -97,6 +97,7 @@ public static class ConfigHelper
     /// <returns>The string without the parentheses.</returns>
     public static string RemoveParenthesesOnEndOfName(this string name)
     {
+        name = name.Replace(" Christmas", "");
         var startIndex = name.IndexOf('(');
         return startIndex > 0 ? name.Substring(0, startIndex).TrimEnd() : name;
     }
