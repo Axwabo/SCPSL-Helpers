@@ -104,6 +104,11 @@ public enum EffectType
     PitDeath,
     Scp1344,
     SeveredEyes,
-    Scp1344Detected
+    Scp1344Detected,
+
+    Fade,
+    Lightweight,
+    HeavyFooted,
+    Scp1576
 
 }

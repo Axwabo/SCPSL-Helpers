@@ -84,6 +84,7 @@ public abstract class EffectInfoBase
             Disabled => EffectType.Disabled,
             Ensnared => EffectType.Ensnared,
             Exhausted => EffectType.Exhausted,
+            Fade => EffectType.Fade,
             Flashed => EffectType.Flashed,
             Hemorrhage => EffectType.Hemorrhage,
             Hypothermia => EffectType.Hypothermia,
@@ -93,6 +94,7 @@ public abstract class EffectInfoBase
             InsufficientLighting => EffectType.InsufficientLighting,
             Invigorated => EffectType.Invigorated,
             Invisible => EffectType.Invisible,
+            Lightweight => EffectType.Lightweight,
             MovementBoost => EffectType.MovementBoost,
             Poisoned => EffectType.Poisoned,
             RainbowTaste => EffectType.RainbowTaste,
@@ -108,6 +110,7 @@ public abstract class EffectInfoBase
             Vitality => EffectType.Vitality,
             PocketCorroding => EffectType.PocketCorroding,
             Ghostly => EffectType.Ghostly,
+            HeavyFooted => EffectType.HeavyFooted,
             MarshmallowEffect => EffectType.MarshmallowEffect,
             Strangled => EffectType.Strangled,
             SilentWalk => EffectType.SilentWalk,
@@ -118,6 +121,7 @@ public abstract class EffectInfoBase
             PitDeath => EffectType.PitDeath,
             Scp1344 => EffectType.Scp1344,
             Scp1344Detected => EffectType.Scp1344Detected,
+            Scp1576 => EffectType.Scp1576,
             SeveredEyes => EffectType.SeveredEyes,
             _ => throw new InvalidOperationException("Unknown effect provided: " + effect.GetType().Name)
         };
@@ -186,6 +190,10 @@ public abstract class EffectInfoBase
         EffectType.Scp956Target => typeof(Scp956Target),
         EffectType.Snowed => typeof(Snowed),
         EffectType.Scp1344Detected => typeof(Scp1344Detected),
+        EffectType.Fade => typeof(Fade),
+        EffectType.Lightweight => typeof(Lightweight),
+        EffectType.HeavyFooted => typeof(HeavyFooted),
+        EffectType.Scp1576 => typeof(Scp1576),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 
