@@ -1,6 +1,5 @@
 <Project>
     <PropertyGroup>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AssemblySearchPaths>$(AssemblySearchPaths);$(ReferencePath)</AssemblySearchPaths>
     </PropertyGroup>
     <Import Project="Directory.Build.targets.user" Condition="Exists('Directory.Build.targets.user')"/>
