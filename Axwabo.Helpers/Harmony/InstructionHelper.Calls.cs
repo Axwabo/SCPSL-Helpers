@@ -55,11 +55,9 @@ public static partial class InstructionHelper
     /// <exception cref="ArgumentNullException">Thrown if the constructor was not found.</exception>
     /// <seealso cref="OpCodes.Newobj"/>
     public static CodeInstruction New(ConstructorInfo constructor)
-    {
-        if (constructor == null)
-            throw new ArgumentNullException(nameof(constructor));
-        return new CodeInstruction(OpCodes.Newobj, constructor);
-    }
+        => constructor == null
+            ? throw new ArgumentNullException(nameof(constructor))
+            : new CodeInstruction(OpCodes.Newobj, constructor);
 
     /// <summary>
     /// Creates a new object or a new instance of a value type, pushing an object reference (type O) onto the evaluation stack.

@@ -13,19 +13,23 @@
         <Optimize>true</Optimize>
         <PlatformTarget>x64</PlatformTarget>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Assembly-CSharp"/>
-        <Reference Include="Assembly-CSharp-firstpass"/>
-        <Reference Include="CommandSystem.Core"/>
-        <Reference Include="Mirror"/>
-        <Reference Include="Pooling"/>
-        <Reference Include="UnityEngine.CoreModule"/>
+        <Reference Include="mscorlib" />
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="Assembly-CSharp" />
+        <Reference Include="Assembly-CSharp-firstpass" />
+        <Reference Include="CommandSystem.Core" />
+        <Reference Include="Mirror" />
+        <Reference Include="Pooling" />
+        <Reference Include="UnityEngine.CoreModule" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
+        <PackageReference Include="Lib.Harmony" Version="2.2.2" />
         <PackageReference Include="Northwood.LabAPI" Version="1.1.1" />
     </ItemGroup>
 </Project>

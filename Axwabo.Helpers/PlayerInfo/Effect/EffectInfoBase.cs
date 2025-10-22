@@ -62,7 +62,6 @@ public abstract class EffectInfoBase
     /// </summary>
     /// <param name="effect">The effect to get the type of.</param>
     /// <returns>The type of the effect.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the effect type is unknown.</exception>
     public static EffectType EffectInstanceToEffectType(StatusEffectBase effect) => effect switch
     {
         AmnesiaItems => EffectType.AmnesiaItems,
