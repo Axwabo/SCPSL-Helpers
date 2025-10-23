@@ -193,6 +193,8 @@ public abstract class EffectInfoBase
         EffectType.Lightweight => typeof(Lightweight),
         EffectType.HeavyFooted => typeof(HeavyFooted),
         EffectType.Scp1576 => typeof(Scp1576),
+        EffectType.TemporaryBypass => typeof(TemporaryBypass),
+        EffectType.NightVision => typeof(NightVision),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 
