@@ -109,6 +109,9 @@ public enum EffectType
     Fade,
     Lightweight,
     HeavyFooted,
-    Scp1576
+    Scp1576,
+
+    TemporaryBypass,
+    NightVision
 
 }
