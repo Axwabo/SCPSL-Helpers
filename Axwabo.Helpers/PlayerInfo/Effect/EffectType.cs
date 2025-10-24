@@ -104,6 +104,7 @@ public enum EffectType
     TemporaryBypass,
     NightVision,
 
-    WhiteCandy
+    WhiteCandy,
+    Scp1509Resurrected
 
 }

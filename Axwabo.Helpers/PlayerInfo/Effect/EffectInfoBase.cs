@@ -92,6 +92,7 @@ public abstract class EffectInfoBase
         Invigorated => EffectType.Invigorated,
         Invisible => EffectType.Invisible,
         Lightweight => EffectType.Lightweight,
+        Metal => EffectType.Metal,
         MovementBoost => EffectType.MovementBoost,
         NightVision => EffectType.NightVision,
         OrangeCandy => EffectType.OrangeCandy,
@@ -118,6 +119,9 @@ public abstract class EffectInfoBase
         HeavyFooted => EffectType.HeavyFooted,
         MarshmallowEffect => EffectType.MarshmallowEffect,
         Strangled => EffectType.Strangled,
+        SugarCrave => EffectType.SugarCrave,
+        SugarHigh => EffectType.SugarHigh,
+        SugarRush => EffectType.SugarRush,
         TemporaryBypass => EffectType.TemporaryBypass,
         SilentWalk => EffectType.SilentWalk,
         FogControl => EffectType.FogControl,
@@ -127,6 +131,7 @@ public abstract class EffectInfoBase
         PitDeath => EffectType.PitDeath,
         Scp1344 => EffectType.Scp1344,
         Scp1344Detected => EffectType.Scp1344Detected,
+        Scp1509Resurrected => EffectType.Scp1509Resurrected,
         Scp1576 => EffectType.Scp1576,
         SeveredEyes => EffectType.SeveredEyes,
         _ => EffectType.None
@@ -213,6 +218,7 @@ public abstract class EffectInfoBase
         EffectType.TemporaryBypass => typeof(TemporaryBypass),
         EffectType.NightVision => typeof(NightVision),
         EffectType.WhiteCandy => typeof(WhiteCandy),
+        EffectType.Scp1509Resurrected => typeof(Scp1509Resurrected),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 
