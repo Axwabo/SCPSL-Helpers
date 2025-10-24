@@ -2,7 +2,7 @@
 
 on:
   release:
-    types: [ created ]
+    types: [ published ]
 
 permissions:
   contents: write
@@ -12,29 +12,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    env:
-      ReferenceUrl: https://exmod-team.github.io/SL-References/Dev.zip
-      ReferencePath: ${{ github.workspace }}/References
-
     steps:
 
-      - uses: actions/checkout@v4
-
-      - name: Set Up .NET
-        uses: actions/setup-dotnet@v4.0.1
-        with:
-          dotnet-version: 9.0.x
+      - uses: actions/checkout@v5
 
       - name: Download References
-        run: |
-          wget -O "References.zip" ${{ env.ReferenceUrl }}
-          unzip -d ${{ env.ReferencePath }} "References.zip"
-
-      - name: Rename Publicized Assemblies
-        working-directory: ${{ env.ReferencePath }}
-        run: |
-          mv Assembly-CSharp-Publicized.dll Assembly-CSharp.dll
-          mv Mirror-Publicized.dll Mirror.dll
+        uses: Axwabo/scpsl-references-downloader@v1
+        with: 
+          branch: ${{ vars.BRANCH }}
 
       - name: Build
         run: dotnet build -c Release -o Output

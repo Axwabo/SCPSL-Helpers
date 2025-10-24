@@ -20,7 +20,7 @@
         <Reference Include="mscorlib" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
-        <Reference Include="Assembly-CSharp" />
+        <Reference Include="Assembly-CSharp" Publicize="true" />
         <Reference Include="Assembly-CSharp-firstpass" />
         <Reference Include="CommandSystem.Core" />
         <Reference Include="Mirror" />
@@ -30,6 +30,7 @@
 
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.2.2" />
-        <PackageReference Include="Northwood.LabAPI" Version="1.1.1" />
+        <PackageReference Include="Northwood.LabAPI" Version="1.1.3" />
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
     </ItemGroup>
 </Project>
