@@ -264,6 +264,9 @@ public enum RoomType
     EzStraightColumn,
 
     [RoomName("HCZ_127")]
-    Hcz127
+    Hcz127,
+
+    [RoomName("HCZ_IncineratorWayside")]
+    HczWaysideIncinerator
 
 }
