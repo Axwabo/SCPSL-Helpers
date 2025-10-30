@@ -81,14 +81,14 @@ public static class ConfigHelper
     /// </summary>
     /// <param name="type">The EXILED room type.</param>
     /// <returns>The room's name.</returns>
-    public static string GetRoomName(this RoomType type) => ValueToName.TryGetValue(type, out var name) ? name : null;
+    public static string GetRoomName(this RoomType type) => ValueToName.GetValueOrDefault(type);
 
     /// <summary>
     /// Gets the <see cref="RoomType"/> based on the room's name.
     /// </summary>
     /// <param name="rawName">The name of the room.</param>
     /// <returns>The EXILED room type.</returns>
-    public static RoomType GetRoomType(string rawName) => NameToValue.TryGetValue(rawName.RemoveParenthesesOnEndOfName(), out var type) ? type : RoomType.Unknown;
+    public static RoomType GetRoomType(string rawName) => NameToValue.GetValueOrDefault(rawName.RemoveParenthesesOnEndOfName(), RoomType.Unknown);
 
     /// <summary>
     /// Removes the parentheses and everything after it from the string.
@@ -97,9 +97,9 @@ public static class ConfigHelper
     /// <returns>The string without the parentheses.</returns>
     public static string RemoveParenthesesOnEndOfName(this string name)
     {
-        name = name.Replace(" Christmas", "");
+        name = name.Replace("Christmas", "").Replace("Halloween", "");
         var startIndex = name.IndexOf('(');
-        return startIndex > 0 ? name.Substring(0, startIndex).TrimEnd() : name;
+        return startIndex > 0 ? name[..startIndex].TrimEnd() : name;
     }
 
     /// <summary>
