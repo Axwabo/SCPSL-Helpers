@@ -15,7 +15,7 @@ public class JailbirdInfo : ItemInfoBase
     /// <returns>The information about the Jailbird.</returns>
     public static JailbirdInfo Get(ItemBase item) => item is not JailbirdItem jb
         ? null
-        : new JailbirdInfo(jb._hitreg.TotalMeleeDamageDealt, jb.TotalChargesPerformed, item.ItemSerial);
+        : new JailbirdInfo(jb.TotalMeleeDamageDealt, jb.TotalChargesPerformed, item.ItemSerial);
 
     /// <summary>
     /// Checks if the given item is a Jailbird.
@@ -48,7 +48,7 @@ public class JailbirdInfo : ItemInfoBase
         base.ApplyTo(item);
         if (item is not JailbirdItem jb)
             return;
-        jb._hitreg.TotalMeleeDamageDealt = MeleeDamage;
+        jb.TotalMeleeDamageDealt = MeleeDamage;
         jb.TotalChargesPerformed = Charges;
         jb._deterioration.RecheckUsage();
     }
