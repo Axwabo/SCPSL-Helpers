@@ -105,6 +105,10 @@ public enum EffectType
     NightVision,
 
     WhiteCandy,
-    Scp1509Resurrected
+    Scp1509Resurrected,
+
+    AnomalousRegeneration,
+    AnomalousTarget,
+    FocusedVision
 
 }

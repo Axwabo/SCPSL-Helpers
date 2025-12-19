@@ -66,6 +66,8 @@ public abstract class EffectInfoBase
     {
         AmnesiaItems => EffectType.AmnesiaItems,
         AmnesiaVision => EffectType.AmnesiaVision,
+        AnomalousRegeneration => EffectType.AnomalousRegeneration,
+        AnomalousTarget => EffectType.AntiScp207,
         AntiScp207 => EffectType.AntiScp207,
         Asphyxiated => EffectType.Asphyxiated,
         BecomingFlamingo => EffectType.BecomingFlamingo,
@@ -83,6 +85,7 @@ public abstract class EffectInfoBase
         Exhausted => EffectType.Exhausted,
         Fade => EffectType.Fade,
         Flashed => EffectType.Flashed,
+        FocusedVision => EffectType.FocusedVision,
         Hemorrhage => EffectType.Hemorrhage,
         Hypothermia => EffectType.Hypothermia,
         Scp559Effect => EffectType.Scp559Effect,
@@ -219,6 +222,9 @@ public abstract class EffectInfoBase
         EffectType.NightVision => typeof(NightVision),
         EffectType.WhiteCandy => typeof(WhiteCandy),
         EffectType.Scp1509Resurrected => typeof(Scp1509Resurrected),
+        EffectType.AnomalousRegeneration => typeof(AnomalousRegeneration),
+        EffectType.AnomalousTarget => typeof(AnomalousTarget),
+        EffectType.FocusedVision => typeof(FocusedVision),
         _ => throw new ArgumentOutOfRangeException(nameof(effectType), effectType, "Unknown effect type " + effectType)
     };
 
