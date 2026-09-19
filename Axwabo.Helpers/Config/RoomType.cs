@@ -267,6 +267,9 @@ public enum RoomType
     Hcz127,
 
     [RoomName("HCZ_IncineratorWayside")]
-    HczWaysideIncinerator
+    HczWaysideIncinerator,
+
+    [RoomName("HCZ_Intersection_Ramp")]
+    HczRampTunnel
 
 }
