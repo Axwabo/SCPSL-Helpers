@@ -67,7 +67,7 @@ public abstract class EffectInfoBase
         AmnesiaItems => EffectType.AmnesiaItems,
         AmnesiaVision => EffectType.AmnesiaVision,
         AnomalousRegeneration => EffectType.AnomalousRegeneration,
-        AnomalousTarget => EffectType.AntiScp207,
+        AnomalousTarget => EffectType.AnomalousTarget,
         AntiScp207 => EffectType.AntiScp207,
         Asphyxiated => EffectType.Asphyxiated,
         BecomingFlamingo => EffectType.BecomingFlamingo,
